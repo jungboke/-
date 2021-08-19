@@ -70,4 +70,26 @@ int solution(vector<int> citations) {
     return answer;
 }
 ```
+4
+```
+#include <string>
+#include <vector>
+#include <algorithm>
+using namespace std;
+
+int solution(vector<int> citations) {
+    int answer = 0;
+    sort(citations.begin(),citations.end());
+    int maxi = citations[citations.size()-1];
+    for(int i=0;i<=maxi;i++)
+    {
+        int idx = lower_bound(citations.begin(),citations.end(),i) - citations.begin();
+        if(citations.size()-idx>=i&&idx+1<=i)
+        {
+            answer = i;
+        }
+    }
+    return answer;
+}
+```
 + lower_bound를 사용한 문제해결, lower_bound는 지정값보다 같거나 큰 원소의 주소값을 반환

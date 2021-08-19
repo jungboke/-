@@ -69,4 +69,37 @@ string solution(int n, int t, int m, int p) {
     return answer;
 }
 ```
+3
+```
+#include <string>
+#include <vector>
+
+using namespace std;
+char a[] = {'0','1','2','3','4','5','6','7','8','9','A','B','C','D','E','F'};
+string change(int num,int n)
+{
+    string temp = "";
+    if(num==0) return "0";
+    while(num!=0)
+    {
+        temp = a[num%n] + temp;
+        num = num/n;
+    }
+    return temp;
+}
+string solution(int n, int t, int m, int p) {
+    string answer = "";
+    string temp = "";
+    for(int i=0;i<=m*t;i++)
+    {
+        temp += change(i,n);
+    }
+    for(int i=0;i<temp.size();i++)
+    {
+        if(i%m==p-1) answer+=temp[i];
+        if(answer.size()==t) break;
+    }
+    return answer;
+}
+```
 + char배열을 통한 진수변환 사용
