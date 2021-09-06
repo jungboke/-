@@ -1,4 +1,4 @@
-#include <vector>
+/*#include <vector>
 #include <algorithm>
 #include <iostream>
 #include <tuple>
@@ -55,4 +55,57 @@ int main()
     }
     cout << x+1 << ' ' << y+1 << '\n';
     return 0;
+}*/
+#include <vector>
+#include <algorithm>
+#include <iostream>
+#include <cmath>
+using namespace std;
+
+int main()
+{
+    int n,m;
+    cin >> n >> m;
+    vector<vector<int>> a(n,vector<int>(n,0));
+    int start = n/2;
+    int cnt = 1;
+    a[start][start] = cnt++;
+    int k = 2;
+    while(start>0)
+    {
+        for(int j=start;j<start+k;j++)
+        {
+            a[start-1][j] = cnt++;
+        }
+        for(int i=start;i<start+k;i++)
+        {
+            a[i][start+k-1] = cnt++;
+        }
+        for(int j=start+k-2;j>start-2;j--)
+        {
+            a[start+k-1][j] = cnt++;
+        }
+        for(int i=start+k-2;i>start-2;i--)
+        {
+            a[i][start-1] = cnt++;
+        }
+        start-=1;
+        k+=2;
+    }
+    int x,y;
+    for(int i=0;i<n;i++)
+    {
+        for(int j=0;j<n;j++)
+        {
+            cout << a[i][j] << ' ';
+            if(a[i][j]==m)
+            {
+                x = i; y = j;
+            }
+        }
+        cout << '\n';
+    }
+    cout << x+1 << ' ' <<  y+1 << '\n';
+    return 0;
 }
+// 달팽이모양 패턴을 간결하게 분석하는게 중요함.

@@ -1,3 +1,4 @@
+/*
 #include <vector>
 #include <algorithm>
 #include <iostream>
@@ -63,3 +64,71 @@ int main(){
 }
 // 일반배열은 memset, vector는 fill로 초기화, 모든 그래프가 연결되지 않고 연결요소로 이루어질수도 있음.
 // string.h에 memset 존재.
+*/
+#include <vector>
+#include <algorithm>
+#include <iostream>
+#include <string.h>
+using namespace std;
+vector<int> a[20001];
+bool check[20001];
+int color[20001];
+void dfs(int num)
+{
+    check[num] = true;
+    for(auto k:a[num])
+    {
+        if(check[k]==false)
+        {
+            color[k] = 1-color[num];
+            dfs(k);
+        }
+    }
+}
+int main()
+{
+    int t;
+    cin >> t;
+    while(t--)
+    {
+        memset(check,false,sizeof(check));
+        memset(color,0,sizeof(color));
+        int n,m;
+        cin >> n >> m;
+        for(int i=1;i<=n;i++)
+        {
+            a[i].clear();
+        }
+        for(int i=0;i<m;i++)
+        {
+            int x,y;
+            cin >> x >> y;
+            a[x].push_back(y);
+            a[y].push_back(x);
+        }
+        for(int i=1;i<=n;i++)
+        {
+            if(check[i]==false)
+            {
+                dfs(i);
+            }
+        }
+        bool flag = true;
+        for(int i=1;i<=n;i++)
+        {
+            int c = color[i];
+            for(auto k:a[i])
+            {
+                if(color[k]==c)
+                {
+                    flag = false;
+                    break;
+                }
+            }
+            if(flag==false) break;
+        }
+        if(flag==true) cout << "YES" << '\n';
+        else cout << "NO" << '\n';
+    }
+    return 0;
+}
