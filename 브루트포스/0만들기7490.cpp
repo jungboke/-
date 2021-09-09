@@ -1,3 +1,4 @@
+/*
 #include <vector>
 #include <algorithm>
 #include <iostream>
@@ -86,3 +87,101 @@ int main()
 
     return 0;
 }
+*/
+#include <vector>
+#include <algorithm>
+#include <iostream>
+using namespace std;
+vector<vector<char>> result;
+int cal(vector<int> a,vector<char> op)
+{
+    for(int i=0;i<op.size();i++)
+    {
+        if(op[i]==' ')
+        {
+            a[i] = a[i] * 10 + a[i+1];
+            a.erase(a.begin()+i+1);
+            op.erase(op.begin()+i);
+            i--;
+        }
+    }
+    int sum = a[0];
+    for(int i=0;i<op.size();i++)
+    {
+        if(op[i]=='+') sum += a[i+1];
+        else if(op[i]=='-') sum -=  a[i+1];
+    }
+    return sum;
+}
+void go(vector<int> a,vector<char> op,int idx,int max)
+{
+    if(idx==max-1)
+    {
+        if(cal(a,op)==0)
+        {
+            result.push_back(op);
+        }
+        return;
+    }
+    op.push_back(' ');
+    go(a,op,idx+1,max);
+    op.pop_back();
+    op.push_back('+');
+    go(a,op,idx+1,max);
+    op.pop_back();
+    op.push_back('-');
+    go(a,op,idx+1,max);
+}
+int main()
+{
+    int t;
+    cin >> t;
+    while(t--)
+    {
+        result.clear();
+        int n;
+        cin >> n;
+        vector<int> a;
+        for(int i=1;i<=n;i++)
+        {
+            a.push_back(i);
+        }
+        vector<char> temp;
+        go(a,temp,0,n);
+        for(int i=0;i<result.size();i++)
+        {
+            string temp = "";
+            for(int j=0;j<result[i].size();j++)
+            {
+                temp += to_string(a[j]) + result[i][j];
+            }
+            temp += to_string(a[n-1]);
+            cout << temp << '\n';
+        }
+        cout << '\n';
+    }
+    return 0;
+}
+// 연산자 배열과 숫자 배열의 합을 구하는 최적의 방법.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

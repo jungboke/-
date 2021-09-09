@@ -1,3 +1,4 @@
+/*
 #include <vector>
 #include <algorithm>
 #include <iostream>
@@ -21,3 +22,45 @@ int main()
     cout << answer << '\n'; 
     return 0;
 }
+*/
+#include <vector>
+#include <algorithm>
+#include <iostream>
+using namespace std;
+
+int main()
+{
+    string a,b;
+    cin >> a >> b;
+    string temp = "";
+    for(int i=0;i<a.size();i++)
+    {
+        if(isdigit(a[i])!=0) continue;
+        temp += a[i];
+    }
+    if(temp.find(b)==string::npos) cout << 0 << '\n';
+    else cout << 1 << '\n';
+    return 0;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

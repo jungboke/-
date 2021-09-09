@@ -1,3 +1,4 @@
+/*
 #include <vector>
 #include <algorithm>
 #include <iostream>
@@ -24,3 +25,53 @@ int main()
     cout << ans << '\n';
     return 0;
 }
+*/
+#include <vector>
+#include <algorithm>
+#include <iostream>
+#include <cmath>
+using namespace std;
+
+int main()
+{
+    long long n;
+    cin >> n;
+    long long start = 1;
+    long long end = n;
+    long long maxi = 0;
+    while(start<=end)
+    {
+        long long mid = (start+end)/2;
+        long long sum = mid*(mid+1)/2;
+        if(sum<=n)
+        {
+            if(maxi<mid) maxi = mid;
+            start = mid+1;
+        }
+        else end = mid-1;
+    }
+    cout << maxi << '\n';
+    return 0;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -1,3 +1,4 @@
+/*
 #include <vector>
 #include <algorithm>
 #include <iostream>
@@ -34,3 +35,59 @@ int main()
 }
 //// 시간복잡도 파악을 못해서 시간초과걸림. 2차원 check배열을 활용하여 안되는 조합을 미리 제외함.
 // 조합 내 포함되면 안되는 조합문제는 이렇게 check배열 활용하면 좋을듯함.
+*/
+#include <vector>
+#include <algorithm>
+#include <iostream>
+using namespace std;
+bool check[201][201];
+int main()
+{
+    int n,m;
+    cin >> n >> m;
+    for(int i=0;i<m;i++)
+    {
+        int x,y;
+        cin >> x >> y;
+        check[x][y] = true;
+        check[y][x] = true;
+    }
+    int answer = 0;
+    for(int i=1;i<=n;i++)
+    {
+        for(int j=i+1;j<=n;j++)
+        {
+            if(check[i][j]==true) continue;
+            for(int k=j+1;k<=n;k++)
+            {
+                if(check[i][k]==true) continue;
+                if(check[j][k]==true) continue;
+                answer++;
+            }
+        }
+    }
+    cout << answer << '\n';
+    return 0;   
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

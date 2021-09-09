@@ -1,3 +1,4 @@
+/*
 #include <vector>
 #include <algorithm>
 #include <iostream>
@@ -34,3 +35,68 @@ int main()
     cout << *max_element(result.begin(),result.end()) << '\n';
     return 0;
 }
+*/
+#include <vector>
+#include <algorithm>
+#include <iostream>
+using namespace std;
+int maxi = 0;
+void go(vector<int> a,vector<int> temp,int target,int max)
+{
+    if(temp.size()>max)
+    {
+        return;
+    }
+    int num = 0;
+    for(int i=0;i<temp.size();i++)
+    {
+        num = num*10 + temp[i];
+    }
+    if(num<=target)
+    {
+        if(maxi<num) maxi = num;
+    }
+    for(int i=0;i<a.size();i++)
+    {
+        temp.push_back(a[i]);
+        go(a,temp,target,max);
+        temp.pop_back();
+    }
+}
+int main()
+{
+    int n,m;
+    cin >> n >> m;
+    vector<int> a(m);
+    string str_n = to_string(n);
+    for(int i=0;i<m;i++)
+    {
+        cin >> a[i];
+    }
+    vector<int> temp;
+    go(a,temp,n,str_n.size());
+    cout << maxi << '\n';
+    return 0;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

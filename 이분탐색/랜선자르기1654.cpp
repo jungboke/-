@@ -1,3 +1,4 @@
+/*
 #include <vector>
 #include <algorithm>
 #include <iostream>
@@ -37,3 +38,63 @@ int main()
     cout << answer << '\n';
     return 0;
 }
+*/
+#include <vector>
+#include <algorithm>
+#include <iostream>
+using namespace std;
+
+int main()
+{
+    ios_base::sync_with_stdio(false);
+    cin.tie(NULL);
+    int n,m;
+    cin >> n >> m;
+    vector<long long> a(n);
+    for(int i=0;i<n;i++)
+    {
+        cin >> a[i];
+    }
+    long long start = 1;
+    long long end = *max_element(a.begin(),a.end());
+    long long maxi = 0;
+    while(start<=end)
+    {
+        long long mid = (start+end)/2;
+        long long sum = 0;
+        for(int i=0;i<n;i++)
+        {
+            sum += a[i]/mid;
+        }
+        if(sum>=m)
+        {
+            if(maxi<mid) maxi = mid;
+            start = mid+1;
+        }
+        else end = mid-1;
+    }
+    cout << maxi << '\n';
+    return 0;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

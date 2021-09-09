@@ -1,3 +1,4 @@
+/*
 #include <vector>
 #include <algorithm>
 #include <iostream>
@@ -36,3 +37,58 @@ int main()
     cout << answer << '\n';
     return 0;
 }
+*/
+#include <vector>
+#include <algorithm>
+#include <iostream>
+#include <stack>
+#include <set>
+using namespace std;
+
+int main()
+{
+    int n;
+    cin >> n;
+    int cnt = 0;
+    for(int i=0;i<n;i++)
+    {
+        stack<char> st;
+        set<char> s;
+        string a;
+        cin >> a;
+        for(int i=0;i<a.size();i++)
+        {
+            if(st.empty()||st.top()!=a[i])
+            {
+                st.push(a[i]);
+                s.insert(a[i]);
+            }
+            else continue;
+        }
+        if(s.size()==st.size()) cnt++;
+    }
+    cout << cnt << '\n';
+    return 0;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

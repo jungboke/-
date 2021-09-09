@@ -1,3 +1,4 @@
+/*
 #include <vector>
 #include <algorithm>
 #include <iostream>
@@ -44,3 +45,69 @@ int main()
     cout << s.size() << '\n';
     return 0;
 }
+*/
+#include <vector>
+#include <algorithm>
+#include <iostream>
+#include <set>
+using namespace std;
+
+int main()
+{
+    int n,k;
+    cin >> n >> k;
+    vector<int> a(n);
+    vector<int> perm;
+    set<string> s;
+    for(int i=0;i<n;i++)
+    {
+        cin >> a[i];
+    }
+    for(int i=0;i<k;i++) perm.push_back(1);
+    for(int i=0;i<n-k;i++) perm.push_back(0);
+    sort(perm.begin(),perm.end());
+    do
+    {
+        vector<int> result;
+        for(int i=0;i<perm.size();i++)
+        {
+            if(perm[i]==1) result.push_back(a[i]);
+        }
+        sort(result.begin(),result.end());
+        do
+        {
+            string temp = "";
+            for(int i=0;i<result.size();i++)
+            {
+                temp += to_string(result[i]);
+            }
+            s.insert(temp);
+        }while(next_permutation(result.begin(),result.end()));
+        
+    }while(next_permutation(perm.begin(),perm.end()));
+    
+    cout << s.size() << '\n';
+    return 0;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
