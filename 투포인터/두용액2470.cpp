@@ -75,8 +75,9 @@ int main()
     cout << a[a_start] << ' ' << a[a_end] << '\n';
     return 0;
 }
-
-
+/*
+    이분탐색보다는 투포인터가 더 맞는 문제같음.
+*/
 
 
 
