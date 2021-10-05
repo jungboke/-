@@ -1,3 +1,4 @@
+/*
 #include <vector>
 #include <algorithm>
 #include <iostream>
@@ -25,6 +26,35 @@ int main()
         string a = k.first;
         double b = k.second;
         cout << a << ' ' << (b/total)*100 << '\n'; 
+    }
+    return 0;
+}
+*/
+#include <vector>
+#include <algorithm>
+#include <iostream>
+#include <map>
+using namespace std;
+
+int main()
+{
+    ios_base::sync_with_stdio(false);
+    cin.tie(NULL);
+    cout.setf(ios::fixed);
+    cout.precision(4);
+    map<string,int> map1;
+    int cnt = 0;
+    while(true)
+    {
+        string x;
+        getline(cin,x);
+        if(cin.eof()) break;
+        map1[x]++;
+        cnt++;
+    }
+    for(auto k:map1)
+    {
+        cout << k.first << ' ' << ((double)k.second/cnt)*100 << '\n';
     }
     return 0;
 }

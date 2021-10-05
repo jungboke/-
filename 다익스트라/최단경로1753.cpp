@@ -1,3 +1,4 @@
+/*
 #include <vector>
 #include <algorithm>
 #include <iostream>
@@ -62,6 +63,80 @@ int main()
     }   
     return 0;
 }
+*/
+#include <vector>
+#include <algorithm>
+#include <iostream>
+#include <queue>
+#define INF 1000000000
+using namespace std;
+struct Edge
+{
+    int to;
+    int cost;
+    Edge(int to,int cost) : to(to),cost(cost) {}
+};
+vector<Edge> a[20001];
+bool check[20001];
+int dist[20001];
+int main()
+{
+    int n,m;
+    cin >> n >> m;
+    int start;
+    cin >> start;
+    for(int i=0;i<m;i++)
+    {
+        int x,y,z;
+        cin >> x >> y >> z;
+        a[x].push_back(Edge(y,z));
+    }
+    for(int i=1;i<=n;i++)
+    {
+        dist[i] = INF; 
+    }
+    dist[start] = 0;
+    priority_queue<pair<int,int>> q;
+    q.push(make_pair(0,start));
+    while(!q.empty())
+    {
+        auto p = q.top();
+        q.pop();
+        int x = p.second;
+        if(check[x]==true) continue;
+        check[x] = true;
+        for(auto k : a[x])
+        {
+            int y = k.to;
+            if(dist[y]>dist[x]+k.cost)
+            {
+                dist[y] = dist[x]+k.cost;
+                q.push(make_pair(-dist[y],y));
+            }
+        }
+    }
+    for(int i=1;i<=n;i++)
+    {
+        if(dist[i]==INF) cout << "INF" << '\n';
+        else cout << dist[i] << '\n';
+    }
+    return 0;
+}
 /*
     다익스트라 익히는 가장 기초적인 문제, memset은 0,-1말고 다른값으로 초기화불가능함.
 */
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

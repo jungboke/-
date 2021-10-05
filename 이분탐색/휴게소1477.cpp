@@ -1,3 +1,4 @@
+/*
 #include <vector>
 #include <algorithm>
 #include <iostream>
@@ -45,3 +46,65 @@ int main()
     cout << mini << '\n';
     return 0;
 }
+*/
+#include <vector>
+#include <algorithm>
+#include <iostream>
+using namespace std;
+
+int main()
+{
+    int n,m,l;
+    cin >> n >> m >> l;
+    vector<int> a;
+    vector<int> dist;
+    for(int i=0;i<n;i++)
+    {
+        int x;
+        cin >> x;
+        a.push_back(x);
+    }
+    a.push_back(0);
+    a.push_back(l);
+    sort(a.begin(),a.end());
+    for(int i=1;i<a.size();i++)
+    {
+        int temp = a[i]-a[i-1];
+        dist.push_back(temp);
+    }
+    int start = 1;
+    int end = *max_element(dist.begin(),dist.end());
+    int mini = end;
+    while(start<=end)
+    {
+        int mid = (start+end)/2;
+        int sum = 0;
+        for(int i=0;i<dist.size();i++)
+        {
+            sum += (dist[i]-1)/mid;
+        }
+        if(sum<=m)
+        {
+            if(mini>mid) mini = mid;
+            end = mid-1;
+        }
+        else if(sum>m) start = mid+1;
+    }
+    cout << mini << '\n';
+    return 0;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

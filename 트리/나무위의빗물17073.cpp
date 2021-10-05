@@ -1,3 +1,4 @@
+/*
 #include <vector>
 #include <algorithm>
 #include <iostream>
@@ -43,6 +44,50 @@ int main()
         if(flag==false) cnt++;
     }
     cout << m/cnt << '\n';
+    return 0;
+}
+*/
+#include <vector>
+#include <algorithm>
+#include <iostream>
+#include <queue>
+using namespace std;
+vector<int> a[500001];
+bool check[500001];
+int main()
+{
+    ios_base::sync_with_stdio(false);
+    cin.tie(NULL);
+    cout.setf(ios::fixed);
+    cout.precision(10);
+    int n,m;
+    cin >> n >> m;
+    for(int i=0;i<n-1;i++)
+    {
+        int x,y;
+        cin >> x >> y;
+        a[x].push_back(y);
+        a[y].push_back(x);
+    }
+    int cnt = 0;
+    queue<int> q;
+    q.push(1);
+    check[1] = true;
+    while(!q.empty())
+    {
+        int x = q.front();
+        q.pop();
+        bool flag = true;
+        for(auto k:a[x])
+        {
+            if(check[k]==true) continue;
+            flag = false;
+            q.push(k);
+            check[k] = true;
+        }
+        if(flag==true) cnt++;
+    }
+    cout << (double)m/cnt << '\n';
     return 0;
 }
 /*

@@ -1,3 +1,4 @@
+/*
 #include <vector>
 #include <algorithm>
 #include <iostream>
@@ -24,6 +25,45 @@ int main()
             {
                 st.pop();
                 answer += 1;
+            }
+        }
+
+        if(!st.empty()&&st.top()==')') break;
+    }
+    cout << answer << '\n';
+    return 0;
+}
+*/
+#include <vector>
+#include <algorithm>
+#include <iostream>
+#include <stack>
+using namespace std;
+
+int main()
+{
+    string a;
+    cin >> a;
+    stack<char> st;
+    int answer = 0;
+    int cnt = 0;
+    for(int i=0;i<a.size();i++)
+    {
+        if(st.empty()||st.top()==a[i])
+        {
+            st.push(a[i]);
+            cnt++;
+        }
+        else
+        {
+            st.pop();
+            if(a[i-1]==')')
+            {
+                answer+=1;
+            }
+            else
+            {
+                answer+=st.size();
             }
         }
 
