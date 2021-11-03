@@ -1,3 +1,4 @@
+/*
 #include <vector>
 #include <algorithm>
 #include <iostream>
@@ -48,6 +49,66 @@ int main()
     cout << maxi << '\n';
     return 0;
 }
+*/
+#include <vector>
+#include <algorithm>
+#include <iostream>
+using namespace std;
+
+int main()
+{
+    int n,m;
+    cin >> n >> m;
+    vector<int> a(n);
+    for(int i=0;i<n;i++)
+    {
+        cin >> a[i];
+    }
+    sort(a.begin(),a.end());
+    int start = 1;
+    int end = a[n-1] - a[0];
+    int maxi = 0;
+    while(start<=end)
+    {
+        int mid = (start+end)/2;
+        int cnt = 1;
+        int first = 0;
+        for(int i=1;i<a.size();i++)
+        {
+            if(a[i]-a[first]>=mid)
+            {
+                cnt++;
+                first = i;
+            }
+        }
+        if(cnt>=m)
+        {
+            if(maxi<mid) maxi = mid;
+            start = mid+1;
+        }
+        else if(cnt<m)
+        {
+            end = mid-1;
+        }
+    }
+    cout << maxi << '\n';
+    return 0;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 /*
     무엇을 이분탐색기준으로 잡을것인가 잘생각하기.
 */

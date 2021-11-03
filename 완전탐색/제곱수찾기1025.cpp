@@ -1,3 +1,4 @@
+/*
 #include <vector>
 #include <algorithm>
 #include <iostream>
@@ -66,3 +67,73 @@ int main()
     else cout << *max_element(result.begin(),result.end()) << '\n';
     return 0;
 }
+*/
+#include <vector>
+#include <algorithm>
+#include <iostream>
+#include <cmath>
+using namespace std;
+char a[10][10];
+int N,M;
+vector<int> result;
+void test(int x,int y)
+{
+    for(int i=-N+1;i<N;i++)
+    {
+        for(int j=-M+1;j<M;j++)
+        {
+            string temp = "";
+            int nx = x;
+            int ny = y;
+            while(nx>=0&&nx<N&&ny>=0&&ny<M)
+            {
+                temp += a[nx][ny];
+                int num = stoi(temp);
+                int k = sqrt(num);
+                if(k*k==num) result.push_back(num);
+                nx+=i;
+                ny+=j;
+                if(i==0&&j==0) break;
+            }
+        }
+    }
+}
+int main()
+{
+    int n,m;
+    cin >> n >> m;
+    N=n;M=m;
+    for(int i=0;i<n;i++)
+    {
+        string temp = "";
+        cin >> temp;
+        for(int j=0;j<m;j++)
+        {
+            a[i][j] = temp[j];
+        }
+    }
+    for(int i=0;i<n;i++)
+    {
+        for(int j=0;j<m;j++)
+        {
+            test(i,j);
+        }
+    }
+    if(result.size()==0) cout << -1 << '\n';
+    else cout << *max_element(result.begin(),result.end()) << '\n';
+    return 0;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+

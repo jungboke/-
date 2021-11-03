@@ -92,4 +92,25 @@ int solution(vector<int> citations) {
     return answer;
 }
 ```
+5
+```
+#include <string>
+#include <vector>
+#include <algorithm>
+using namespace std;
+
+int solution(vector<int> citations) {
+    int answer = 0;
+    sort(citations.begin(),citations.end());
+    int maxi = *max_element(citations.begin(),citations.end());
+    int size = citations.size();
+    for(int i=0;i<=maxi;i++)
+    {
+        auto x = lower_bound(citations.begin(),citations.end(),i);
+        int num = size-(x-citations.begin());
+        if(num>=i&&size-num<=i) answer = i;
+    }
+    return answer;
+}
+```
 + lower_bound를 사용한 문제해결, lower_bound는 지정값보다 같거나 큰 원소의 주소값을 반환

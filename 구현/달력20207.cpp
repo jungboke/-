@@ -1,3 +1,4 @@
+/*
 #include <vector>
 #include <algorithm>
 #include <iostream>
@@ -34,6 +35,45 @@ int main()
         cnt++;
     }
     answer += cnt * maxi;
+    cout << answer << '\n';
+    return 0;
+}
+*/
+#include <vector>
+#include <algorithm>
+#include <iostream>
+using namespace std;
+int a[1001];
+int main()
+{
+    int n;
+    cin >> n;
+    int m = 0;
+    for(int i=0;i<n;i++)
+    {
+        int x,y;
+        cin >> x >> y;
+        for(int j=x;j<=y;j++)
+        {
+            a[j]++;
+        }
+        if(m<y) m = y;
+    }
+    int answer = 0;
+    int maxi = 0;
+    int cnt = 0;
+    for(int i=1;i<=m;i++)
+    {
+        if(maxi<a[i]) maxi = a[i];
+        if(a[i]==0)
+        {
+            answer += maxi*cnt;
+            maxi = 0;
+            cnt = 0;
+        }
+        else cnt++;
+    }
+    answer += maxi*cnt;
     cout << answer << '\n';
     return 0;
 }

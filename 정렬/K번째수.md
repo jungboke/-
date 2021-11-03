@@ -48,3 +48,26 @@ vector<int> solution(vector<int> array, vector<vector<int>> commands) {
     return answer;
 }
 ```
+3
+```
+#include <string>
+#include <vector>
+#include <algorithm>
+using namespace std;
+
+vector<int> solution(vector<int> array, vector<vector<int>> commands) {
+    vector<int> answer;
+    for(int i=0;i<commands.size();i++)
+    {
+        auto start = array.begin()+commands[i][0]-1;
+        auto end = array.begin()+commands[i][1];
+        vector<int> temp(commands[i][1]-commands[i][0]+1);
+        copy(start,end,temp.begin());
+        sort(temp.begin(),temp.end());
+        answer.push_back(temp[commands[i][2]-1]);
+    }
+    return answer;
+}
+```
++ vector를 subvec하려면 copy를 쓰는게 좋을듯.
++ copy(start,end,temp.begin()) -> end보다 한칸적게 카피되고 temp사이즈는 이미 잡혀있어야함.

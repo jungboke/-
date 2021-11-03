@@ -1,0 +1,74 @@
+#include <vector>
+#include <algorithm>
+#include <iostream>
+#include <queue>
+#include <string.h>
+using namespace std;
+struct Edge
+{
+    int to;
+    long long cost;
+    Edge(int to,long long cost) : to(to), cost(cost) {}
+};
+vector<Edge> a[100001];
+bool check[100001];
+bool bfs(int x,int target,long long bound)
+{
+    memset(check,false,sizeof(check));
+    queue<int> q;
+    check[x] = true;
+    q.push(x);
+    while(!q.empty())
+    {
+        int x = q.front();
+        q.pop();
+        if(x==target) return true;
+        for(auto k:a[x])
+        {
+            if(check[k.to]==false&&k.cost>=bound)
+            {
+                q.push(k.to);
+                check[k.to] = true;
+            }
+        }
+    }
+    return false;
+}
+int main()
+{
+    int n,m;
+    cin >> n >> m;
+    long long start = 0;
+    long long end = 0;
+    for(int i=0;i<m;i++)
+    {
+        int x,y;
+        long long z;
+        cin >> x >> y >> z;
+        a[x].push_back(Edge(y,z));
+        a[y].push_back(Edge(x,z));
+        if(end<z) end = z;
+    }
+    int sx,ex;
+    cin >> sx >> ex;
+    long long maxi = 0;
+    while(start<=end)
+    {
+        long long mid = (start+end) / 2;
+        bool flag = bfs(sx,ex,mid);
+        if(flag==true)
+        {
+            if(maxi<mid) maxi = mid;
+            start = mid+1;
+        }
+        else
+        {
+            end = mid-1;
+        }
+    }
+    cout << maxi << '\n';
+    return 0;
+}
+/*
+    bfs와 이분탐색이 결합된 문제.
+*/

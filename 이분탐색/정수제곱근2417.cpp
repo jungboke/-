@@ -24,7 +24,11 @@ int main()
             start = mid+1;
         }
     }
-    if(mid*mid != n) mid++;
+    if(mid*mid > n) mid--;
+    else if(mid*mid < n) mid++;
     cout << mid << '\n';
     return 0;
 }
+/*
+
+*/

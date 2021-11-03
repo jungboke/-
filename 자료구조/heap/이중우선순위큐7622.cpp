@@ -1,3 +1,4 @@
+/*
 #include <vector>
 #include <algorithm>
 #include <iostream>
@@ -49,5 +50,22 @@ int main()
     }
     return 0;
 }
+*/
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 // 반복자 사칙연산을 하려면 vector,deque만 가능.
 // list,set,map은 반복자 사칙연산이 ++,--만 가능. why) 두 반복자 유형이 다름.

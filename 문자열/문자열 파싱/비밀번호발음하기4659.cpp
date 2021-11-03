@@ -50,6 +50,7 @@ int main()
     return 0;
 }
 */
+/*
 #include <vector>
 #include <algorithm>
 #include <iostream>
@@ -98,7 +99,58 @@ int main()
     }
     return 0;
 }
-
+*/
+#include <vector>
+#include <algorithm>
+#include <iostream>
+using namespace std;
+bool test(string a)
+{
+    bool flag = true;
+    bool flag2 = false;
+    int mo = 0;
+    int ja = 0;
+    char last = a[0] - 1;
+    for(int i=0;i<a.size();i++)
+    {
+        if(last==a[i]&&a[i]!='e'&&a[i]!='o')
+        {
+            flag = false;
+            break;
+        }
+        last = a[i];
+        if(a[i]=='a'||a[i]=='e'||a[i]=='i'||a[i]=='o'||a[i]=='u')
+        {
+            flag2 = true;
+            mo += 1;
+            ja = 0;
+        }
+        else
+        {
+            ja += 1;
+            mo = 0;
+        }
+        if(mo==3||ja==3)
+        {
+            flag = false;
+            break;
+        }
+    }
+    if(flag==true&&flag2==true) return true;
+    else return false;
+}
+int main()
+{
+    while(true)
+    {
+        string a;
+        cin >> a;
+        if(a=="end") break;
+        if(test(a)==true) cout << '<' << a << '>' << " is acceptable." << '\n';
+        else cout << '<' << a << '>' << " is not acceptable." << '\n'; 
+    }
+    return 0;
+}
 
 
 

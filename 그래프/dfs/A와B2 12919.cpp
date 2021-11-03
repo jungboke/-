@@ -1,3 +1,4 @@
+/*
 #include <vector>
 #include <algorithm>
 #include <iostream>
@@ -42,6 +43,60 @@ int main()
     cout << dfs(n,m) << '\n';
     return 0;
 }
+*/
+#include <vector>
+#include <algorithm>
+#include <iostream>
+using namespace std;
+bool flag = false;
+void dfs(string m,string n)
+{
+    if(m.size()==n.size())
+    {
+        if(m==n)
+        {
+            flag = true;
+            return;
+        }
+    }
+    if(m[m.size()-1]=='A')
+    {
+        m.erase(m.end()-1);
+        dfs(m,n);
+        m+='A';
+    }
+    if(m[0]=='B')
+    {
+        reverse(m.begin(),m.end());
+        m.erase(m.end()-1);
+        dfs(m,n);
+        m+='B';
+    }
+}
+int main()
+{
+    string n,m;
+    cin >> n >> m;
+    dfs(m,n);
+    if(flag==true) cout << 1 << '\n';
+    else cout << 0 << '\n';
+    return 0;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 /*
     순방향재귀는 2의50승이라 시간제한초과함. 다른 재귀법을 생각해하는데 역방향재귀를하면 case를 더줄일수 있음.
 */
