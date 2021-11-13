@@ -1,3 +1,4 @@
+/*
 #include <vector>
 #include <algorithm>
 #include <iostream>
@@ -53,6 +54,53 @@ int main()
     }
     return 0;
 }
+*/
+#include <vector>
+#include <algorithm>
+#include <iostream>
+using namespace std;
+bool check[101];
+int main()
+{
+    string a;
+    cin >> a;
+    while(true)
+    {
+        string mini = "";
+        int min_idx = 0;
+        bool flag = true;
+        for(int i=0;i<a.size();i++)
+        {
+            if(check[i]==true) continue;
+            check[i] = true;
+            flag = false;
+            string temp = "";
+            for(int j=0;j<a.size();j++)
+            {
+                if(check[j]==true)
+                {
+                    temp += a[j];
+                }
+            }
+            check[i] = false;
+            if(mini==""||temp<mini)
+            {
+                mini = temp;
+                min_idx = i;
+            }
+        }
+        if(flag==true) break;
+        check[min_idx] = true;
+        string answer = "";
+        for(int i=0;i<a.size();i++)
+        {
+            if(check[i]==true) answer += a[i];
+        }
+        cout << answer << '\n';
+    }
+    return 0;
+}
+
 /*
     문제의 핵심이 되는 부분은 문자들이 추가될때 앞,중간,뒤 어느 부분에 추가되는지 판별하는 것.
 */
