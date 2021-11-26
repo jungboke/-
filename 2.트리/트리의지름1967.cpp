@@ -1,3 +1,5 @@
+// 더 최적의 방법이 있음, 메모리 초과발생시 vector의 크기도 살펴보기.
+/*
 #include <vector>
 #include <algorithm>
 #include <iostream>
@@ -61,4 +63,69 @@ int main()
     cout << maxi << '\n';
     return 0;
 }
-// 더 최적의 방법이 있음, 메모리 초과발생시 vector의 크기도 살펴보기.
+*/
+#include <bits/stdc++.h>
+using namespace std;
+struct Edge
+{
+    int to;
+    int cost;
+    Edge(int to,int cost) : to(to),cost(cost) {}
+};
+vector<Edge> a[10001];
+int dist[10001];
+int N;
+int answer = 0;
+int bfs(int x)
+{
+    memset(dist,-1,sizeof(dist));
+    queue<int> q;
+    q.push(x);
+    dist[x] = 0;
+    while(!q.empty())
+    {
+        int x = q.front();
+        q.pop();
+        for(auto k:a[x])
+        {
+            int y = k.to;
+            if(dist[y]==-1)
+            {
+                q.push(y);
+                dist[y] = dist[x] + k.cost;
+            }
+        }
+    }
+    int maxi = 0;
+    int m_idx = 0;
+    for(int i=1;i<=N;i++)
+    {
+        if(dist[i]>maxi)
+        {
+            maxi = dist[i];
+            m_idx = i;
+        }
+    }
+    answer += maxi;
+    return m_idx;
+}
+
+int main()
+{
+    int n;
+    cin >> n;
+    N=n;
+    int next = 0;
+    for(int i=0;i<n-1;i++)
+    {
+        int x,y,z;
+        cin >> x >> y >> z;
+        a[x].push_back(Edge(y,z));
+        a[y].push_back(Edge(x,z));
+    }
+    next = bfs(1);
+    answer = 0;
+    bfs(next);
+    cout << answer << '\n';
+    return 0;
+}

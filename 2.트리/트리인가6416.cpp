@@ -1,3 +1,4 @@
+/*
 #include <vector>
 #include <algorithm>
 #include <iostream>
@@ -72,6 +73,66 @@ int main()
             a[Node2[i]].clear();
         }
         idx++;
+    }
+    return 0;
+}
+*/
+#include <bits/stdc++.h>
+using namespace std;
+
+vector<int> a[1000];
+int ind[1000];
+bool check[1000];
+void dfs(int root)
+{
+    check[root] = true;
+    for(auto k:a[root])
+    {
+        if(check[k]==false) dfs(k);
+    }
+}
+
+int main()
+{
+    int cnt = 1;
+    while(true)
+    {
+        for(int i=0;i<1000;i++)
+        {
+            a[i].clear();
+        }
+        memset(ind,0,sizeof(ind));
+        memset(check,false,sizeof(check));
+        bool flag = true;
+        set<int> s;
+        while(true)
+        {
+            int x,y;
+            cin >> x >> y;
+            if(x<0&&y<0) return 0;
+            else if(x==0&&y==0) break;
+            s.insert(x);
+            s.insert(y);
+            a[x].push_back(y);
+            ind[y]++;
+        }
+        int root = -1;
+        int nroot = 0;
+        for(auto k:s)
+        {
+            if(ind[k]==0) root = k;
+            else if(ind[k]==1) nroot++;
+        }
+        if(root==-1||nroot!=s.size()-1) flag = false;
+        dfs(root);
+        for(auto k:s)
+        {
+            if(check[k]==false) flag = false;
+        }
+        if(s.size()==0) flag = true;
+        if(flag==false) cout << "Case " << cnt << " is not a tree." << '\n';
+        else cout << "Case " << cnt << " is a tree." << '\n';
+        cnt++; 
     }
     return 0;
 }

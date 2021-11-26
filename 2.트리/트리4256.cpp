@@ -1,3 +1,8 @@
+// 전위.중위를 사용하여 트리의 구조를 알수 있는 문제.
+/*
+    전위,중위순회의 특성을 이용해서 재귀방식으로 postorder구현가능함.
+*/
+/*
 #include <vector>
 #include <algorithm>
 #include <iostream>
@@ -43,4 +48,45 @@ int main()
     }
     return 0;
 }
-// 전위.중위를 사용하여 트리의 구조를 알수 있는 문제.
+*/
+#include <bits/stdc++.h>
+using namespace std;
+int preorder[1001];
+int inorder[1001];
+void go(int root,int s,int e)
+{
+    for(int i=s;i<=e;i++)
+    {
+        if(inorder[i]==preorder[root])
+        {
+            go(root+1,s,i-1);
+            go(root+i-s+1,i+1,e);
+            cout << preorder[root] << ' ';
+        }
+    }
+}
+int main()
+{
+    int t;
+    cin >> t;
+    while(t--)
+    {
+        int n;
+        cin >> n;
+        for(int i=0;i<n;i++)
+        {
+            int x;
+            cin >> x;
+            preorder[i] = x;
+        }
+        for(int i=0;i<n;i++)
+        {
+            int x;
+            cin >> x;
+            inorder[i] = x;
+        }
+        go(0,0,n-1);
+        cout << '\n';
+    }
+    return 0;
+}

@@ -1,3 +1,7 @@
+/*
+    쇠막대기 자르기와 비슷한 유형의 문제. 분배법칙을 생각해내야함.
+*/
+/*
 #include <vector>
 #include <algorithm>
 #include <iostream>
@@ -62,6 +66,50 @@ int main()
     cout << sum << '\n';
     return 0;
 }
-/*
-    쇠막대기 자르기와 비슷한 유형의 문제. 분배법칙을 생각해내야함.
 */
+#include <bits/stdc++.h>
+using namespace std;
+
+int main()
+{
+    string result;
+    cin >> result;
+    stack<char> st;
+    bool flag = true;
+    int sum = 0;
+    int temp = 1;
+    for(int i=0;i<result.size();i++)
+    {
+        if(st.empty()||result[i]=='('||result[i]=='[')
+        {
+            if(result[i]=='(') temp *= 2;
+            else if(result[i]=='[') temp *= 3;
+            st.push(result[i]);
+        }
+        else
+        {
+            if(result[i]==')')
+            {
+                if(result[i-1]=='(') sum += temp;
+                temp /= 2;
+                if(st.top()=='(') st.pop();
+            }
+            else if(result[i]==']')
+            {
+                if(result[i-1]=='[') sum += temp;
+                temp /= 3;
+                if(st.top()=='[') st.pop();
+            }
+        }
+
+        if(!st.empty()&&(st.top()==')'||st.top()==']'))
+        {
+            flag = false;
+            break;
+        }
+    }
+    if(st.size()!=0) flag = false;
+    if(flag==false) cout << 0 << '\n';
+    else cout << sum << '\n';
+    return 0;
+}
