@@ -60,6 +60,7 @@ int main()
     return 0;
 }
 */
+/*
 #include <vector>
 #include <algorithm>
 #include <iostream>
@@ -110,25 +111,55 @@ int main()
     cout << maxi << '\n';
     return 0;
 }
+*/
+#include <bits/stdc++.h>
+using namespace std;
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+int main()
+{
+    ios_base::sync_with_stdio(false);
+    cin.tie(NULL);
+    int n,m;
+    cin >> n >> m;
+    vector<int> a(n);
+    for(int i=0;i<n;i++)
+    {
+        cin >> a[i];
+    }
+    int odd_cnt = 0;
+    int start = 0;
+    int end = 0;
+    int maxi = -1;
+    for(int i=0;i<n;i++)
+    {
+        if(a[i]%2==1)
+        {
+            if(odd_cnt+1>m) break;
+            else odd_cnt++;
+        }
+        end = i;
+    }
+    if(maxi<end-start+1-odd_cnt) maxi = end-start+1-odd_cnt;
+    while(end<n)
+    {
+        if(a[start]%2==1) odd_cnt--;
+        start++;
+        end++;
+        while(end<n)
+        {
+            if(a[end]%2==1)
+            {
+                if(odd_cnt+1>m)
+                {
+                    end--;
+                    break;
+                }
+                else odd_cnt++;
+            }
+            if(maxi<end-start+1-odd_cnt) maxi = end-start+1-odd_cnt;
+            end++;
+        }
+    }
+    cout << maxi << '\n';
+    return 0;
+}

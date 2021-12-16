@@ -1,4 +1,8 @@
 /*
+    string.find()!=string::npos
+    set을 통한 문자열내 중복문자 존재여부확인
+*/
+/*
 #include <vector>
 #include <algorithm>
 #include <iostream>
@@ -67,6 +71,7 @@ int main()
     return 0;
 }
 */
+/*
 #include <vector>
 #include <algorithm>
 #include <iostream>
@@ -158,7 +163,71 @@ int main()
     cout << answer << '\n';
     return 0;
 }
-
+*/
+#include <bits/stdc++.h>
+using namespace std;
+pair<int,int> check(int num,int x)
+{
+    int ball = 0;
+    int strike = 0;
+    string str_num = to_string(num);
+    string str_x = to_string(x);
+    for(int i=0;i<str_num.size();i++)
+    {
+        if(str_num[i]==str_x[i]) strike++;
+        else if(str_num.find(str_x[i])!=string::npos) ball++;
+    }
+    return make_pair(strike,ball);
+}
+bool checkzero(int num)
+{
+    bool flag = true;
+    set<char> s;
+    string str_num = to_string(num);
+    if(str_num.find('0')!=string::npos) flag = false;
+    for(int i=0;i<str_num.size();i++)
+    {
+        s.insert(str_num[i]);
+    }
+    if(s.size()!=str_num.size()) flag = false;
+    return flag;
+}
+int main()
+{
+    int n;
+    cin >> n;
+    vector<vector<int>> a;
+    for(int i=0;i<n;i++)
+    {
+        vector<int> temp(3);
+        cin >> temp[0] >> temp[1] >> temp[2];
+        a.push_back(temp);
+    }
+    vector<int> result;
+    int num = 100;
+    while(num<=999)
+    {
+        if(checkzero(num)==false)
+        {
+            num++;
+            continue;
+        }
+        bool flag = true;
+        for(int i=0;i<a.size();i++)
+        {
+            auto p = check(num,a[i][0]);
+            if(!(p.first==a[i][1]&&p.second==a[i][2]))
+            {
+                flag = false;
+                break;
+            }
+        }
+        if(flag==true) result.push_back(num);
+        num++;
+    }
+    cout << result.size() << '\n';
+    return 0;
+}
 
 
 

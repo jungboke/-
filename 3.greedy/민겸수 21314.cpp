@@ -1,3 +1,7 @@
+/*
+    모두 M인 경우 하나씩 붙이는게 최대.
+*/
+/*
 #include <vector>
 #include <algorithm>
 #include <iostream>
@@ -51,6 +55,61 @@ int main()
     cout << answer2 << '\n';
     return 0;
 }
-/*
-    모두 M인 경우 하나씩 붙이는게 최대.
 */
+#include <bits/stdc++.h>
+using namespace std;
+string change(string a)
+{
+    string num = "";
+    if(a[a.size()-1]=='K') num += '5';
+    else num += '1';
+    for(int i=0;i<a.size()-1;i++) num += '0';
+    return num;
+}
+string change1(string a)
+{
+    string answer = "";
+    string temp = "";
+    for(int i=0;i<a.size();i++)
+    {
+        if(a[i]=='K')
+        {
+            temp += a[i];
+            answer += change(temp);
+            temp = "";
+        }
+        else temp += a[i];
+    }
+    if(temp!="")
+    {
+        for(int i=0;i<temp.size();i++) answer += '1';
+    }
+    return answer;
+}
+string change2(string a)
+{
+    string answer = "";
+    string temp = "";
+    for(int i=0;i<a.size();i++)
+    {
+        if(a[i]=='K')
+        {
+            if(temp!="") answer += change(temp);
+            answer += '5';
+            temp = "";
+        }
+        else temp += a[i];
+    }
+    if(temp!="") answer += change(temp);
+    return answer;
+}
+int main()
+{
+    string a;
+    cin >> a;
+    string maxi = change1(a);
+    string mini = change2(a);
+    cout << maxi << '\n';
+    cout << mini << '\n';
+    return 0;
+}

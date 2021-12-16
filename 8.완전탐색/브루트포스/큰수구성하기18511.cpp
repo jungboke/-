@@ -36,6 +36,7 @@ int main()
     return 0;
 }
 */
+/*
 #include <vector>
 #include <algorithm>
 #include <iostream>
@@ -75,6 +76,45 @@ int main()
     }
     vector<int> temp;
     go(a,temp,n,str_n.size());
+    cout << maxi << '\n';
+    return 0;
+}
+*/
+#include <bits/stdc++.h>
+using namespace std;
+int maxi = 0;
+void go(vector<int> a,string target,int length,string num)
+{
+    if(num.size()==length+1)
+    {
+        return;
+    }
+    if(num!=""&&stoi(num)<=stoi(target))
+    {
+        if(stoi(num)>maxi)
+        {
+            maxi = stoi(num);
+        }
+    }
+    for(int i=0;i<a.size();i++)
+    {
+        num += to_string(a[i]);
+        go(a,target,length,num);
+        num.erase(num.end()-1);
+    }
+}
+int main()
+{
+    string str_a;
+    cin >> str_a;
+    int n;
+    cin >> n;
+    vector<int> a(n);
+    for(int i=0;i<n;i++)
+    {
+        cin >> a[i];
+    }
+    go(a,str_a,str_a.size(),"");
     cout << maxi << '\n';
     return 0;
 }

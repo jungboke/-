@@ -1,3 +1,8 @@
+/*
+    max조건이 2개인 경우를 해결해야함. 해당 문제에서는 주변 친구의 개수가 같은경우
+    빈칸이 더 많은 쪽이 최대로 설정되어야 함.
+*/
+/*
 #include <vector>
 #include <algorithm>
 #include <iostream>
@@ -102,5 +107,104 @@ int main()
     }
     
     cout << sum << '\n';
+    return 0;
+}
+*/
+#include <bits/stdc++.h>
+using namespace std;
+int dx[] = {0,-1,0,1};
+int dy[] = {-1,0,1,0};
+int a[21][21];
+int N;
+int near(int x,int y,vector<int> temp)
+{
+    int cnt = 0;
+    for(int i=0;i<4;i++)
+    {
+        int nx = x+dx[i];
+        int ny = y+dy[i];
+        if(nx>=0&&nx<N&&ny>=0&&ny<N)
+        {
+            if(find(temp.begin(),temp.end(),a[nx][ny])!=temp.end())
+            {
+                cnt++;
+            }
+        }
+    }
+    return cnt;
+}
+int nearzero(int x,int y)
+{
+    int cnt = 0;
+    for(int i=0;i<4;i++)
+    {
+        int nx = x+dx[i];
+        int ny = y+dy[i];
+        if(nx>=0&&nx<N&&ny>=0&&ny<N)
+        {
+            if(a[nx][ny]==0) cnt++;
+        }
+    }
+    return cnt;
+}
+void insert(int x,vector<int> temp)
+{
+    int maxi = -1;
+    int max_zero = -1;
+    int mx = 0;
+    int my = 0;
+    int zero = 0;
+    for(int i=0;i<N;i++)
+    {
+        for(int j=0;j<N;j++)
+        {
+            if(a[i][j]==0)
+            {
+                int cnt = near(i,j,temp);
+                int zero = nearzero(i,j);
+                if(maxi<=cnt)
+                {
+                    if(maxi==cnt&&max_zero>=zero) continue;
+                    maxi = cnt;
+                    max_zero = zero;
+                    mx = i;
+                    my = j;
+                }
+            }
+        }
+    }
+    a[mx][my] = x;    
+}
+int main()
+{
+    int n;
+    cin >> n;
+    N=n;
+    unordered_map<int,vector<int>> map1;
+    for(int i=0;i<pow(n,2);i++)
+    {
+        int x;
+        cin >> x;
+        vector<int> temp(4);
+        for(int i=0;i<4;i++)
+        {
+            cin >> temp[i];
+        }
+        map1[x] = temp;
+        insert(x,map1[x]);
+    }
+    int answer = 0;
+    for(int i=0;i<n;i++)
+    {
+        for(int j=0;j<n;j++)
+        {
+            if(near(i,j,map1[a[i][j]])==0) answer+=0;
+            else if(near(i,j,map1[a[i][j]])==1) answer+=1;
+            else if(near(i,j,map1[a[i][j]])==2) answer+=10;
+            else if(near(i,j,map1[a[i][j]])==3) answer+=100;
+            else if(near(i,j,map1[a[i][j]])==4) answer+=1000;
+        }
+    }
+    cout << answer << '\n';
     return 0;
 }

@@ -1,3 +1,9 @@
+/* 
+    굳이 permutation안쓰고 다중for문으로 풀수있으면 안쓰는게 좋음(ex 10개중 2개의 값을 고를때 2중for
+    문이 효과적임), substr의 두번째인자 안들어가면 마지막까지,
+    한배열을 n등분하는 방법의 정석.
+*/
+/*
 #include <vector>
 #include <algorithm>
 #include <iostream>
@@ -77,7 +83,52 @@ int main()
     cout << *min_element(result.begin(),result.end()) << ' ' << *max_element(result.begin(),result.end()) << '\n';
     return 0;
 }
-/* 
-    굳이 permutation안쓰고 다중for문으로 풀수있으면 안쓰는게 좋음, substr의 두번째인자 안들어가면 마지막까지,
-    한배열을 n등분하는 방법.
 */
+#include <bits/stdc++.h>
+using namespace std;
+vector<int> result;
+void dfs(string a,int odd)
+{
+    if(a.size()==1)
+    {
+        int num = a[0] - 48;
+        if(num%2==1) odd++;
+        result.push_back(odd);
+        return;
+    }
+    else if(a.size()==2)
+    {
+        for(int i=0;i<a.size();i++)
+        {
+            if((a[i]-48)%2==1) odd++;
+        }
+        int num1 = a[0]-48;
+        int num2 = a[1]-48;
+        dfs(to_string(num1+num2),odd);
+    }
+    else
+    {
+        for(int i=0;i<a.size();i++)
+        {
+            if((a[i]-48)%2==1) odd++;
+        }
+        for(int i=0;i<a.size()-2;i++)
+        {
+            for(int j=i+1;j<a.size()-1;j++)
+            {
+                int num1 = stoi(a.substr(0,i+1));
+                int num2 = stoi(a.substr(i+1,j-i));
+                int num3 = stoi(a.substr(j+1));
+                dfs(to_string(num1+num2+num3),odd);
+            }
+        }
+    }
+}
+int main()
+{
+    string a;
+    cin >> a;
+    dfs(a,0);
+    cout << *min_element(result.begin(),result.end()) << ' ' << *max_element(result.begin(),result.end()) << '\n';
+    return 0;
+}

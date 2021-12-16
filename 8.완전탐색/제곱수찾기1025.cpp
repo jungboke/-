@@ -68,6 +68,7 @@ int main()
     return 0;
 }
 */
+/*
 #include <vector>
 #include <algorithm>
 #include <iostream>
@@ -123,7 +124,69 @@ int main()
     else cout << *max_element(result.begin(),result.end()) << '\n';
     return 0;
 }
-
+*/
+#include <bits/stdc++.h>
+using namespace std;
+int a[10][10];
+int maxi = -1;
+int N,M;
+void check(string a)
+{
+    int num = stoi(a);
+    int x = sqrt(num);
+    if(x*x==num)
+    {
+        if(maxi<num) maxi = num;
+    } 
+}
+void go(int x,int y)
+{
+    for(int i=-N+1;i<N;i++)
+    {
+        for(int j=-M+1;j<M;j++)
+        {
+            string temp = to_string(a[x][y]);
+            if(i==0&&j==0)
+            {
+                check(temp);
+                continue;
+            }
+            int nx = x+i;
+            int ny = y+j;
+            while(nx>=0&&nx<N&&ny>=0&&ny<M)
+            {
+                temp += to_string(a[nx][ny]);
+                check(temp);
+                nx += i;
+                ny += j;
+            }
+        }
+    }
+}
+int main()
+{
+    int n,m;
+    cin >> n >> m;
+    N=n;M=m;
+    for(int i=0;i<n;i++)
+    {
+        string temp = "";
+        cin >> temp;
+        for(int j=0;j<m;j++)
+        {
+            a[i][j] = temp[j]-48;
+        }
+    }
+    for(int i=0;i<n;i++)
+    {
+        for(int j=0;j<m;j++)
+        {
+            go(i,j);
+        }
+    }
+    cout << maxi << '\n';
+    return 0;
+}
 
 
 

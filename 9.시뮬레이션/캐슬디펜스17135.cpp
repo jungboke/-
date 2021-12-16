@@ -1,3 +1,8 @@
+/*
+    시뮬레이션 문제는 빨리풀면서 최대한 구현에 실수가 없도록 하는게 중요한듯.
+    같은 거리의 적이 많을경우, 가장 왼쪽이라는 조건을 실수해서 오래걸림.
+*/
+/*
 #include <vector>
 #include <algorithm>
 #include <iostream>
@@ -99,7 +104,96 @@ int main()
     cout << *max_element(result.begin(),result.end()) << '\n';
     return 0;
 }
-/*
-    시뮬레이션 문제는 빨리풀면서 최대한 구현에 실수가 없도록 하는게 중요한듯.
-    같은 거리의 적이 많을경우, 가장 왼쪽이라는 조건을 실수해서 오래걸림.
 */
+#include <bits/stdc++.h>
+using namespace std;
+int N,M,K;
+void move(vector<vector<int>> &a)
+{
+    vector<vector<int>> tmp_a(N,vector<int>(M,0));
+    for(int i=0;i<N;i++)
+    {
+        for(int j=0;j<M;j++)
+        {
+            if(a[i][j]==1)
+            {
+                if((i+1)>=N) continue;
+                tmp_a[i+1][j] = 1;
+            }
+        }
+    }
+    a = tmp_a;
+}
+int attack(vector<vector<int>> &a,vector<int> perm)
+{
+    set<pair<int,int>> s;
+    for(int c=0;c<perm.size();c++)
+    {
+        if(perm[c]==0) continue;
+        int mx = 0;
+        int my = 0;
+        int mini = 100;
+        for(int i=0;i<N;i++)
+        {
+            for(int j=0;j<M;j++)
+            {
+                if(a[i][j]==0) continue;
+                int dist = abs(N-i)+abs(c-j);
+                if(dist<=K&&mini>=dist)
+                {
+                    if(mini==dist&&j>=my) continue;
+                    mini = dist;
+                    mx = i;
+                    my = j;
+                }
+            }
+        }
+        if(mini!=100) s.insert(make_pair(mx,my));
+    }
+    for(auto k:s)
+    {
+        a[k.first][k.second] = 0;
+    }
+    return s.size();
+}
+int main()
+{
+    int n,m,k;
+    cin >> n >> m >> k;
+    N=n;M=m;K=k;
+    vector<vector<int>> a(n,vector<int>(m,0));
+    for(int i=0;i<n;i++)
+    {
+        for(int j=0;j<m;j++)
+        {
+            cin >> a[i][j];
+        }
+    }
+    int maxi = 0;
+    vector<int> perm;
+    for(int i=0;i<3;i++) perm.push_back(1);
+    for(int i=0;i<m-3;i++) perm.push_back(0);
+    sort(perm.begin(),perm.end());
+    do
+    {
+        vector<vector<int>> tmp_a = a;
+        int answer = 0;
+        while(true)
+        {
+            bool flag = false;
+            for(int i=0;i<n;i++)
+            {
+                for(int j=0;j<m;j++)
+                {
+                    if(tmp_a[i][j]==1) flag = true;
+                }
+            }
+            if(flag==false) break;
+            answer += attack(tmp_a,perm);
+            move(tmp_a);
+        }
+        if(maxi<answer) maxi = answer;
+    }while(next_permutation(perm.begin(),perm.end()));
+    cout << maxi << '\n';
+    return 0;
+}

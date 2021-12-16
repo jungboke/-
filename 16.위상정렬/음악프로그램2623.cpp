@@ -1,5 +1,6 @@
 // 1 4 3 을 가져왔다면 1 4, 4 3 처럼 ind[]배열 생성하기
 // 위상 정렬
+/*
 #include <vector>
 #include <algorithm>
 #include <iostream>
@@ -56,6 +57,64 @@ int main()
         for(int i=0;i<result.size();i++)
         {
             cout << result[i] << '\n';
+        }
+    }
+    return 0;
+}
+*/
+#include <bits/stdc++.h>
+using namespace std;
+int ind[1001];
+vector<int> a[1001];
+int main()
+{
+    int n,m;
+    cin >> n >> m;
+    for(int i=0;i<m;i++)
+    {
+        int x;
+        cin >> x;
+        vector<int> temp(x);
+        for(int j=0;j<x;j++)
+        {
+            cin >> temp[j];
+        }
+        for(int j=1;j<x;j++)
+        {
+            a[temp[j-1]].push_back(temp[j]);
+            ind[temp[j]]++;
+        }
+    }
+    queue<int> q;
+    vector<int> answer;
+    for(int i=1;i<=n;i++)
+    {
+        if(ind[i]==0)
+        {
+            q.push(i);
+            answer.push_back(i);
+        } 
+    }
+    while(!q.empty())
+    {
+        int x = q.front();
+        q.pop();
+        for(auto k:a[x])
+        {
+            ind[k]--;
+            if(ind[k]==0)
+            {
+                q.push(k);
+                answer.push_back(k);
+            }
+        }
+    }
+    if(answer.size()!=n) cout << 0 << '\n';
+    else
+    {
+        for(int i=0;i<answer.size();i++)
+        {
+            cout << answer[i] << '\n';
         }
     }
     return 0;

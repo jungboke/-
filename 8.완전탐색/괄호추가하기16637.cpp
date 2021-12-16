@@ -1,4 +1,8 @@
 /*
+    문제풀기전에 먼저 태블릿으로 설계해보기.
+    백트래킹 구성.
+*/
+/*
 #include <vector>
 #include <algorithm>
 #include <iostream>
@@ -205,23 +209,3 @@ int main()
     cout << *max_element(answer.begin(),answer.end());
     return 0;
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-/*
-    문제풀기전에 먼저 태블릿으로 설계해보기.
-    백트래킹 구성.
-*/

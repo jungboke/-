@@ -39,6 +39,7 @@ int main()
     return 0;
 }
 */
+/*
 #include <vector>
 #include <algorithm>
 #include <iostream>
@@ -88,7 +89,56 @@ int main()
     cout << mini << '\n';
     return 0;
 }
+*/
+#include <bits/stdc++.h>
+using namespace std;
 
+int main()
+{
+    ios_base::sync_with_stdio(false);
+    cin.tie(NULL);
+    int n,m;
+    cin >> n >> m;
+    vector<int> a(n);
+    for(int i=0;i<n;i++)
+    {
+        cin >> a[i];
+    }
+    int sum = 0;
+    int start = 0;
+    int end = 0;
+    int mini = -1;
+    for(int i=0;i<n;i++)
+    {
+        if(sum+a[i]>=m)
+        {
+            sum += a[i];
+            end = i;
+            break;
+        }
+        else sum += a[i];
+    }
+    if(sum<m)
+    {
+        cout << 0 << '\n';
+        return 0;
+    }
+    mini = end-start+1;
+    while(end<n)
+    {
+        sum -= a[start];
+        start++;
+        while(end<n)
+        {
+            if(sum>=m) break;
+            end++;
+            sum += a[end];
+        }
+        if(mini>end-start+1) mini = end-start+1;
+    }
+    cout << mini << '\n';
+    return 0;
+}
 
 
 

@@ -1,3 +1,4 @@
+/*
 #include <vector>
 #include <algorithm>
 #include <iostream>
@@ -38,6 +39,43 @@ int main()
             cout << "Stay here" << '\n';
         }
         else cout << "Enjoy other party" << '\n';
+    }
+    return 0;
+}
+*/
+#include <bits/stdc++.h>
+using namespace std;
+int dist[501][501];
+int main()
+{
+    int n,m;
+    cin >> n >> m;
+    for(int i=1;i<=n;i++)
+    {
+        for(int j=1;j<=n;j++)
+        {
+            cin >> dist[i][j];
+        }
+    }
+    for(int c=1;c<=n;c++)
+    {
+        for(int i=1;i<=n;i++)
+        {
+            for(int j=1;j<=n;j++)
+            {
+                if(dist[i][j]>dist[i][c]+dist[c][j])
+                {
+                    dist[i][j] = dist[i][c]+dist[c][j];
+                }
+            }
+        }
+    }
+    for(int i=0;i<m;i++)
+    {
+        int x,y,z;
+        cin >> x >> y >> z;
+        if(dist[x][y]<=z) cout << "Enjoy other party" << '\n';
+        else cout << "Stay here" << '\n';
     }
     return 0;
 }

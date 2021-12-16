@@ -1,3 +1,4 @@
+/*
 #include <vector>
 #include <algorithm>
 #include <iostream>
@@ -42,6 +43,32 @@ int main()
     for(int i=0;i<a.size();i++)
     {
         cout << map1[a[i]] << '\n';
+    }
+    return 0;
+}
+*/
+#include <bits/stdc++.h>
+using namespace std;
+
+int main()
+{
+    ios_base::sync_with_stdio(false);
+    cin.tie(NULL);
+    int n,m;
+    cin >> n >> m;
+    vector<string> a(n);
+    vector<int> b(n);
+    for(int i=0;i<n;i++)
+    {
+        cin >> a[i];
+        cin >> b[i];
+    }
+    for(int i=0;i<m;i++)
+    {
+        int x;
+        cin >> x;
+        auto it = lower_bound(b.begin(),b.end(),x);
+        cout << a[it-b.begin()] << '\n';
     }
     return 0;
 }

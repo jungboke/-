@@ -1,3 +1,4 @@
+// stl에 merge함수 존재.
 /*
 #include <vector>
 #include <algorithm>
@@ -61,7 +62,6 @@ int main()
     cout << '\n';
     return 0;
 }
-// stl에 merge함수 존재.
 */
 #include <vector>
 #include <algorithm>

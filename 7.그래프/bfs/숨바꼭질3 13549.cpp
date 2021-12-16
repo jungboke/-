@@ -1,4 +1,8 @@
 /*
+    1차원 배열내 최소이동거리 구하기위한 bfs는 이 방식이 유용할듯함.
+    deque나 priority_queue를 사용하여 가중치가 다른 경우 문제를 해결할 수도 있음.
+*/
+/*
 #include <vector>
 #include <algorithm>
 #include <iostream>
@@ -42,9 +46,6 @@ int main()
 }
 */
 /*
-    1차원 배열내 최소이동거리 구하기위한 bfs는 이 방식이 유용할듯함.
-    deque나 priority_queue를 사용하여 가중치가 다른 경우 문제를 해결할 수도 있음.
-*/
 #include <vector>
 #include <algorithm>
 #include <iostream>
@@ -92,7 +93,52 @@ int main()
     cout << dist[m] << '\n';
     return 0;
 }
+*/
+#include <bits/stdc++.h>
+#define INF 1000000000
+using namespace std;
 
+int a[100001];
+int main()
+{
+    int n,m;
+    cin >> n >> m;
+    for(int i=0;i<100001;i++) a[i] = INF;
+    queue<int> q;
+    q.push(n);
+    a[n] = 0;
+    while(!q.empty())
+    {
+        int x = q.front();
+        q.pop();
+        if(x+1<=100000)
+        {
+            if(a[x+1]>a[x]+1)
+            {
+                q.push(x+1);
+                a[x+1] = a[x]+1;
+            }
+        }
+        if(x-1>=0)
+        {
+            if(a[x-1]>a[x]+1)
+            {
+                q.push(x-1);
+                a[x-1] = a[x]+1;
+            }
+        }
+        if(2*x<=100000)
+        {
+            if(a[2*x]>a[x])
+            {
+                q.push(2*x);
+                a[2*x] = a[x];
+            }
+        }
+    }
+    cout << a[m] << '\n';
+    return 0;
+}
 
 
 

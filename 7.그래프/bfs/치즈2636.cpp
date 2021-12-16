@@ -1,3 +1,7 @@
+/*
+    bfs함수화 적용, 공기중을 2로 표현하기위해서 bfs적용, 시뮬레이션 적용, 최대한 반복되는 부분 함수화했음.
+*/
+/*
 #include <vector>
 #include <algorithm>
 #include <iostream>
@@ -118,6 +122,97 @@ int main()
     cout << last << '\n';
     return 0;
 }
-/*
-    bfs함수화 적용, 공기중을 2로 표현하기위해서 bfs적용, 시뮬레이션 적용, 최대한 반복되는 부분 함수화했음.
 */
+#include <bits/stdc++.h>
+using namespace std;
+int dx[] = {0,-1,0,1};
+int dy[] = {-1,0,1,0};
+int a[101][101];
+int check[101][101];
+int N,M;
+void change()
+{
+    queue<pair<int,int>> q;
+    q.push(make_pair(0,0));
+    check[0][0] = true;
+    while(!q.empty())
+    {
+        int x,y;
+        tie(x,y) = q.front();
+        q.pop();
+        for(int i=0;i<4;i++)
+        {
+            int nx = x+dx[i];
+            int ny = y+dy[i];
+            if(nx>=0&&nx<N&&ny>=0&&ny<M&&check[nx][ny]==false)
+            {
+                if(a[nx][ny]==0)
+                {
+                    q.push(make_pair(nx,ny));
+                    check[nx][ny] = true;
+                }
+            }
+        }
+    }
+}
+void cheeze()
+{
+    for(int i=0;i<N;i++)
+    {
+        for(int j=0;j<M;j++)
+        {
+            if(a[i][j]==0) continue;
+            for(int k=0;k<4;k++)
+            {
+                int nx = i+dx[k];
+                int ny = j+dy[k];
+                if(nx>=0&&nx<N&&ny>=0&&ny<M&&check[nx][ny]==true)
+                {
+                    a[i][j] = 0;
+                    break;
+                }
+            }
+        }
+    }
+}
+int main()
+{
+    int n,m;
+    cin >> n >> m;
+    N=n;M=m;
+    int cnt = 0;
+    for(int i=0;i<n;i++)
+    {
+        for(int j=0;j<m;j++)
+        {
+            cin >> a[i][j];
+            if(a[i][j]==1) cnt++;
+        }
+    }
+    int day = 0;
+    bool flag = true;
+    while(flag==true)
+    {
+        flag = false;
+        memset(check,false,sizeof(check));
+        change();
+        cheeze();
+        int num = 0;
+        for(int i=0;i<n;i++)
+        {
+            for(int j=0;j<m;j++)
+            {
+                if(a[i][j]!=0)
+                {
+                    flag = true;
+                    num++;
+                } 
+            }
+        }
+        if(flag==true) cnt = num;
+        day++;
+    }
+    cout << day << '\n';
+    cout << cnt << '\n';
+    return 0;
+}

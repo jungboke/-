@@ -1,3 +1,10 @@
+/*
+    직사각형도 정사각형과 같이 90도 rotation가능, 단, N에 유의하고, vector<vector<int>>를 복사
+    할 경우, 크기가 다르면 안됨. resize()를 통해 크기 변환후 복사하기.
+    Rotate 알고리즘과 배열내 소배열 이동 알고리즘이 필요한 문제.
+*/
+// 배열내 소배열 이동 정석구현.
+/*
 #include <vector>
 #include <algorithm>
 #include <iostream>
@@ -97,6 +104,7 @@ int main()
         }
         return 0;
         */
+/*
     }
      int answer = 0;
      for(int i=0;i<n;i++)
@@ -109,8 +117,95 @@ int main()
      cout << answer << '\n';
     return 0;
 }
-/*
-    직사각형도 정사각형과 같이 90도 rotation가능, 단, N에 유의하고, vector<vector<int>>를 복사
-    할 경우, 크기가 다르면 안됨. resize()를 통해 크기 변환후 복사하기.
-    Rotate 알고리즘과 배열내 소배열 이동 알고리즘이 필요한 문제.
 */
+#include <bits/stdc++.h>
+using namespace std;
+int a[41][41];
+int N,M;
+void rotate(vector<vector<int>> &a)
+{
+    int n = a.size();
+    int m = a[0].size(); 
+    vector<vector<int>> tmp_a(m,vector<int>(n,0));
+    for(int i=0;i<n;i++)
+    {
+        for(int j=0;j<m;j++)
+        {
+            tmp_a[j][n-i-1] = a[i][j];
+        }
+    }
+    a.resize(m,vector<int>(n,0));
+    a = tmp_a;
+}
+bool change(vector<vector<int>> temp)
+{
+    int n = temp.size();
+    int m = temp[0].size();
+    for(int c=0;c<N-n+1;c++)
+    {
+        for(int d=0;d<M-m+1;d++)
+        {
+            bool flag = true;
+            for(int i=0;i<n;i++)
+            {
+                for(int j=0;j<m;j++)
+                {
+                    if(temp[i][j]==0) continue;
+                    if(a[i+c][j+d]==1)
+                    {
+                        flag = false;
+                    }
+                }
+            }
+            if(flag==true)
+            {
+                for(int i=0;i<n;i++)
+                {
+                    for(int j=0;j<m;j++)
+                    {
+                        if(temp[i][j]==0) continue;
+                        a[i+c][j+d] = temp[i][j];
+                    }
+                }
+                return true;
+            }
+        }
+    }
+    return false;
+}
+int main()
+{
+    int n,m,k;
+    cin >> n >> m >> k;
+    N=n;M=m;
+    for(int c=0;c<k;c++)
+    {
+        int x,y;
+        cin >> x >> y;
+        vector<vector<int>> temp(x,vector<int>(y,0));
+        for(int i=0;i<x;i++)
+        {
+            for(int j=0;j<y;j++)
+            {
+                cin >> temp[i][j];
+            }
+        }
+        for(int i=0;i<3;i++) rotate(temp);
+        for(int i=0;i<4;i++)
+        {
+            rotate(temp);
+            bool flag = change(temp);
+            if(flag==true) break;
+        }
+    }
+    int answer = 0;
+    for(int i=0;i<n;i++)
+    {
+        for(int j=0;j<m;j++)
+        {
+            if(a[i][j]==1) answer++;
+        }
+    }
+    cout << answer << '\n';
+    return 0;
+}

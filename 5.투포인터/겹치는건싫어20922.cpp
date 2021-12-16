@@ -1,3 +1,5 @@
+// 투포인터 컨벤션 완성.
+// 보석쇼핑의 다른 버전.
 /*
 #include <vector>
 #include <algorithm>
@@ -53,8 +55,8 @@ int main()
     cout << maxi << '\n';
     return 0;
 }
-// 보석쇼핑의 다른 버전.
 */
+/*
 #include <vector>
 #include <algorithm>
 #include <iostream>
@@ -102,7 +104,53 @@ int main()
     cout << maxi << '\n';
     return 0;
 }
-// 투포인터 컨벤션 완성.
+*/
+#include <bits/stdc++.h>
+using namespace std;
+
+int main()
+{
+    int n,m;
+    cin >> n >> m;
+    vector<int> a(n);
+    unordered_map<int,int> map1;
+    for(int i=0;i<n;i++)
+    {
+        cin >> a[i];
+    }
+    int start = 0;
+    int end = 0;
+    int maxi = 0;
+    for(int i=0;i<n;i++)
+    {
+        if(map1[a[i]]+1>m) break;
+        map1[a[i]]++;
+        end = i;
+    }
+    maxi = end-start+1;
+    while(start<=end&&end<n)
+    {
+        map1[a[start]]--;
+        start++;
+        end++;
+        while(end<n)
+        {
+            if(map1[a[end]]+1>m)
+            {
+                end--;
+                break;
+            }
+            else
+            {
+                map1[a[end]]++;
+                if(maxi<end-start+1) maxi = end-start+1;
+                end++;
+            }
+        }
+    }
+    cout << maxi << '\n';
+    return 0;
+}
 
 
 

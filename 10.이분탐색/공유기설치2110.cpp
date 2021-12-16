@@ -1,4 +1,7 @@
 /*
+    무엇을 이분탐색기준으로 잡을것인가 잘생각하기.
+*/
+/*
 #include <vector>
 #include <algorithm>
 #include <iostream>
@@ -50,6 +53,7 @@ int main()
     return 0;
 }
 */
+/*
 #include <vector>
 #include <algorithm>
 #include <iostream>
@@ -94,21 +98,43 @@ int main()
     cout << maxi << '\n';
     return 0;
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-/*
-    무엇을 이분탐색기준으로 잡을것인가 잘생각하기.
 */
+#include <bits/stdc++.h>
+using namespace std;
+
+int main()
+{
+    int n,m;
+    cin >> n >> m;
+    vector<int> a(n);
+    for(int i=0;i<n;i++)
+    {
+        cin >> a[i];
+    }
+    sort(a.begin(),a.end());
+    int start = 0;
+    int end = a[n-1]-a[0];
+    int maxi = 0;
+    while(start<=end)
+    {
+        int mid = (start+end)/2;
+        int cnt = m-1;
+        int x = a[0];
+        for(int i=1;i<n;i++)
+        {
+            if(a[i]-x>=mid)
+            {
+                cnt--;
+                x = a[i];
+            }
+        }
+        if(cnt>0) end = mid-1;
+        else
+        {
+            start = mid+1;
+            maxi = max(maxi,mid);
+        }
+    }
+    cout << maxi << '\n';
+    return 0;
+}
