@@ -1,8 +1,13 @@
 # Programmers
-  
+
 1. 범위 확인을 통한 시간 복잡도 예측
 2. 문제의 핵심 알고리즘 정의
 3. 문제풀때 상단에 문제풀이 순서 적기
+4. 과도한 cin,cout 시, 아래 코드 사용
+   ```
+    ios_base::sync_with_stdio(false);
+    cin.tie(NULL);
+   ```
 
 ## 자료구조
 
@@ -39,8 +44,6 @@ preorder,postorder,tree형성함수(addNode) 구현, vector<vector> answer(2)로
 BFS를 쓰려면 거리이동시 필요값이 1이여야함.
 
 ## DP
-
-
 
 ## 투포인터
 
@@ -84,7 +87,7 @@ vector에서 clear()쓰면 넣어둔 원소들이 0 이되는게 아니라 다 �
 
 check배열을 solution내에서 선언하면 시간초과발생하는데 오류같음.
 
-완전탐색->이분탐색->bfs순으로 풀이법을 유추할수 있어야함. bfs를 쓰는데 집의 범위가 주어져있지 않으므로, check배열을 쓰지 않고 set을 사용함.  또한 dist배열에 거리를 담고 마지막에 다더하는게 아닌 집을 놓는 상황마다 정답에 거리를 추가해야하므로, while(!q.empty())내에서도 q.size()만큼 돌리고 넘어가면 dist에 +1을 해주는 식으로 생각해야함. 뱀과사다리 게임과 해당문제 같은 이분탐색과 비슷한 모형의 문제에서 bfs를 생각하지 못함. -> 샘터
+완전탐색->이분탐색->bfs순으로 풀이법을 유추할수 있어야함. bfs를 쓰는데 집의 범위가 주어져있지 않으므로, check배열을 쓰지 않고 set을 사용함. 또한 dist배열에 거리를 담고 마지막에 다더하는게 아닌 집을 놓는 상황마다 정답에 거리를 추가해야하므로, while(!q.empty())내에서도 q.size()만큼 돌리고 넘어가면 dist에 +1을 해주는 식으로 생각해야함. 뱀과사다리 게임과 해당문제 같은 이분탐색과 비슷한 모형의 문제에서 bfs를 생각하지 못함. -> 샘터
 
 tuple사용을 통한 3차원 구현. + get<0>(personInfo),get<1>(personInfo),get<2>(personInfo) -> tuple 사용문제 만나본적 거의없음.
 
@@ -110,9 +113,11 @@ swap함수를 이용한 배열인자 바꾸기
 
 순환배열에 % 사용
 
-직사각형도 정사각형과 같이 90도 rotation가능, 단, N에 유의하고, vector<vector<int>>를 복사 할 경우, 크기가 다르면 안됨. resize()를 통해 크기 변환후 복사하기. 
+직사각형도 정사각형과 같이 90도 rotation가능, 단, N에 유의하고, vector<vector<int>>를 복사 할 경우, 크기가 다르면 안됨. resize()를 통해 크기 변환후 복사하기.
 
 dfs문에 이중for문 집어넣고 돌리면 시간복잡도 매우커짐. 그러니 이중for문말고 idx/m,idx%m으로 이중for문 처럼 구현하기. 처음 dfs문이 돌아가는 순간 이중for문이면 처음이 이중for문만큼 시작됨. -> 종이조각14391
+
+string도 array 취급이라 next_permutation 허용됨.
 
 ## 시뮬레이션
 
@@ -134,6 +139,9 @@ floor()기호 알아둬야함(아래L).
 
 이분탐색은 lowerbound, upperbound개념으로 생각해보기.
 
+이분탐색은 답이 여러개일때, 등호를 초과에 넣느냐, 미만에 넣느냐에 따라 도달하는 위치가 달라짐.
+여러 답 중 최대값을 원하면 올라가도록 등호를 넣어줘야 최대값에 도달함.
+
 ## 백트래킹
 
 안될거같으면 애초에 for문에서 거르는게 백트래킹이라고 이해.
@@ -148,8 +156,6 @@ set에 vector집어넣을때 순서상관있음.
 
 ## 누적합
 
-
-
 ## 문자열
 
 0/1 정의가능한데 0/0정의안됨, int/int는 double형이 되지 않아 강제형변환필요. erase같은거할때 복사배열쓰는지 꼭확인하기, floor(), ceil() 알아두기, find(vector.begin(),vector,end())로 값찾기 가능,vector find와 string find 다름.
@@ -158,15 +164,17 @@ kmp알고리즘 적용방식 익히기.(문자열내에 원하는 문자열찾�
 
 시간문제는 왠만하면 분이나 초로 통일시킨후 해결
 
-문자열 분할할때 마지막 index까지 완전히 처리됐는지 확인하기(ex 배열 끝에 공백추가해야 마지막에 temp에 저장된 내용 사용가능함), next_permutation같은거 돌릴때 원본배열말고 복사배열로 사용해야하는지 꼭 확인하기 
+문자열 분할할때 마지막 index까지 완전히 처리됐는지 확인하기(ex 배열 끝에 공백추가해야 마지막에 temp에 저장된 내용 사용가능함), next_permutation같은거 돌릴때 원본배열말고 복사배열로 사용해야하는지 꼭 확인하기
 
- stringstream(sstream)을 활용한 공백문자 구분, string.c_str()을 활용한 strtok(https://blockdmask.tistory.com/382) -> 오픈채팅방
+stringstream(sstream)을 활용한 공백문자 구분, string.c_str()을 활용한 strtok(https://blockdmask.tistory.com/382) -> 오픈채팅방
 
 1/1000한다고 해서 0.001이 나오려면 형변환 추가적으로 해야함.
 
 집합배열에서 중복되지 않는 값 찾기위해 find(vector.begin(),vector.end())사용 -> 튜플
 
 sort는 같은 경우에는 순서 바꿔주는데 stable_sort는 같은 경우에는 냅둠. 그래서 stable 써야함.
+
+algorithm 라이브러리에 vector나 set이 사용할 수 있는 find, count 함수가 있고, set은 STL로써 스스로 set, find 함수를 가지고 있음.
 
 ## 최단거리
 
@@ -211,4 +219,3 @@ vector를 subvec하려면 copy를 쓰는게 좋을듯.
 copy(start,end,temp.begin()) -> end보다 한칸적게 카피되고 temp사이즈는 이미 잡혀있어야함.
 
 while(x--) 형식으로 permutation배열 만들때 x가 음수면 무한대로 진행, 문자열vector sort면 알파벳순
-

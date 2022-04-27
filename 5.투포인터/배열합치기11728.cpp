@@ -63,57 +63,57 @@ int main()
     return 0;
 }
 */
-#include <vector>
-#include <algorithm>
-#include <iostream>
+// #include <vector>
+// #include <algorithm>
+// #include <iostream>
+// using namespace std;
+
+// int main()
+// {
+//     ios_base::sync_with_stdio(false);
+//     cin.tie(NULL);
+//     int n,m;
+//     cin >> n >> m;
+//     vector<int> a(n);
+//     vector<int> b(m);
+//     vector<int> result(n+m);
+//     for(int i=0;i<n;i++)
+//     {
+//         cin >> a[i];
+//     }
+//     for(int i=0;i<m;i++)
+//     {
+//         cin >> b[i];
+//     }
+//     sort(a.begin(),a.end());
+//     sort(b.begin(),b.end());
+//     merge(a.begin(),a.end(),b.begin(),b.end(),result.begin());
+//     for(int i=0;i<result.size();i++)
+//     {
+//         cout << result[i] << ' ';
+//     } 
+//     cout << '\n';
+//     return 0;
+// }
+#include <bits/stdc++.h>
 using namespace std;
 
 int main()
 {
-    ios_base::sync_with_stdio(false);
-    cin.tie(NULL);
-    int n,m;
-    cin >> n >> m;
-    vector<int> a(n);
-    vector<int> b(m);
-    vector<int> result(n+m);
-    for(int i=0;i<n;i++)
-    {
-        cin >> a[i];
-    }
-    for(int i=0;i<m;i++)
-    {
-        cin >> b[i];
-    }
-    sort(a.begin(),a.end());
-    sort(b.begin(),b.end());
-    merge(a.begin(),a.end(),b.begin(),b.end(),result.begin());
-    for(int i=0;i<result.size();i++)
-    {
-        cout << result[i] << ' ';
-    } 
-    cout << '\n';
-    return 0;
+  ios_base::sync_with_stdio(false);
+  cin.tie(NULL);
+  int n,m;
+  cin >> n >> m;
+  vector<int> a(n);
+  vector<int> b(m);
+  vector<int> result(n+m);
+  for(int i=0;i<n;i++) cin >> a[i];
+  for(int i=0;i<m;i++) cin >> b[i];
+  sort(a.begin(),a.end());
+  sort(b.begin(),b.end());
+  merge(a.begin(),a.end(),b.begin(),b.end(),result.begin());
+  for(int i=0;i<result.size();i++) {
+    cout << result[i] << ' ';
+  }
+  return 0; 
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

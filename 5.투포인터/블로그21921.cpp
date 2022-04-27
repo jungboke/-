@@ -42,47 +42,82 @@ int main()
     return 0;
 }
 */
-#include <vector>
-#include <algorithm>
-#include <iostream>
+// #include <vector>
+// #include <algorithm>
+// #include <iostream>
+// using namespace std;
+
+// int main()
+// {
+//     ios_base::sync_with_stdio(false);
+//     cin.tie(NULL);
+//     int n,m;
+//     cin >> n >> m;
+//     vector<int> a(n);
+//     vector<int> result;
+//     for(int i=0;i<n;i++)
+//     {
+//         cin >> a[i];
+//     }
+//     int sum = 0;
+//     for(int i=0;i<m;i++)
+//     {
+//         sum+=a[i];
+//     }
+//     result.push_back(sum);
+//     for(int i=m;i<n;i++)
+//     {
+//         sum = sum + a[i] - a[i-m];
+//         result.push_back(sum);
+//     }
+//     int maxsum = *max_element(result.begin(),result.end()); 
+//     if(maxsum==0) cout << "SAD" << '\n';
+//     else
+//     {
+//         int cnt = 0;
+//         for(int i=0;i<result.size();i++)
+//         {
+//             if(result[i]==maxsum) cnt++;
+//         }
+//         cout << maxsum << '\n';
+//         cout << cnt << '\n';
+//     }
+//     return 0;
+// }
+#include <bits/stdc++.h>
 using namespace std;
 
 int main()
 {
-    ios_base::sync_with_stdio(false);
-    cin.tie(NULL);
-    int n,m;
-    cin >> n >> m;
-    vector<int> a(n);
-    vector<int> result;
-    for(int i=0;i<n;i++)
-    {
-        cin >> a[i];
-    }
-    int sum = 0;
-    for(int i=0;i<m;i++)
-    {
-        sum+=a[i];
-    }
+  int n,m;
+  cin >> n >> m;
+  vector<int> a(n);
+  for(int i=0;i<n;i++) {
+    cin >> a[i];
+  }
+  int sum = 0;
+  for(int i=0;i<m;i++) {
+    sum += a[i];
+  }
+  vector<int> result;
+  result.push_back(sum);
+  for(int i=m;i<n;i++) {
+    sum = sum+a[i]-a[i-m];
     result.push_back(sum);
-    for(int i=m;i<n;i++)
-    {
-        sum = sum + a[i] - a[i-m];
-        result.push_back(sum);
-    }
-    int maxsum = *max_element(result.begin(),result.end()); 
-    if(maxsum==0) cout << "SAD" << '\n';
-    else
-    {
-        int cnt = 0;
-        for(int i=0;i<result.size();i++)
-        {
-            if(result[i]==maxsum) cnt++;
-        }
-        cout << maxsum << '\n';
-        cout << cnt << '\n';
-    }
-    return 0;
+  }
+
+  int maxi = *max_element(result.begin(),result.end());
+  int cnt = 0;
+  for(int i=0;i<result.size();i++) {
+    if(result[i]==maxi) cnt++; 
+  }
+
+  if(maxi==0) cout << "SAD" << '\n';
+  else {
+    cout << maxi << '\n';
+    cout << cnt << '\n';
+  }
+  return 0; 
 }
 
 

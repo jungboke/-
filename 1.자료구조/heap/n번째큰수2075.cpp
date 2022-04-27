@@ -32,34 +32,55 @@ int main()
     return 0;
 }
 */
+// #include <bits/stdc++.h>
+// using namespace std;
+
+// int main()
+// {
+//     ios_base::sync_with_stdio(false);
+//     cin.tie(NULL);
+//     priority_queue<int,vector<int>,greater<>> pq;
+//     int n;
+//     cin >> n;
+//     for(int i=0;i<n;i++)
+//     {
+//         for(int j=0;j<n;j++)
+//         {
+//             int x;
+//             cin >> x;
+//             if(pq.size()==n)
+//             {
+//                 if(pq.top()>x) continue;
+//                 else if(pq.top()<x)
+//                 {
+//                     pq.pop();
+//                     pq.push(x);
+//                 }
+//             }
+//             else pq.push(x);
+//         }
+//     }
+//     cout << pq.top() << '\n';
+//     return 0;
+// }
 #include <bits/stdc++.h>
 using namespace std;
 
 int main()
 {
-    ios_base::sync_with_stdio(false);
-    cin.tie(NULL);
-    priority_queue<int,vector<int>,greater<>> pq;
-    int n;
-    cin >> n;
-    for(int i=0;i<n;i++)
-    {
-        for(int j=0;j<n;j++)
-        {
-            int x;
-            cin >> x;
-            if(pq.size()==n)
-            {
-                if(pq.top()>x) continue;
-                else if(pq.top()<x)
-                {
-                    pq.pop();
-                    pq.push(x);
-                }
-            }
-            else pq.push(x);
-        }
+  ios_base::sync_with_stdio(false);
+  cin.tie(NULL);
+  int n;
+  cin >> n;
+  priority_queue<int,vector<int>,greater<>> pq;
+  for(int i=0;i<pow(n,2);i++) {
+    int x;
+    cin >> x;
+    pq.push(x);
+    if(pq.size()==n+1) {
+      pq.pop();
     }
-    cout << pq.top() << '\n';
-    return 0;
+  }
+  cout << pq.top() << '\n';
+  return 0;
 }

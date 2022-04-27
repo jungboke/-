@@ -1,8 +1,8 @@
 #include <bits/stdc++.h>
 using namespace std;
 
-int main()
+int main(int argc, char const *argv[])
 {
-    //test
-    return 0;
+  
+  return 0;
 }

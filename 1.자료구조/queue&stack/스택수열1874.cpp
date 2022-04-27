@@ -45,40 +45,71 @@ int main()
     return 0;
 }
 */
+// #include <bits/stdc++.h>
+// using namespace std;
+
+// int main()
+// {
+//     int n;
+//     cin >> n;
+//     stack<int> st;
+//     vector<char> answer;
+//     int a = 1;
+//     for(int i=0;i<n;i++)
+//     {
+//         int x;
+//         cin >> x;
+//         while(st.empty()||st.top()<x)
+//         {
+//             st.push(a);
+//             a++;
+//             answer.push_back('+');
+//         }
+//         if(st.top()!=x)
+//         {
+//             cout << "NO" << '\n';
+//             return 0;
+//         }
+//         else
+//         {
+//             st.pop();
+//             answer.push_back('-');
+//         }
+//     }
+//     for(int i=0;i<answer.size();i++)
+//     {
+//         cout << answer[i] << '\n';
+//     }
+//     return 0;
+// }
 #include <bits/stdc++.h>
 using namespace std;
 
 int main()
 {
+    ios_base::sync_with_stdio(false);
+    cin.tie(NULL);
     int n;
     cin >> n;
     stack<int> st;
     vector<char> answer;
-    int a = 1;
-    for(int i=0;i<n;i++)
-    {
-        int x;
-        cin >> x;
-        while(st.empty()||st.top()<x)
-        {
-            st.push(a);
-            a++;
-            answer.push_back('+');
-        }
-        if(st.top()!=x)
-        {
-            cout << "NO" << '\n';
-            return 0;
-        }
-        else
-        {
-            st.pop();
-            answer.push_back('-');
-        }
+    int now = 1;
+    for(int i=0;i<n;i++) {
+      int x;
+      cin >> x;
+      if(!st.empty()&&st.top()>x) {
+        cout << "NO" << '\n';
+        return 0;
+      }
+      while(st.empty()||st.top()<x) {
+        st.push(now++);
+        answer.push_back('+');
+      }
+      st.pop();
+      answer.push_back('-');
     }
-    for(int i=0;i<answer.size();i++)
-    {
-        cout << answer[i] << '\n';
+    for(int i=0;i<answer.size();i++) {
+      cout << answer[i] << '\n';
     }
     return 0;
 }

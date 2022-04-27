@@ -1,4 +1,5 @@
 1
+
 ```
 #include <string>
 #include <vector>
@@ -7,7 +8,7 @@ using namespace std;
 
 vector<int> solution(vector<int> array, vector<vector<int>> commands) {
     vector<int> answer;
-    
+
     for(vector<int> k : commands)
     {
         int c_i = k[0];
@@ -26,7 +27,9 @@ vector<int> solution(vector<int> array, vector<vector<int>> commands) {
     return answer;
 }
 ```
+
 2
+
 ```
 #include <string>
 #include <vector>
@@ -48,7 +51,9 @@ vector<int> solution(vector<int> array, vector<vector<int>> commands) {
     return answer;
 }
 ```
+
 3
+
 ```
 #include <string>
 #include <vector>
@@ -69,5 +74,28 @@ vector<int> solution(vector<int> array, vector<vector<int>> commands) {
     return answer;
 }
 ```
-+ vector를 subvec하려면 copy를 쓰는게 좋을듯.
-+ copy(start,end,temp.begin()) -> end보다 한칸적게 카피되고 temp사이즈는 이미 잡혀있어야함.
+
+4
+
+```
+#include <string>
+#include <vector>
+#include <algorithm>
+using namespace std;
+
+vector<int> solution(vector<int> array, vector<vector<int>> commands) {
+    vector<int> answer;
+    for(int i=0;i<commands.size();i++) {
+        auto start = array.begin()+commands[i][0]-1;
+        auto end = array.begin()+commands[i][1];
+        vector<int> vec(commands[i][1]-commands[i][0]+1);
+        copy(start,end,vec.begin());
+        sort(vec.begin(),vec.end());
+        answer.push_back(vec[commands[i][2]-1]);
+    }
+    return answer;
+}
+```
+
+- vector를 subvec하려면 copy를 쓰는게 좋을듯.
+- copy(start,end,temp.begin()) -> end보다 한칸적게 카피되고 temp사이즈는 이미 잡혀있어야함.

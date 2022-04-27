@@ -164,69 +164,132 @@ int main()
     return 0;
 }
 */
+// #include <bits/stdc++.h>
+// using namespace std;
+// pair<int,int> check(int num,int x)
+// {
+//     int ball = 0;
+//     int strike = 0;
+//     string str_num = to_string(num);
+//     string str_x = to_string(x);
+//     for(int i=0;i<str_num.size();i++)
+//     {
+//         if(str_num[i]==str_x[i]) strike++;
+//         else if(str_num.find(str_x[i])!=string::npos) ball++;
+//     }
+//     return make_pair(strike,ball);
+// }
+// bool checkzero(int num)
+// {
+//     bool flag = true;
+//     set<char> s;
+//     string str_num = to_string(num);
+//     if(str_num.find('0')!=string::npos) flag = false;
+//     for(int i=0;i<str_num.size();i++)
+//     {
+//         s.insert(str_num[i]);
+//     }
+//     if(s.size()!=str_num.size()) flag = false;
+//     return flag;
+// }
+// int main()
+// {
+//     int n;
+//     cin >> n;
+//     vector<vector<int>> a;
+//     for(int i=0;i<n;i++)
+//     {
+//         vector<int> temp(3);
+//         cin >> temp[0] >> temp[1] >> temp[2];
+//         a.push_back(temp);
+//     }
+//     vector<int> result;
+//     int num = 100;
+//     while(num<=999)
+//     {
+//         if(checkzero(num)==false)
+//         {
+//             num++;
+//             continue;
+//         }
+//         bool flag = true;
+//         for(int i=0;i<a.size();i++)
+//         {
+//             auto p = check(num,a[i][0]);
+//             if(!(p.first==a[i][1]&&p.second==a[i][2]))
+//             {
+//                 flag = false;
+//                 break;
+//             }
+//         }
+//         if(flag==true) result.push_back(num);
+//         num++;
+//     }
+//     cout << result.size() << '\n';
+//     return 0;
+// }
 #include <bits/stdc++.h>
 using namespace std;
-pair<int,int> check(int num,int x)
-{
-    int ball = 0;
-    int strike = 0;
-    string str_num = to_string(num);
-    string str_x = to_string(x);
-    for(int i=0;i<str_num.size();i++)
-    {
-        if(str_num[i]==str_x[i]) strike++;
-        else if(str_num.find(str_x[i])!=string::npos) ball++;
-    }
-    return make_pair(strike,ball);
+vector<int> a(101);
+vector<pair<int,int>> b(101);
+
+bool num_check(int num) {
+  string temp = to_string(num);
+  if(temp.find('0')!=string::npos) return false;
+  set<char> s;
+  for(int i=0;i<temp.size();i++) {
+    s.insert(temp[i]);
+  }
+  if(s.size()==temp.size()) return true;
+  else return false;
 }
-bool checkzero(int num)
+
+pair<int,int> ans_check(int x, int y) {
+  string str_a = to_string(x);
+  string str_b = to_string(y);
+  int strike = 0;
+  int ball = 0;
+  for(int i=0;i<str_a.size();i++) {
+    if(str_a[i]==str_b[i]) strike++;
+    else {
+      if(str_a.find(str_b[i])!=string::npos) ball++;
+    }
+  }
+
+  return make_pair(strike,ball);
+}
+
+int main(int argc, char const *argv[])
 {
+  int n;
+  cin >> n;
+  for(int i=0;i<n;i++) {
+    int x,y,z;
+    cin >> x >> y >> z;
+    a[i] = x;
+    b[i] = make_pair(y,z);
+  }
+  int cnt = 100;
+  int answer = 0;
+  while(cnt<=999) {
+    if(num_check(cnt)==false) {
+      cnt++;
+      continue;
+    }
     bool flag = true;
-    set<char> s;
-    string str_num = to_string(num);
-    if(str_num.find('0')!=string::npos) flag = false;
-    for(int i=0;i<str_num.size();i++)
-    {
-        s.insert(str_num[i]);
+    for(int i=0;i<n;i++) {
+      auto x = ans_check(a[i],cnt);
+      if(x!=b[i]) {
+        flag = false;
+        break;
+      }
     }
-    if(s.size()!=str_num.size()) flag = false;
-    return flag;
-}
-int main()
-{
-    int n;
-    cin >> n;
-    vector<vector<int>> a;
-    for(int i=0;i<n;i++)
-    {
-        vector<int> temp(3);
-        cin >> temp[0] >> temp[1] >> temp[2];
-        a.push_back(temp);
-    }
-    vector<int> result;
-    int num = 100;
-    while(num<=999)
-    {
-        if(checkzero(num)==false)
-        {
-            num++;
-            continue;
-        }
-        bool flag = true;
-        for(int i=0;i<a.size();i++)
-        {
-            auto p = check(num,a[i][0]);
-            if(!(p.first==a[i][1]&&p.second==a[i][2]))
-            {
-                flag = false;
-                break;
-            }
-        }
-        if(flag==true) result.push_back(num);
-        num++;
-    }
-    cout << result.size() << '\n';
-    return 0;
+    if(flag==true) answer++;
+    cnt++;
+  }
+
+  cout << answer << '\n';
+  return 0;
 }
 
 

@@ -1,4 +1,5 @@
 1
+
 ```
 #include <string>
 #include <vector>
@@ -22,11 +23,13 @@ int solution(vector<int> citations) {
             answer = i;
         }
     }
-    
+
     return answer;
 }
 ```
+
 2
+
 ```
 #include <string>
 #include <vector>
@@ -50,7 +53,9 @@ int solution(vector<int> citations) {
     return answer;
 }
 ```
+
 3
+
 ```
 #include <string>
 #include <vector>
@@ -65,12 +70,14 @@ int solution(vector<int> citations) {
     {
         auto it = lower_bound(citations.begin(),citations.end(),i);
         int idx = it - citations.begin();
-        if(citations.size()-idx>= i) answer = i; 
+        if(citations.size()-idx>= i) answer = i;
     }
     return answer;
 }
 ```
+
 4
+
 ```
 #include <string>
 #include <vector>
@@ -92,7 +99,9 @@ int solution(vector<int> citations) {
     return answer;
 }
 ```
+
 5
+
 ```
 #include <string>
 #include <vector>
@@ -113,4 +122,28 @@ int solution(vector<int> citations) {
     return answer;
 }
 ```
-+ lower_bound를 사용한 문제해결, lower_bound는 지정값보다 같거나 큰 원소의 주소값을 반환
+
+6
+
+```
+#include <string>
+#include <vector>
+#include <algorithm>
+using namespace std;
+
+int solution(vector<int> citations) {
+    int answer = 0;
+    int maxi = *max_element(citations.begin(),citations.end());
+    int size = citations.size();
+    sort(citations.begin(),citations.end());
+    for(int i=0;i<=maxi;i++) {
+        int idx = lower_bound(citations.begin(),citations.end(),i) - citations.begin();
+        if(size-idx >= i && idx <= i) {
+            answer = i;
+        }
+    }
+    return answer;
+}
+```
+
+- lower_bound를 사용한 문제해결, lower_bound는 지정값보다 같거나 큰 원소의 주소값을 반환

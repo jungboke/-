@@ -51,21 +51,43 @@ int main()
     return 0;
 }
 */
+#include <bits/stdc++.h>
+using namespace std;
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+int main()
+{
+  int t;
+  cin >> t;
+  while(t--) {
+    int n;
+    cin >> n;
+    cin.ignore();
+    multiset<int> ms;
+    for(int i=0;i<n;i++) {
+      string a;
+      getline(cin,a);
+      if(a[0]=='I') ms.insert(stoi(a.substr(2)));
+      else {
+        if(ms.empty()) continue;
+        if(stoi(a.substr(2))==-1) {
+          ms.erase(ms.begin());
+        }
+        else {
+          auto it = ms.end();
+          it--;
+          ms.erase(it);
+        }
+      }
+    }
+    if(ms.empty()) cout << "EMPTY" << '\n';
+    else {
+      auto it = ms.end();
+      it--;
+      cout << *(it) << ' ' << *ms.begin() << '\n';
+    }
+  }
+  return 0;
+}
 
 // 반복자 사칙연산을 하려면 vector,deque만 가능.
 // list,set,map은 반복자 사칙연산이 ++,--만 가능. why) 두 반복자 유형이 다름.

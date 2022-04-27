@@ -80,43 +80,72 @@ int main()
     return 0;
 }
 */
+// #include <bits/stdc++.h>
+// using namespace std;
+// int maxi = 0;
+// void go(vector<int> a,string target,int length,string num)
+// {
+//     if(num.size()==length+1)
+//     {
+//         return;
+//     }
+//     if(num!=""&&stoi(num)<=stoi(target))
+//     {
+//         if(stoi(num)>maxi)
+//         {
+//             maxi = stoi(num);
+//         }
+//     }
+//     for(int i=0;i<a.size();i++)
+//     {
+//         num += to_string(a[i]);
+//         go(a,target,length,num);
+//         num.erase(num.end()-1);
+//     }
+// }
+// int main()
+// {
+//     string str_a;
+//     cin >> str_a;
+//     int n;
+//     cin >> n;
+//     vector<int> a(n);
+//     for(int i=0;i<n;i++)
+//     {
+//         cin >> a[i];
+//     }
+//     go(a,str_a,str_a.size(),"");
+//     cout << maxi << '\n';
+//     return 0;
+// }
 #include <bits/stdc++.h>
 using namespace std;
-int maxi = 0;
-void go(vector<int> a,string target,int length,string num)
-{
-    if(num.size()==length+1)
-    {
-        return;
-    }
-    if(num!=""&&stoi(num)<=stoi(target))
-    {
-        if(stoi(num)>maxi)
-        {
-            maxi = stoi(num);
-        }
-    }
-    for(int i=0;i<a.size();i++)
-    {
-        num += to_string(a[i]);
-        go(a,target,length,num);
-        num.erase(num.end()-1);
-    }
+vector<char> a;
+vector<int> answer;
+
+void go(int length, string sum, int target) {
+  if(sum.size()==length+1) {
+    return;
+  }
+  if(sum!=""&&stoi(sum)<=target) answer.push_back(stoi(sum));
+  for(int i=0;i<a.size();i++) {
+    go(length,sum+a[i],target);
+  }
 }
-int main()
+
+int main(int argc, char const *argv[])
 {
-    string str_a;
-    cin >> str_a;
-    int n;
-    cin >> n;
-    vector<int> a(n);
-    for(int i=0;i<n;i++)
-    {
-        cin >> a[i];
-    }
-    go(a,str_a,str_a.size(),"");
-    cout << maxi << '\n';
-    return 0;
+  int n,k;
+  cin >> n >> k;
+  for(int i=0;i<k;i++) {
+    char x;
+    cin >> x;
+    a.push_back(x);
+  }
+  go(to_string(n).size(),"",n);
+  
+  cout << *max_element(answer.begin(),answer.end()) << '\n';
+  return 0;
 }
 
 
