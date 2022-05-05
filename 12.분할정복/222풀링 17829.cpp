@@ -64,53 +64,94 @@ int main()
     return 0;
 }
 */
+// #include <bits/stdc++.h>
+// using namespace std;
+// int a[1050][1050];
+// int check(int x,int y,int n)
+// {
+//     vector<int> temp;
+//     for(int i=0;i<n;i++)
+//     {
+//         for(int j=0;j<n;j++)
+//         {
+//             int nx = x+i;
+//             int ny = y+j;
+//             temp.push_back(a[nx][ny]);
+//         }
+//     }
+//     sort(temp.begin(),temp.end());
+//     return temp[2];
+// }
+// void go(int x,int y,int n)
+// {
+//     if(n==2)
+//     {
+//         int maxi = check(x,y,n);
+//         a[x/2][y/2] = maxi;
+//         return;
+//     }
+//     go(x,y,n/2);
+//     go(x+n/2,y,n/2);
+//     go(x,y+n/2,n/2);
+//     go(x+n/2,y+n/2,n/2);
+// }
+// int main()
+// {
+//     int n;
+//     cin >> n;
+//     for(int i=0;i<n;i++)
+//     {
+//         for(int j=0;j<n;j++)
+//         {
+//             cin >> a[i][j];
+//         }
+//     }
+//     while(n!=1)
+//     {
+//         go(0,0,n);
+//         n = n/2;
+//     }
+//     cout << a[0][0] << '\n';
+//     return 0;
+// }
 #include <bits/stdc++.h>
 using namespace std;
-int a[1050][1050];
-int check(int x,int y,int n)
-{
+int a[1025][1025];
+
+void dfs(int x, int y, int n) {
+  if(n==2) {
     vector<int> temp;
-    for(int i=0;i<n;i++)
-    {
-        for(int j=0;j<n;j++)
-        {
-            int nx = x+i;
-            int ny = y+j;
-            temp.push_back(a[nx][ny]);
-        }
+    for(int i=x;i<x+n;i++) {
+      for(int j=y;j<y+n;j++) {
+        temp.push_back(a[i][j]);
+      }
     }
     sort(temp.begin(),temp.end());
-    return temp[2];
+    a[x/2][y/2] = temp[2];
+    return;
+  }
+  dfs(x,y,n/2);
+  dfs(x+n/2,y,n/2);
+  dfs(x,y+n/2,n/2);
+  dfs(x+n/2,y+n/2,n/2);
 }
-void go(int x,int y,int n)
+
+int main(int argc, char const *argv[])
 {
-    if(n==2)
-    {
-        int maxi = check(x,y,n);
-        a[x/2][y/2] = maxi;
-        return;
+  ios_base::sync_with_stdio(false);
+  cin.tie(NULL);
+  int n;
+  cin >> n;
+  for(int i=0;i<n;i++) {
+    for(int j=0;j<n;j++) {
+      cin >> a[i][j];
     }
-    go(x,y,n/2);
-    go(x+n/2,y,n/2);
-    go(x,y+n/2,n/2);
-    go(x+n/2,y+n/2,n/2);
-}
-int main()
-{
-    int n;
-    cin >> n;
-    for(int i=0;i<n;i++)
-    {
-        for(int j=0;j<n;j++)
-        {
-            cin >> a[i][j];
-        }
-    }
-    while(n!=1)
-    {
-        go(0,0,n);
-        n = n/2;
-    }
-    cout << a[0][0] << '\n';
-    return 0;
+  }
+  while(n!=1) {
+    dfs(0,0,n);
+    n/=2;
+  }
+
+  cout << a[0][0] << '\n';
+  return 0;
 }

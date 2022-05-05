@@ -57,50 +57,98 @@ int main()
     return 0;
 }
 */
+// #include <bits/stdc++.h>
+// #define rank _rank
+// using namespace std;
+// int parent[201];
+// int rank[201];
+// int Find(int x)
+// {
+//     if(x==parent[x]) return x;
+//     else return parent[x] = Find(parent[x]);
+// }
+// void Union(int x,int y)
+// {
+//     x = Find(x);
+//     y = Find(y);
+//     if(x==y) return;
+//     if(rank[y]>rank[x]) swap(x,y);
+//     parent[y] = x;
+//     if(rank[y]==rank[x]) rank[x]++;
+// }
+// int main()
+// {
+//     int n,m;
+//     cin >> n >> m;
+//     for(int i=1;i<=n;i++) parent[i] = i;
+//     for(int i=1;i<=n;i++)
+//     {
+//         for(int j=1;j<=n;j++)
+//         {
+//             int x;
+//             cin >> x;
+//             if(x==1) Union(i,j); 
+//         }
+//     }
+//     vector<int> temp(m);
+//     bool flag = true;
+//     for(int i=0;i<m;i++)
+//     {   
+//         cin >> temp[i];
+//     }
+//     for(int i=1;i<m;i++)
+//     {
+//         if(Find(temp[i])!=Find(temp[i-1])) flag = false;  
+//     }
+//     if(flag==true) cout << "YES" << '\n';
+//     else cout << "NO" << '\n';
+//     return 0;
+// }
 #include <bits/stdc++.h>
 #define rank _rank
 using namespace std;
 int parent[201];
 int rank[201];
-int Find(int x)
-{
-    if(x==parent[x]) return x;
-    else return parent[x] = Find(parent[x]);
+
+int Find(int x) {
+  if(parent[x]==x) return x;
+  else return parent[x] = Find(parent[x]);
 }
-void Union(int x,int y)
-{
-    x = Find(x);
-    y = Find(y);
-    if(x==y) return;
-    if(rank[y]>rank[x]) swap(x,y);
-    parent[y] = x;
-    if(rank[y]==rank[x]) rank[x]++;
+
+void Union(int x, int y) {
+  x = Find(x);
+  y = Find(y);
+  if(x==y) return;
+  if(rank[x]<rank[y]) swap(x,y);
+  parent[y] = x;
+  if(rank[x]==rank[y]) rank[x]+=1;
 }
-int main()
+
+int main(int argc, char const *argv[])
 {
-    int n,m;
-    cin >> n >> m;
-    for(int i=1;i<=n;i++) parent[i] = i;
-    for(int i=1;i<=n;i++)
-    {
-        for(int j=1;j<=n;j++)
-        {
-            int x;
-            cin >> x;
-            if(x==1) Union(i,j); 
-        }
+  int n,m;
+  cin >> n >> m;
+  for(int i=1;i<=n;i++) {
+    parent[i] = i;
+  }
+  for(int i=1;i<=n;i++) {
+    for(int j=1;j<=n;j++) {
+      int x;
+      cin >> x;
+      if(x==0||i>=j) continue;
+      Union(i,j);
     }
-    vector<int> temp(m);
-    bool flag = true;
-    for(int i=0;i<m;i++)
-    {   
-        cin >> temp[i];
-    }
-    for(int i=1;i<m;i++)
-    {
-        if(Find(temp[i])!=Find(temp[i-1])) flag = false;  
-    }
-    if(flag==true) cout << "YES" << '\n';
-    else cout << "NO" << '\n';
-    return 0;
+  }
+  vector<int> temp(m);
+  bool flag = true;
+  for(int i=0;i<m;i++) {
+    cin >> temp[i];
+  }
+  for(int i=1;i<m;i++) {
+    if(Find(temp[i])!=Find(temp[i-1])) flag = false;
+  }
+
+  if(flag==true) cout << "YES" << '\n';
+  else cout << "NO" << '\n';
+  return 0;
 }

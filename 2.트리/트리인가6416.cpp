@@ -77,62 +77,132 @@ int main()
     return 0;
 }
 */
+// #include <bits/stdc++.h>
+// using namespace std;
+
+// vector<int> a[1000];
+// int ind[1000];
+// bool check[1000];
+// void dfs(int root)
+// {
+//     check[root] = true;
+//     for(auto k:a[root])
+//     {
+//         if(check[k]==false) dfs(k);
+//     }
+// }
+
+// int main()
+// {
+//     int cnt = 1;
+//     while(true)
+//     {
+//         for(int i=0;i<1000;i++)
+//         {
+//             a[i].clear();
+//         }
+//         memset(ind,0,sizeof(ind));
+//         memset(check,false,sizeof(check));
+//         bool flag = true;
+//         set<int> s;
+//         while(true)
+//         {
+//             int x,y;
+//             cin >> x >> y;
+//             if(x<0&&y<0) return 0;
+//             else if(x==0&&y==0) break;
+//             s.insert(x);
+//             s.insert(y);
+//             a[x].push_back(y);
+//             ind[y]++;
+//         }
+//         int root = -1;
+//         int nroot = 0;
+//         for(auto k:s)
+//         {
+//             if(ind[k]==0) root = k;
+//             else if(ind[k]==1) nroot++;
+//         }
+//         if(root==-1||nroot!=s.size()-1) flag = false;
+//         dfs(root);
+//         for(auto k:s)
+//         {
+//             if(check[k]==false) flag = false;
+//         }
+//         if(s.size()==0) flag = true;
+//         if(flag==false) cout << "Case " << cnt << " is not a tree." << '\n';
+//         else cout << "Case " << cnt << " is a tree." << '\n';
+//         cnt++; 
+//     }
+//     return 0;
+// }
 #include <bits/stdc++.h>
 using namespace std;
+vector<int> a[10001];
+int ind[10001];
+int dist[10001];
 
-vector<int> a[1000];
-int ind[1000];
-bool check[1000];
-void dfs(int root)
-{
-    check[root] = true;
-    for(auto k:a[root])
-    {
-        if(check[k]==false) dfs(k);
-    }
+void dfs(int x) {
+  dist[x]+=1;
+  for(auto k:a[x]) {
+    if(dist[k]==0) dfs(k);
+    else dist[k]+=1;
+  }
 }
 
-int main()
+int main(int argc, char const *argv[])
 {
-    int cnt = 1;
-    while(true)
-    {
-        for(int i=0;i<1000;i++)
-        {
-            a[i].clear();
-        }
-        memset(ind,0,sizeof(ind));
-        memset(check,false,sizeof(check));
-        bool flag = true;
-        set<int> s;
-        while(true)
-        {
-            int x,y;
-            cin >> x >> y;
-            if(x<0&&y<0) return 0;
-            else if(x==0&&y==0) break;
-            s.insert(x);
-            s.insert(y);
-            a[x].push_back(y);
-            ind[y]++;
-        }
-        int root = -1;
-        int nroot = 0;
-        for(auto k:s)
-        {
-            if(ind[k]==0) root = k;
-            else if(ind[k]==1) nroot++;
-        }
-        if(root==-1||nroot!=s.size()-1) flag = false;
-        dfs(root);
-        for(auto k:s)
-        {
-            if(check[k]==false) flag = false;
-        }
-        if(s.size()==0) flag = true;
-        if(flag==false) cout << "Case " << cnt << " is not a tree." << '\n';
-        else cout << "Case " << cnt << " is a tree." << '\n';
-        cnt++; 
+  int cnt = 1;
+  while(true) {
+    bool flag = true;
+    bool flag1 = false;
+    bool flag2 = true;
+    bool flag3 = true;
+    set<int> s;
+    while(true) {
+      int x,y;
+      cin >> x >> y;
+      if(x<0&&y<0) {
+        flag = false;
+        break;
+      } else if(x==0&&y==0) break;
+      a[x].push_back(y);
+      s.insert(x);
+      s.insert(y);
+      ind[y]++;
     }
-    return 0;
+    if(flag==false) break;
+
+    int root = -1;
+    int root_cnt = 0;
+    for(auto k:s) {
+      if(ind[k]==0) {
+        root = k;
+        root_cnt+=1;
+      } 
+    }
+
+    if(root!=-1&&root_cnt==1) flag1 = true;
+    for(auto k:s) {
+      if(k==root) continue;
+      if(ind[k]!=1) flag2 = false;
+    }
+    dfs(root);
+    for(auto k:s) {
+      if(k==root) continue;
+      if(dist[k]!=1) flag3 = false;
+    }
+
+    if(s.empty()||(flag1==true&&flag2==true&&flag3==true)) {
+      cout << "Case " << cnt << " is a tree." << '\n';
+    } else cout << "Case " << cnt << " is not a tree." << '\n';
+
+    for(auto k:s) {
+      a[k].clear();
+      ind[k] = 0;
+      dist[k] = 0;
+    }
+    cnt++;
+  }
+  return 0;
 }

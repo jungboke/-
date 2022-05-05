@@ -52,45 +52,79 @@ int main()
     return 0;
 }
 */
+// #include <bits/stdc++.h>
+// using namespace std;
+
+// int main()
+// {
+//     int n;
+//     cin >> n;
+//     vector<int> a(n);
+//     int sum = 0;
+//     for(int i=0;i<n;i++)
+//     {
+//         cin >> a[i];
+//         sum += a[i];
+//     }
+//     int m;
+//     cin >> m;
+//     if(sum<=m) cout << *max_element(a.begin(),a.end()) << '\n';
+//     else
+//     {
+//         int start = 0;
+//         int end = *max_element(a.begin(),a.end());
+//         int maxi = 0;
+//         while(start<=end)
+//         {
+//             int mid = (start+end)/2;
+//             int temp = 0;
+//             for(int i=0;i<a.size();i++)
+//             {
+//                 if(a[i]>mid) temp += mid;
+//                 else temp += a[i];
+//             }
+//             if(temp>m) end = mid-1;
+//             else
+//             {
+//                 start = mid+1;
+//                 maxi = max(maxi,mid);
+//             }
+//         }
+//         cout << maxi << '\n';
+//     }
+//     return 0;
+// }
 #include <bits/stdc++.h>
 using namespace std;
+vector<int> a;
 
-int main()
+int main(int argc, char const *argv[])
 {
-    int n;
-    cin >> n;
-    vector<int> a(n);
+  int n;
+  cin >> n;
+  for(int i=0;i<n;i++) {
+    int x;
+    cin >> x;
+    a.push_back(x);
+  }
+  int m;
+  cin >> m;
+  int start = 0;
+  int end = *max_element(a.begin(),a.end());
+  int maxi = 0;
+  while(start<=end) {
+    int mid = (start+end)/2;
     int sum = 0;
-    for(int i=0;i<n;i++)
-    {
-        cin >> a[i];
-        sum += a[i];
+    for(int i=0;i<a.size();i++) {
+      if(a[i]>=mid) sum += mid;
+      else sum += a[i];
     }
-    int m;
-    cin >> m;
-    if(sum<=m) cout << *max_element(a.begin(),a.end()) << '\n';
-    else
-    {
-        int start = 0;
-        int end = *max_element(a.begin(),a.end());
-        int maxi = 0;
-        while(start<=end)
-        {
-            int mid = (start+end)/2;
-            int temp = 0;
-            for(int i=0;i<a.size();i++)
-            {
-                if(a[i]>mid) temp += mid;
-                else temp += a[i];
-            }
-            if(temp>m) end = mid-1;
-            else
-            {
-                start = mid+1;
-                maxi = max(maxi,mid);
-            }
-        }
-        cout << maxi << '\n';
-    }
-    return 0;
+    if(sum<=m) {
+      start = mid + 1;
+      maxi = max(maxi,mid);
+    } else end = mid - 1;
+  }
+
+  cout << maxi << '\n';
+  return 0;
 }
