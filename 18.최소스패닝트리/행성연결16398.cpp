@@ -60,59 +60,110 @@ int main()
     return 0;
 }
 */
+// #include <bits/stdc++.h>
+// using namespace std;
+// struct Edge
+// {
+//     int to;
+//     int cost;
+//     Edge(int to,int cost) : to(to),cost(cost) {}
+// };
+// struct cmp
+// {
+//     bool operator()(Edge a,Edge b)
+//     {
+//         return (a.cost>b.cost);
+//     }
+// };
+// vector<Edge> a[1001];
+// bool check[1001];
+// int main()
+// {
+//     ios_base::sync_with_stdio(false);
+//     cin.tie(NULL);
+//     int n;
+//     cin >> n;
+//     for(int i=1;i<=n;i++)
+//     {
+//         for(int j=1;j<=n;j++)
+//         {
+//             int x;
+//             cin >> x;
+//             if(i==j) continue;
+//             a[i].push_back(Edge(j,x));
+//         }
+//     }
+//     priority_queue<Edge,vector<Edge>,cmp> pq;
+//     check[1] = true;
+//     for(auto k:a[1])
+//     {
+//         pq.push(k);
+//     }
+//     long long answer = 0;
+//     while(!pq.empty())
+//     {
+//         auto e = pq.top();
+//         pq.pop();
+//         int x = e.to;
+//         if(check[x]==true) continue;
+//         check[x] = true;
+//         answer += e.cost;
+//         for(auto k:a[x])
+//         {
+//             pq.push(k);
+//         }
+//     }
+//     cout << answer << '\n';
+//     return 0;
+// }
 #include <bits/stdc++.h>
 using namespace std;
-struct Edge
-{
-    int to;
-    int cost;
-    Edge(int to,int cost) : to(to),cost(cost) {}
+struct Edge {
+  int to;
+  int cost;
+  Edge(int to, int cost) : to(to), cost(cost) {}
 };
-struct cmp
-{
-    bool operator()(Edge a,Edge b)
-    {
-        return (a.cost>b.cost);
-    }
+struct cmp {
+  bool operator()(Edge a, Edge b) {
+    return (a.cost>b.cost);
+  }
 };
 vector<Edge> a[1001];
 bool check[1001];
-int main()
+
+int main(int argc, char const *argv[])
 {
-    ios_base::sync_with_stdio(false);
-    cin.tie(NULL);
-    int n;
-    cin >> n;
-    for(int i=1;i<=n;i++)
-    {
-        for(int j=1;j<=n;j++)
-        {
-            int x;
-            cin >> x;
-            if(i==j) continue;
-            a[i].push_back(Edge(j,x));
-        }
+  ios_base::sync_with_stdio(false);
+  cin.tie(NULL);
+  int n;
+  cin >> n;
+  for(int i=1;i<=n;i++) {
+    for(int j=1;j<=n;j++) {
+      int x;
+      cin >> x;
+      if(i>=j) continue;
+      a[i].push_back(Edge(j,x));
+      a[j].push_back(Edge(i,x));
     }
-    priority_queue<Edge,vector<Edge>,cmp> pq;
-    check[1] = true;
-    for(auto k:a[1])
-    {
-        pq.push(k);
+  }
+  priority_queue<Edge,vector<Edge>,cmp> pq;
+  check[1] = true;
+  for(auto k:a[1]) {
+    pq.push(k);
+  }
+  long long answer = 0;
+  while(!pq.empty()) {
+    Edge e = pq.top();
+    pq.pop();
+    int x = e.to;
+    if(check[x]==true) continue;
+    check[x] = true;
+    answer += e.cost;
+    for(auto k:a[x]) {
+      pq.push(k);
     }
-    long long answer = 0;
-    while(!pq.empty())
-    {
-        auto e = pq.top();
-        pq.pop();
-        int x = e.to;
-        if(check[x]==true) continue;
-        check[x] = true;
-        answer += e.cost;
-        for(auto k:a[x])
-        {
-            pq.push(k);
-        }
-    }
-    cout << answer << '\n';
-    return 0;
+  }
+
+  cout << answer << '\n';
+  return 0;
 }
