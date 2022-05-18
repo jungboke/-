@@ -1,3 +1,4 @@
+// end설정하는부분에서 잘못됨. cd의 마지막 인덱스+1까지 취급해야함. why) upperbound관련해서 마지막인덱스 이후로 나올수도
 /*
 #include <vector>
 #include <algorithm>
@@ -71,51 +72,92 @@ int main()
     return 0;
 }
 */
-#include <vector>
-#include <algorithm>
-#include <iostream>
-using namespace std;
+// #include <vector>
+// #include <algorithm>
+// #include <iostream>
+// using namespace std;
 
-int main()
+// int main()
+// {
+//     ios_base::sync_with_stdio(false);
+//     cin.tie(NULL);
+//     int n;
+//     cin >> n;
+//     vector<long long> a(n);
+//     vector<long long> b(n);
+//     vector<long long> c(n);
+//     vector<long long> d(n);
+//     for(int i=0;i<n;i++)
+//     {
+//         cin >> a[i] >> b[i] >> c[i] >> d[i];
+//     }
+//     vector<long long> e;
+//     vector<long long> f;
+//     for(int i=0;i<a.size();i++)
+//     {
+//         for(int j=0;j<b.size();j++)
+//         {
+//             e.push_back(a[i]+b[j]);
+//         }
+//     }
+//     for(int i=0;i<c.size();i++)
+//     {
+//         for(int j=0;j<d.size();j++)
+//         {
+//             f.push_back(c[i]+d[j]);
+//         }
+//     }
+//     sort(e.begin(),e.end());
+//     sort(f.begin(),f.end());
+//     long long answer = 0;
+//     for(int i=0;i<e.size();i++)
+//     {
+//         auto x = lower_bound(f.begin(),f.end(),-e[i]);
+//         auto y = upper_bound(f.begin(),f.end(),-e[i]);
+//         answer += y-x;
+//     }
+//     cout << answer << '\n';
+//     return 0;
+// }
+#include <bits/stdc++.h>
+using namespace std;
+vector<int> a;
+vector<int> b;
+vector<int> c;
+vector<int> d;
+vector<int> e;
+vector<int> f;
+
+int main(int argc, char const *argv[])
 {
-    ios_base::sync_with_stdio(false);
-    cin.tie(NULL);
-    int n;
-    cin >> n;
-    vector<long long> a(n);
-    vector<long long> b(n);
-    vector<long long> c(n);
-    vector<long long> d(n);
-    for(int i=0;i<n;i++)
-    {
-        cin >> a[i] >> b[i] >> c[i] >> d[i];
+  int n;
+  cin >> n;
+  for(int i=0;i<n;i++) {
+    int A,B,C,D;
+    cin >> A >> B >> C >> D;
+    a.push_back(A);
+    b.push_back(B);
+    c.push_back(C);
+    d.push_back(D);
+  }
+  for(int i=0;i<n;i++) {
+    for(int j=0;j<n;j++) {
+      int temp1 = a[i]+b[j];
+      int temp2 = c[i]+d[j];
+      e.push_back(temp1);
+      f.push_back(temp2);
     }
-    vector<long long> e;
-    vector<long long> f;
-    for(int i=0;i<a.size();i++)
-    {
-        for(int j=0;j<b.size();j++)
-        {
-            e.push_back(a[i]+b[j]);
-        }
-    }
-    for(int i=0;i<c.size();i++)
-    {
-        for(int j=0;j<d.size();j++)
-        {
-            f.push_back(c[i]+d[j]);
-        }
-    }
-    sort(e.begin(),e.end());
-    sort(f.begin(),f.end());
-    long long answer = 0;
-    for(int i=0;i<e.size();i++)
-    {
-        auto x = lower_bound(f.begin(),f.end(),-e[i]);
-        auto y = upper_bound(f.begin(),f.end(),-e[i]);
-        answer += y-x;
-    }
-    cout << answer << '\n';
-    return 0;
+  }
+  sort(e.begin(),e.end());
+  sort(f.begin(),f.end());
+  long long answer = 0;
+  for(int i=0;i<e.size();i++) {
+    int temp = e[i];
+    auto it1 = lower_bound(f.begin(),f.end(),-temp);
+    auto it2 = upper_bound(f.begin(),f.end(),-temp);
+    answer += (it2-it1);
+  }
+
+  cout << answer << '\n';
+  return 0;
 }
-// end설정하는부분에서 잘못됨. cd의 마지막 인덱스+1까지 취급해야함. why) upperbound관련해서 마지막인덱스 이후로 나올수도

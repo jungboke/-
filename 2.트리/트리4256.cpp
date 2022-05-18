@@ -49,44 +49,83 @@ int main()
     return 0;
 }
 */
+// #include <bits/stdc++.h>
+// using namespace std;
+// int preorder[1001];
+// int inorder[1001];
+// void go(int root,int s,int e)
+// {
+//     for(int i=s;i<=e;i++)
+//     {
+//         if(inorder[i]==preorder[root])
+//         {
+//             go(root+1,s,i-1);
+//             go(root+i-s+1,i+1,e);
+//             cout << preorder[root] << ' ';
+//         }
+//     }
+// }
+// int main()
+// {
+//     int t;
+//     cin >> t;
+//     while(t--)
+//     {
+//         int n;
+//         cin >> n;
+//         for(int i=0;i<n;i++)
+//         {
+//             int x;
+//             cin >> x;
+//             preorder[i] = x;
+//         }
+//         for(int i=0;i<n;i++)
+//         {
+//             int x;
+//             cin >> x;
+//             inorder[i] = x;
+//         }
+//         go(0,0,n-1);
+//         cout << '\n';
+//     }
+//     return 0;
+// }
 #include <bits/stdc++.h>
 using namespace std;
-int preorder[1001];
-int inorder[1001];
-void go(int root,int s,int e)
-{
-    for(int i=s;i<=e;i++)
-    {
-        if(inorder[i]==preorder[root])
-        {
-            go(root+1,s,i-1);
-            go(root+i-s+1,i+1,e);
-            cout << preorder[root] << ' ';
-        }
+vector<int> preorder;
+vector<int> inorder;
+
+void go(int root, int s, int e) {
+  for(int i=s;i<=e;i++) {
+    if(inorder[i]==preorder[root]) {
+      go(root+1,s,i-1);
+      go(root+i-s+1,i+1,e);
+      cout << preorder[root] << ' ';
     }
+  }
 }
-int main()
+
+int main(int argc, char const *argv[])
 {
-    int t;
-    cin >> t;
-    while(t--)
-    {
-        int n;
-        cin >> n;
-        for(int i=0;i<n;i++)
-        {
-            int x;
-            cin >> x;
-            preorder[i] = x;
-        }
-        for(int i=0;i<n;i++)
-        {
-            int x;
-            cin >> x;
-            inorder[i] = x;
-        }
-        go(0,0,n-1);
-        cout << '\n';
+  int t;
+  cin >> t;
+  while(t--) {
+    preorder.clear();
+    inorder.clear();
+    int n;
+    cin >> n;
+    for(int i=0;i<n;i++) {
+      int x;
+      cin >> x;
+      preorder.push_back(x);
     }
-    return 0;
+    for(int i=0;i<n;i++) {
+      int x;
+      cin >> x;
+      inorder.push_back(x);
+    }
+    go(0,0,n-1);
+    cout << '\n';
+  }
+  return 0;
 }
