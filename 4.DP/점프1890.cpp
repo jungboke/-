@@ -27,9 +27,3 @@ int main(int argc, char const *argv[])
   cout << d[n][n] << '\n';
   return 0;
 }
-
-
-
-
-
-
