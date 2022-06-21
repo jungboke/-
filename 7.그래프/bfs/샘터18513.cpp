@@ -61,50 +61,97 @@ int main()
     return 0;
 }
 */
+// #include <bits/stdc++.h>
+// using namespace std;
+// int dx[] = {-1,1};
+// int main()
+// {
+//     int n,m;
+//     cin >> n >> m;
+//     queue<int> q;
+//     set<int> s;
+//     for(int i=0;i<n;i++)
+//     {
+//         int x;
+//         cin >> x;
+//         q.push(x);
+//         s.insert(x);
+//     }
+//     long long answer = 0;
+//     int dist = 0;
+//     int cnt = 0;
+//     while(!q.empty())
+//     {
+//         int size = q.size();
+//         dist++;
+//         for(int c=0;c<size;c++)
+//         {
+//             int x = q.front();
+//             q.pop();
+//             for(int i=0;i<2;i++)
+//             {
+//                 int nx = x+dx[i];
+//                 if(s.count(nx)==0)
+//                 {
+//                     q.push(nx);
+//                     s.insert(nx);
+//                     answer += dist;
+//                     cnt++;
+//                 }
+//                 if(cnt==m)
+//                 {
+//                     cout << answer << '\n';
+//                     return 0;
+//                 }
+//             }
+//         }
+//     }
+//     return 0;
+// }
 #include <bits/stdc++.h>
+#define INF 100500000
 using namespace std;
-int dx[] = {-1,1};
-int main()
+bool check[210000000];
+int main(int argc, char const *argv[])
 {
-    int n,m;
-    cin >> n >> m;
-    queue<int> q;
-    set<int> s;
-    for(int i=0;i<n;i++)
-    {
-        int x;
-        cin >> x;
-        q.push(x);
-        s.insert(x);
-    }
-    long long answer = 0;
-    int dist = 0;
-    int cnt = 0;
-    while(!q.empty())
-    {
-        int size = q.size();
-        dist++;
-        for(int c=0;c<size;c++)
-        {
-            int x = q.front();
-            q.pop();
-            for(int i=0;i<2;i++)
-            {
-                int nx = x+dx[i];
-                if(s.count(nx)==0)
-                {
-                    q.push(nx);
-                    s.insert(nx);
-                    answer += dist;
-                    cnt++;
-                }
-                if(cnt==m)
-                {
-                    cout << answer << '\n';
-                    return 0;
-                }
-            }
+  int n,k;
+  cin >> n >> k;
+  queue<long long> q;
+  for(int i=0;i<n;i++) {
+    long long x;
+    cin >> x;
+    q.push(x+INF);
+    check[x+INF] = true;
+  }
+  long long answer = 0;
+  long long cnt = 0;
+  while(!q.empty()) {
+    int size = q.size();
+    cnt+=1; 
+    for(int i=0;i<size;i++) {
+      long long x = q.front();
+      q.pop();
+      if(check[x-1]==false) {
+        q.push(x-1);
+        check[x-1] = true;
+        answer += cnt;
+        k-=1;
+        if(k==0) {
+          cout << answer << '\n';
+          return 0;
         }
+      }
+      if(check[x+1]==false) {
+        q.push(x+1);
+        check[x+1] = true;
+        answer += cnt;
+        k-=1;
+        if(k==0) {
+          cout << answer << '\n';
+          return 0;
+        }
+      }
     }
-    return 0;
+  }
+  return 0;
 }

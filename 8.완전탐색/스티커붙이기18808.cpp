@@ -118,94 +118,168 @@ int main()
     return 0;
 }
 */
+// #include <bits/stdc++.h>
+// using namespace std;
+// int a[41][41];
+// int N,M;
+// void rotate(vector<vector<int>> &a)
+// {
+//     int n = a.size();
+//     int m = a[0].size(); 
+//     vector<vector<int>> tmp_a(m,vector<int>(n,0));
+//     for(int i=0;i<n;i++)
+//     {
+//         for(int j=0;j<m;j++)
+//         {
+//             tmp_a[j][n-i-1] = a[i][j];
+//         }
+//     }
+//     a.resize(m,vector<int>(n,0));
+//     a = tmp_a;
+// }
+// bool change(vector<vector<int>> temp)
+// {
+//     int n = temp.size();
+//     int m = temp[0].size();
+//     for(int c=0;c<N-n+1;c++)
+//     {
+//         for(int d=0;d<M-m+1;d++)
+//         {
+//             bool flag = true;
+//             for(int i=0;i<n;i++)
+//             {
+//                 for(int j=0;j<m;j++)
+//                 {
+//                     if(temp[i][j]==0) continue;
+//                     if(a[i+c][j+d]==1)
+//                     {
+//                         flag = false;
+//                     }
+//                 }
+//             }
+//             if(flag==true)
+//             {
+//                 for(int i=0;i<n;i++)
+//                 {
+//                     for(int j=0;j<m;j++)
+//                     {
+//                         if(temp[i][j]==0) continue;
+//                         a[i+c][j+d] = temp[i][j];
+//                     }
+//                 }
+//                 return true;
+//             }
+//         }
+//     }
+//     return false;
+// }
+// int main()
+// {
+//     int n,m,k;
+//     cin >> n >> m >> k;
+//     N=n;M=m;
+//     for(int c=0;c<k;c++)
+//     {
+//         int x,y;
+//         cin >> x >> y;
+//         vector<vector<int>> temp(x,vector<int>(y,0));
+//         for(int i=0;i<x;i++)
+//         {
+//             for(int j=0;j<y;j++)
+//             {
+//                 cin >> temp[i][j];
+//             }
+//         }
+//         for(int i=0;i<3;i++) rotate(temp);
+//         for(int i=0;i<4;i++)
+//         {
+//             rotate(temp);
+//             bool flag = change(temp);
+//             if(flag==true) break;
+//         }
+//     }
+//     int answer = 0;
+//     for(int i=0;i<n;i++)
+//     {
+//         for(int j=0;j<m;j++)
+//         {
+//             if(a[i][j]==1) answer++;
+//         }
+//     }
+//     cout << answer << '\n';
+//     return 0;
+// }
 #include <bits/stdc++.h>
 using namespace std;
-int a[41][41];
+vector<vector<vector<int>>> a;
+int board[41][41];
 int N,M;
-void rotate(vector<vector<int>> &a)
-{
-    int n = a.size();
-    int m = a[0].size(); 
-    vector<vector<int>> tmp_a(m,vector<int>(n,0));
-    for(int i=0;i<n;i++)
-    {
-        for(int j=0;j<m;j++)
-        {
-            tmp_a[j][n-i-1] = a[i][j];
-        }
+
+void rotate(vector<vector<int>> &v) {
+  int x = v.size();
+  int y = v[0].size();
+  vector<vector<int>> tmp_v(y,vector<int>(x,0));
+  for(int i=0;i<x;i++) {
+    for(int j=0;j<y;j++) {
+      tmp_v[j][x-i-1] = v[i][j];
     }
-    a.resize(m,vector<int>(n,0));
-    a = tmp_a;
+  }
+  v.resize(y,vector<int>(x,0));
+  v = tmp_v;
 }
-bool change(vector<vector<int>> temp)
-{
-    int n = temp.size();
-    int m = temp[0].size();
-    for(int c=0;c<N-n+1;c++)
-    {
-        for(int d=0;d<M-m+1;d++)
-        {
-            bool flag = true;
-            for(int i=0;i<n;i++)
-            {
-                for(int j=0;j<m;j++)
-                {
-                    if(temp[i][j]==0) continue;
-                    if(a[i+c][j+d]==1)
-                    {
-                        flag = false;
-                    }
-                }
-            }
-            if(flag==true)
-            {
-                for(int i=0;i<n;i++)
-                {
-                    for(int j=0;j<m;j++)
-                    {
-                        if(temp[i][j]==0) continue;
-                        a[i+c][j+d] = temp[i][j];
-                    }
-                }
-                return true;
-            }
+
+void stick(vector<vector<int>> v) {
+  for(int k=0;k<3;k++) rotate(v);
+  for(int k=0;k<4;k++) {
+    rotate(v);
+    int x = v.size();
+    int y = v[0].size();
+    for(int c=0;c<N-x+1;c++) {
+      for(int d=0;d<M-y+1;d++) {
+        bool flag = true;
+        for(int i=0;i<x;i++) {
+          for(int j=0;j<y;j++) {
+            if(v[i][j]==1&&board[i+c][j+d]==1) flag = false;
+          }
         }
+        if(flag==true) {
+          for(int i=0;i<x;i++) {
+            for(int j=0;j<y;j++) {
+              if(v[i][j]==1) board[i+c][j+d] = 1;
+            }
+          }
+          return;
+        }
+      } 
     }
-    return false;
+  }
 }
-int main()
+
+int main(int argc, char const *argv[])
 {
-    int n,m,k;
-    cin >> n >> m >> k;
-    N=n;M=m;
-    for(int c=0;c<k;c++)
-    {
-        int x,y;
-        cin >> x >> y;
-        vector<vector<int>> temp(x,vector<int>(y,0));
-        for(int i=0;i<x;i++)
-        {
-            for(int j=0;j<y;j++)
-            {
-                cin >> temp[i][j];
-            }
-        }
-        for(int i=0;i<3;i++) rotate(temp);
-        for(int i=0;i<4;i++)
-        {
-            rotate(temp);
-            bool flag = change(temp);
-            if(flag==true) break;
-        }
+  int n,m,k;
+  cin >> n >> m >> k;
+  N=n;M=m;
+  for(int c=0;c<k;c++) {
+    int x,y;
+    cin >> x >> y;
+    vector<vector<int>> temp(x,vector<int>(y,0));
+    for(int i=0;i<x;i++) {
+      for(int j=0;j<y;j++) {
+        cin >> temp[i][j];
+      }
     }
-    int answer = 0;
-    for(int i=0;i<n;i++)
-    {
-        for(int j=0;j<m;j++)
-        {
-            if(a[i][j]==1) answer++;
-        }
+    a.push_back(temp);
+  }
+  for(int i=0;i<a.size();i++) {
+    stick(a[i]);
+  }
+  int answer = 0;
+  for(int i=0;i<N;i++) {
+    for(int j=0;j<M;j++) {
+      if(board[i][j]==1) answer+=1;
     }
-    cout << answer << '\n';
-    return 0;
+  }
+  cout << answer << '\n';
+  return 0;
 }

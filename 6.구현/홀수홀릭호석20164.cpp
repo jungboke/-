@@ -84,51 +84,114 @@ int main()
     return 0;
 }
 */
+// #include <bits/stdc++.h>
+// using namespace std;
+// vector<int> result;
+// void dfs(string a,int odd)
+// {
+//     if(a.size()==1)
+//     {
+//         int num = a[0] - 48;
+//         if(num%2==1) odd++;
+//         result.push_back(odd);
+//         return;
+//     }
+//     else if(a.size()==2)
+//     {
+//         for(int i=0;i<a.size();i++)
+//         {
+//             if((a[i]-48)%2==1) odd++;
+//         }
+//         int num1 = a[0]-48;
+//         int num2 = a[1]-48;
+//         dfs(to_string(num1+num2),odd);
+//     }
+//     else
+//     {
+//         for(int i=0;i<a.size();i++)
+//         {
+//             if((a[i]-48)%2==1) odd++;
+//         }
+//         for(int i=0;i<a.size()-2;i++)
+//         {
+//             for(int j=i+1;j<a.size()-1;j++)
+//             {
+//                 int num1 = stoi(a.substr(0,i+1));
+//                 int num2 = stoi(a.substr(i+1,j-i));
+//                 int num3 = stoi(a.substr(j+1));
+//                 dfs(to_string(num1+num2+num3),odd);
+//             }
+//         }
+//     }
+// }
+// int main()
+// {
+//     string a;
+//     cin >> a;
+//     dfs(a,0);
+//     cout << *min_element(result.begin(),result.end()) << ' ' << *max_element(result.begin(),result.end()) << '\n';
+//     return 0;
+// }
 #include <bits/stdc++.h>
 using namespace std;
 vector<int> result;
-void dfs(string a,int odd)
-{
-    if(a.size()==1)
-    {
-        int num = a[0] - 48;
-        if(num%2==1) odd++;
-        result.push_back(odd);
-        return;
-    }
-    else if(a.size()==2)
-    {
-        for(int i=0;i<a.size();i++)
-        {
-            if((a[i]-48)%2==1) odd++;
-        }
-        int num1 = a[0]-48;
-        int num2 = a[1]-48;
-        dfs(to_string(num1+num2),odd);
-    }
-    else
-    {
-        for(int i=0;i<a.size();i++)
-        {
-            if((a[i]-48)%2==1) odd++;
-        }
-        for(int i=0;i<a.size()-2;i++)
-        {
-            for(int j=i+1;j<a.size()-1;j++)
-            {
-                int num1 = stoi(a.substr(0,i+1));
-                int num2 = stoi(a.substr(i+1,j-i));
-                int num3 = stoi(a.substr(j+1));
-                dfs(to_string(num1+num2+num3),odd);
-            }
-        }
-    }
+
+int odd_cnt(string x) {
+  int cnt = 0;
+  for(int i=0;i<x.size();i++) {
+    if((x[i]-'0')%2==1) cnt+=1;
+  }
+  return cnt;
 }
-int main()
+
+vector<vector<int>> cutting(string x) {
+  vector<vector<int>> result;
+  for(int i=0;i<x.size();i++) {
+    for(int j=i+2;j<x.size();j++) {
+      int num1 = stoi(x.substr(0,i+1));
+      int num2 = stoi(x.substr(i+1,j-(i+1)));
+      int num3 = stoi(x.substr(j));
+      vector<int> temp;
+      temp.push_back(num1);
+      temp.push_back(num2);
+      temp.push_back(num3);
+      result.push_back(temp);
+    }
+  }
+  return result;
+}
+
+void go(string x, int cnt) {
+  cnt += odd_cnt(x);
+  if(x.size()==1) {
+    result.push_back(cnt);
+    return;
+  }
+  else if(x.size()==2) {
+    int sum = 0;
+    for(int i=0;i<2;i++) {
+      sum += x[i]-'0';
+    }
+    go(to_string(sum),cnt);
+  }
+  else if(x.size()>=3) {
+    vector<vector<int>> temp = cutting(x);
+    for(int i=0;i<temp.size();i++) {
+      int sum = 0;
+      for(int j=0;j<temp[i].size();j++) {
+        sum += temp[i][j];
+      }
+      go(to_string(sum),cnt);
+    }
+  }
+}
+
+int main(int argc, char const *argv[])
 {
-    string a;
-    cin >> a;
-    dfs(a,0);
-    cout << *min_element(result.begin(),result.end()) << ' ' << *max_element(result.begin(),result.end()) << '\n';
-    return 0;
+  string x;
+  cin >> x;
+  int cnt = 0;
+  go(x,cnt);
+  cout << *min_element(result.begin(),result.end()) << ' ' << *max_element(result.begin(),result.end()) << '\n';
+  return 0;
 }

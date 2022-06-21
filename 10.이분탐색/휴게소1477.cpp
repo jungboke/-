@@ -95,59 +95,83 @@ int main()
     return 0;
 }
 */
+// #include <bits/stdc++.h>
+// using namespace std;
+
+// int main()
+// {
+//     int n,m,k;
+//     cin >> n >> m >> k;
+//     vector<int> a;
+//     vector<int> dist;
+//     for(int i=0;i<n;i++)
+//     {
+//         int x;
+//         cin >> x;
+//         a.push_back(x);
+//     }
+//     a.push_back(0);
+//     a.push_back(k);
+//     sort(a.begin(),a.end());
+//     for(int i=1;i<a.size();i++)
+//     {
+//         dist.push_back(a[i]-a[i-1]);
+//     }
+//     int start = 1;
+//     int end = k;
+//     int mini = k+1;
+//     while(start<=end)
+//     {
+//         int mid = (start+end)/2;
+//         int cnt = m;
+//         for(int i=0;i<dist.size();i++)
+//         {
+//             int x = (dist[i]-1)/mid;
+//             cnt-=x;
+//         }
+//         if(cnt<0) start = mid+1;
+//         else
+//         {
+//             end = mid-1;
+//             mini = min(mini,mid);     
+//         }
+//     }
+//     cout << mini << '\n';
+//     return 0;
+// }
 #include <bits/stdc++.h>
 using namespace std;
+vector<int> a;
 
-int main()
+int main(int argc, char const *argv[])
 {
-    int n,m,k;
-    cin >> n >> m >> k;
-    vector<int> a;
-    vector<int> dist;
-    for(int i=0;i<n;i++)
-    {
-        int x;
-        cin >> x;
-        a.push_back(x);
+  int n,m,l;
+  cin >> n >> m >> l;
+  for(int i=0;i<n;i++) {
+    int x;
+    cin >> x;
+    a.push_back(x);
+  }
+  a.push_back(0);
+  a.push_back(l);
+  sort(a.begin(),a.end());
+  int start = 1;
+  int end = a[a.size()-1] - a[0];
+  int mini = end+1;
+  while(start<=end) {
+    int mid = (start+end)/2;
+    int cnt = 0;
+    for(int i=1;i<a.size();i++) {
+      int diff = a[i]-a[i-1];
+      cnt+=((diff-1)/mid);
     }
-    a.push_back(0);
-    a.push_back(k);
-    sort(a.begin(),a.end());
-    for(int i=1;i<a.size();i++)
-    {
-        dist.push_back(a[i]-a[i-1]);
+    if(cnt<=m) {
+      end = mid-1;
+      mini = min(mini,mid);
+    } else {
+      start = mid+1;
     }
-    int start = 1;
-    int end = k;
-    int mini = k+1;
-    while(start<=end)
-    {
-        int mid = (start+end)/2;
-        int cnt = m;
-        for(int i=0;i<dist.size();i++)
-        {
-            int x = (dist[i]-1)/mid;
-            cnt-=x;
-        }
-        if(cnt<0) start = mid+1;
-        else
-        {
-            end = mid-1;
-            mini = min(mini,mid);     
-        }
-    }
-    cout << mini << '\n';
-    return 0;
+  }
+  cout << mini << '\n';
+  return 0;
 }
-
-
-
-
-
-
-
-
-
-
-
-

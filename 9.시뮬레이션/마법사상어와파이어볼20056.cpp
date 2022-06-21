@@ -1,3 +1,8 @@
+/* 
+    dx,dy를 바꿔서 생각했음,배열 index초과시 다시 배열안으로 들어올수 있도록 처리,
+    a배열과 똑같은 b배열을 추가하여 이동하는 배열을 b배열에 저장후 모든 이동처리후에 b배열에서 이동된
+    배열 다시 a로 복사.이렇게 안하면 이동처리중에 값이 추가되서 실패함, floor()기호 알아둬야함(아래L).
+*/
 /*
 #include <vector>
 #include <algorithm>
@@ -117,140 +122,195 @@ int main()
     cout << sum << '\n';
     return 0;
 }
-/* 
-    dx,dy를 바꿔서 생각했음,배열 index초과시 다시 배열안으로 들어올수 있도록 처리,
-    a배열과 똑같은 b배열을 추가하여 이동하는 배열을 b배열에 저장후 모든 이동처리후에 b배열에서 이동된
-    배열 다시 a로 복사.이렇게 안하면 이동처리중에 값이 추가되서 실패함, floor()기호 알아둬야함(아래L).
 */
-#include <vector>
-#include <algorithm>
-#include <iostream>
+// #include <vector>
+// #include <algorithm>
+// #include <iostream>
+// using namespace std;
+// int dx[] = {-1,-1,0,1,1,1,0,-1};
+// int dy[] = {0,1,1,1,0,-1,-1,-1};
+// struct Fireball
+// {
+//     int x,y,m,s,d; // m 질량 s속력 d방향
+// };
+// vector<Fireball> a[51][51];
+// vector<Fireball> fireball;
+// void move(int n)
+// {
+//     for(int i=0;i<n;i++)
+//     {
+//         for(int j=0;j<n;j++)
+//         {
+//             a[i][j].clear();
+//         }
+//     }
+//     for(int i=0;i<fireball.size();i++)
+//     {
+//         Fireball temp = fireball[i];
+//         int x = temp.x;
+//         int y = temp.y;
+//         int m = temp.m;
+//         int s = temp.s;
+//         int d = temp.d;
+//         int nx = x+s*dx[d];
+//         int ny = y+s*dy[d];
+//         while(nx>=n) nx-=n;
+//         while(nx<0) nx+=n;
+//         while(ny>=n) ny-=n;
+//         while(ny<0) ny+=n;
+//         a[nx][ny].push_back({nx,ny,m,s,d});
+//     }
+    
+// }
+// void sum(int n)
+// {
+//     vector<Fireball> temp;
+//     for(int i=0;i<n;i++)
+//     {
+//         for(int j=0;j<n;j++)
+//         {
+//             if(a[i][j].size()==0) continue;
+//             else if(a[i][j].size()==1)
+//             {
+//                 temp.push_back(a[i][j][0]);
+//                 continue;
+//             }
+//             int msum = 0;
+//             int ssum = 0;
+//             int odd = 0;
+//             int even = 0;
+//             for(int k=0;k<a[i][j].size();k++)
+//             {
+//                 msum += a[i][j][k].m;
+//                 ssum += a[i][j][k].s;
+//                 if(a[i][j][k].d%2==1) odd++;
+//                 else even++;
+//             }
+//             msum /= 5;
+//             ssum /= a[i][j].size();
+//             if(msum==0) continue;
+//             if(odd==0||even==0)
+//             {
+//                 for(int z=0;z<4;z++)
+//                 {
+//                     temp.push_back({i,j,msum,ssum,2*z});
+//                 }
+//             }
+//             else
+//             {
+//                 for(int z=0;z<4;z++)
+//                 {
+//                     temp.push_back({i,j,msum,ssum,2*z+1});
+//                 }
+//             }
+//         }
+//     }
+//     fireball = temp;
+// }
+// int main()
+// {
+//     int n,m,k;
+//     cin >> n >> m >> k;
+//     for(int i=0;i<m;i++)
+//     {
+//         int x,y,b,c,d;
+//         cin >> x >> y >> b >> c >> d;
+//         Fireball temp;
+//         temp.x = x-1; temp.y = y-1; temp.m = b; temp.s = c; temp.d = d;
+//         a[x-1][y-1].push_back(temp);
+//         fireball.push_back(temp);
+//     }
+//     while(k--)
+//     {
+//         move(n);
+//         sum(n);
+//     }
+//     int answer = 0;
+//     for(int i=0;i<fireball.size();i++)
+//     {
+//         answer += fireball[i].m;
+//     }
+//     cout << answer << '\n';
+//     return 0;
+// }
+#include <bits/stdc++.h>
 using namespace std;
 int dx[] = {-1,-1,0,1,1,1,0,-1};
 int dy[] = {0,1,1,1,0,-1,-1,-1};
-struct Fireball
-{
-    int x,y,m,s,d; // m 질량 s속력 d방향
-};
-vector<Fireball> a[51][51];
-vector<Fireball> fireball;
-void move(int n)
-{
-    for(int i=0;i<n;i++)
-    {
-        for(int j=0;j<n;j++)
-        {
-            a[i][j].clear();
+vector<vector<int>> a[51][51];
+vector<vector<int>> fire;
+int N;
+
+void move() {
+  for(int i=0;i<N;i++) {
+    for(int j=0;j<N;j++) {
+      a[i][j].clear();
+    }
+  }
+  for(int i=0;i<fire.size();i++) {
+    int x = fire[i][0];
+    int y = fire[i][1];
+    int m = fire[i][2];
+    int s = fire[i][3];
+    int d = fire[i][4];
+    int nx = x+(dx[d]*s);
+    int ny = y+(dy[d]*s);
+    while(nx>=N) nx-=N;
+    while(nx<0) nx+=N;
+    while(ny>=N) ny-=N;
+    while(ny<0) ny+=N;
+    a[nx][ny].push_back({nx,ny,m,s,d});
+  }
+}
+
+void fusion() {
+  fire.clear();
+  for(int i=0;i<N;i++) {
+    for(int j=0;j<N;j++) {
+      if(a[i][j].size()==1) fire.push_back(a[i][j][0]);
+      else if(a[i][j].size()>=2) {
+        int m = 0;
+        int s = 0;
+        int d = a[i][j][0][4]%2;
+        int how = 0;
+        for(int k=0;k<a[i][j].size();k++) {
+          int cnt2 = a[i][j][k][2];
+          m+=a[i][j][k][2];
+          s+=a[i][j][k][3];
+          int rem = a[i][j][k][4]%2;
+          if(d!=rem) how = 1; 
         }
-    }
-    for(int i=0;i<fireball.size();i++)
-    {
-        Fireball temp = fireball[i];
-        int x = temp.x;
-        int y = temp.y;
-        int m = temp.m;
-        int s = temp.s;
-        int d = temp.d;
-        int nx = x+s*dx[d];
-        int ny = y+s*dy[d];
-        while(nx>=n) nx-=n;
-        while(nx<0) nx+=n;
-        while(ny>=n) ny-=n;
-        while(ny<0) ny+=n;
-        a[nx][ny].push_back({nx,ny,m,s,d});
-    }
-    
-}
-void sum(int n)
-{
-    vector<Fireball> temp;
-    for(int i=0;i<n;i++)
-    {
-        for(int j=0;j<n;j++)
-        {
-            if(a[i][j].size()==0) continue;
-            else if(a[i][j].size()==1)
-            {
-                temp.push_back(a[i][j][0]);
-                continue;
-            }
-            int msum = 0;
-            int ssum = 0;
-            int odd = 0;
-            int even = 0;
-            for(int k=0;k<a[i][j].size();k++)
-            {
-                msum += a[i][j][k].m;
-                ssum += a[i][j][k].s;
-                if(a[i][j][k].d%2==1) odd++;
-                else even++;
-            }
-            msum /= 5;
-            ssum /= a[i][j].size();
-            if(msum==0) continue;
-            if(odd==0||even==0)
-            {
-                for(int z=0;z<4;z++)
-                {
-                    temp.push_back({i,j,msum,ssum,2*z});
-                }
-            }
-            else
-            {
-                for(int z=0;z<4;z++)
-                {
-                    temp.push_back({i,j,msum,ssum,2*z+1});
-                }
-            }
+        m/=5;
+        s/=a[i][j].size();
+        if(m==0) continue;
+        for(int k=0;k<4;k++) {
+          vector<int> temp = {i,j,m,s,(2*k)+how};
+          fire.push_back(temp);
         }
+      }
     }
-    fireball = temp;
+  }
 }
-int main()
+
+int main(int argc, char const *argv[])
 {
-    int n,m,k;
-    cin >> n >> m >> k;
-    for(int i=0;i<m;i++)
-    {
-        int x,y,b,c,d;
-        cin >> x >> y >> b >> c >> d;
-        Fireball temp;
-        temp.x = x-1; temp.y = y-1; temp.m = b; temp.s = c; temp.d = d;
-        a[x-1][y-1].push_back(temp);
-        fireball.push_back(temp);
-    }
-    while(k--)
-    {
-        move(n);
-        sum(n);
-    }
-    int answer = 0;
-    for(int i=0;i<fireball.size();i++)
-    {
-        answer += fireball[i].m;
-    }
-    cout << answer << '\n';
-    return 0;
+  int n,m,k;
+  cin >> n >> m >> k;
+  N=n;
+  for(int i=0;i<m;i++) {
+    int r,c,m,s,d;
+    cin >> r >> c >> m >> s >> d;
+    vector<int> temp = {r,c,m,s,d};
+    fire.push_back(temp);
+  }
+  while(k--) {
+    move();
+    fusion();
+  }
+  int answer = 0;
+  for(int i=0;i<fire.size();i++) {
+    answer += fire[i][2];
+  }
+  cout << answer << '\n';
+  return 0;
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

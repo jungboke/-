@@ -59,60 +59,108 @@ int main()
     return 0;
 }
 */
+// #include <bits/stdc++.h>
+// using namespace std;
+// int maxi = 0;
+// int stat[10];
+// int weight[10];
+// bool check[10];
+// int N;
+// void dfs(int idx)
+// {
+//     if(idx==N)
+//     {
+//         int cnt = 0;
+//         for(int i=0;i<N;i++)
+//         {
+//             if(check[i]==true) cnt++;
+//         }
+//         maxi = max(maxi,cnt);
+//         return;
+//     }
+//     if(check[idx]==true)
+//     {
+//         dfs(idx+1);
+//         return;
+//     }
+//     bool flag = true;
+//     for(int i=0;i<N;i++)
+//     {
+//         if(i==idx||check[i]==true) continue;
+//         flag = false;
+//         stat[idx] = stat[idx] - weight[i];
+//         if(stat[idx]<=0) check[idx] = true;
+//         stat[i] = stat[i] - weight[idx];
+//         if(stat[i]<=0) check[i] = true;
+//         dfs(idx+1);
+//         stat[idx] = stat[idx] + weight[i];
+//         if(stat[idx]>0) check[idx] = false;
+//         stat[i] = stat[i] + weight[idx];
+//         if(stat[i]>0) check[i] = false;
+//     }
+//     if(flag==true) dfs(N);
+// }
+// int main()
+// {
+//     int n;
+//     cin >> n;
+//     N=n;
+//     for(int i=0;i<n;i++)
+//     {
+//         int x,y;
+//         cin >> x >> y;
+//         stat[i] = x;
+//         weight[i] = y;
+//     }
+//     dfs(0);
+//     cout << maxi << '\n';
+//     return 0;
+// }
 #include <bits/stdc++.h>
 using namespace std;
-int maxi = 0;
-int stat[10];
-int weight[10];
-bool check[10];
+vector<pair<int,int>> a;
 int N;
-void dfs(int idx)
-{
-    if(idx==N)
-    {
-        int cnt = 0;
-        for(int i=0;i<N;i++)
-        {
-            if(check[i]==true) cnt++;
-        }
-        maxi = max(maxi,cnt);
-        return;
+int maxi = -1;
+
+void dfs(int x) {
+  if(x==N) {
+    int cnt = 0;
+    for(int i=0;i<N;i++) {
+      if(a[i].first<=0) cnt+=1;
     }
-    if(check[idx]==true)
-    {
-        dfs(idx+1);
-        return;
-    }
-    bool flag = true;
-    for(int i=0;i<N;i++)
-    {
-        if(i==idx||check[i]==true) continue;
-        flag = false;
-        stat[idx] = stat[idx] - weight[i];
-        if(stat[idx]<=0) check[idx] = true;
-        stat[i] = stat[i] - weight[idx];
-        if(stat[i]<=0) check[i] = true;
-        dfs(idx+1);
-        stat[idx] = stat[idx] + weight[i];
-        if(stat[idx]>0) check[idx] = false;
-        stat[i] = stat[i] + weight[idx];
-        if(stat[i]>0) check[i] = false;
-    }
-    if(flag==true) dfs(N);
+    maxi = max(maxi,cnt);
+    return;
+  }
+  if(a[x].first<=0) {
+    dfs(x+1);
+    return;
+  }
+  for(int i=0;i<N;i++) {
+    if(a[i].first<=0||i==x) continue;
+    a[i].first-=a[x].second;
+    a[x].first-=a[i].second;
+    dfs(x+1);
+    a[i].first+=a[x].second;
+    a[x].first+=a[i].second;
+  }
+  int cnt = 0;
+  for(int i=0;i<N;i++) {
+    if(a[i].first<=0) cnt+=1;
+  }
+  maxi = max(maxi,cnt);
 }
-int main()
+
+int main(int argc, char const *argv[])
 {
-    int n;
-    cin >> n;
-    N=n;
-    for(int i=0;i<n;i++)
-    {
-        int x,y;
-        cin >> x >> y;
-        stat[i] = x;
-        weight[i] = y;
-    }
-    dfs(0);
-    cout << maxi << '\n';
-    return 0;
+  int n;
+  cin >> n;
+  N=n;
+  for(int i=0;i<n;i++) {
+    int x,y;
+    cin >> x >> y;
+    a.push_back(make_pair(x,y));
+  }
+  dfs(0);
+  cout << maxi << '\n';
+  return 0;
 }

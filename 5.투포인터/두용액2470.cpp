@@ -1,4 +1,7 @@
 /*
+    이분탐색보다는 투포인터가 더 맞는 문제같음.
+*/
+/*
 #include <vector>
 #include <algorithm>
 #include <iostream>
@@ -75,64 +78,77 @@ int main()
 //     cout << a[a_start] << ' ' << a[a_end] << '\n';
 //     return 0;
 // }
+// #include <bits/stdc++.h>
+// using namespace std;
+
+// int main()
+// {
+//   ios_base::sync_with_stdio(false);
+//   cin.tie(NULL);
+//   int n;
+//   cin >> n;
+//   vector<int> a(n);
+//   for(int i=0;i<n;i++) {
+//     cin >> a[i];
+//   }
+//   sort(a.begin(),a.end());
+//   int begin = 0;
+//   int end = n-1;
+//   int mini = -1;
+//   int ans_begin;
+//   int ans_end;
+//   while(begin<end) {
+//     int sum = a[begin]+a[end];
+//     if(mini==-1||mini>abs(sum)) {
+//       mini = abs(sum);
+//       ans_begin = begin;
+//       ans_end = end;
+//     }
+//     if(sum<0) {
+//       begin++;
+//     } else if(sum>0) {
+//       end--;
+//     } else if(sum==0) {
+//       break;
+//     }
+//   }
+  
+//   cout << a[ans_begin] << ' ' << a[ans_end] << '\n';
+//   return 0; 
+// }
 #include <bits/stdc++.h>
 using namespace std;
+vector<long long> a;
 
-int main()
+int main(int argc, char const *argv[])
 {
-  ios_base::sync_with_stdio(false);
-  cin.tie(NULL);
   int n;
   cin >> n;
-  vector<int> a(n);
   for(int i=0;i<n;i++) {
-    cin >> a[i];
+    long long x;
+    cin >> x;
+    a.push_back(x);
   }
   sort(a.begin(),a.end());
-  int begin = 0;
+  int start = 0;
   int end = n-1;
-  int mini = -1;
-  int ans_begin;
-  int ans_end;
-  while(begin<end) {
-    int sum = a[begin]+a[end];
+  long long mini = -1;
+  int min_start = 0;
+  int min_end = 0;
+  while(start<end) {
+    long long sum = a[start]+a[end];
     if(mini==-1||mini>abs(sum)) {
       mini = abs(sum);
-      ans_begin = begin;
-      ans_end = end;
+      min_start = start;
+      min_end = end;
     }
-    if(sum<0) {
-      begin++;
-    } else if(sum>0) {
-      end--;
-    } else if(sum==0) {
-      break;
+    if(sum>0) end-=1;
+    else if(sum<0) start+=1;
+    else {
+      cout << a[start] << ' ' << a[end] << '\n';
+      return 0;
     }
   }
-  
-  cout << a[ans_begin] << ' ' << a[ans_end] << '\n';
-  return 0; 
+  cout << a[min_start] << ' ' << a[min_end] << '\n';
+  return 0;
 }
-/*
-    이분탐색보다는 투포인터가 더 맞는 문제같음.
-*/
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

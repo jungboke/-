@@ -33,38 +33,62 @@ int main()
     return 0;
 }
 */
+// #include <bits/stdc++.h>
+// using namespace std;
+
+// int main()
+// {
+//     int n,m;
+//     cin >> n >> m;
+//     int answer = 1;
+//     while(true)
+//     {
+//         if(n==m) break;
+//         else if(m<n)
+//         {
+//             answer = -1;
+//             break;
+//         }
+//         if(m%10==1)
+//         {
+//             m = m/10;
+//             answer++;
+//         }
+//         else if(m%2==0)
+//         {
+//             m = m/2;
+//             answer++;
+//         }
+//         else
+//         {
+//             answer = -1;
+//             break;
+//         }
+//     }
+//     cout << answer << '\n';
+//     return 0;
+// }
 #include <bits/stdc++.h>
 using namespace std;
 
-int main()
+int main(int argc, char const *argv[])
 {
-    int n,m;
-    cin >> n >> m;
-    int answer = 1;
-    while(true)
-    {
-        if(n==m) break;
-        else if(m<n)
-        {
-            answer = -1;
-            break;
-        }
-        if(m%10==1)
-        {
-            m = m/10;
-            answer++;
-        }
-        else if(m%2==0)
-        {
-            m = m/2;
-            answer++;
-        }
-        else
-        {
-            answer = -1;
-            break;
-        }
+  int n,m;
+  cin >> n >> m;
+  int cnt = 1;
+  while(m!=n) {
+    if((m%2==1&&m%10!=1)||m<n) {
+      cnt = -1;
+      break;
     }
-    cout << answer << '\n';
-    return 0;
+    if(m%2==0) {
+      m/=2;
+      cnt+=1;
+    } else {
+      m/=10;
+      cnt+=1;
+    }
+  }
+  cout << cnt << '\n';
+  return 0;
 }

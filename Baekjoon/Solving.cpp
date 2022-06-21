@@ -1,35 +1,45 @@
 #include <bits/stdc++.h>
 using namespace std;
-int a[101][101];
-long long d[101][101];
 
-int main(int argc, char const *argv[])
-{
+int main(){
+  int t;
+  cin >> t;
   int n;
   cin >> n;
-  for(int i=1;i<=n;i++) {
-    for(int j=1;j<=n;j++) {
-      cin >> a[i][j];
+  vector<int> a(n);
+  for(int i=0;i<n;i++) {
+    cin >> a[i];
+  }
+  int m;
+  cin >> m;
+  vector<int> b(m);
+  for(int i=0;i<m;i++) {
+    cin >> b[i];
+  }
+  vector<int> x;
+  for(int i=0;i<n;i++) {
+    int sum = 0;
+    for(int j=i;j<n;j++) {
+      sum += a[j];
+      x.push_back(sum);
     }
   }
-  d[1][1] = 1;
-  for(int i=1;i<=n;i++) {
-    for(int j=1;j<=n;j++) {
-      if(i==1&&j==1) continue;
-      for(int k=1;k<j;k++) {
-        if(k+a[i][k]==j) d[i][j] += d[i][k];
-      }
-      for(int k=1;k<i;k++) {
-        if(k+a[k][j]==i) d[i][j] += d[k][j];
-      }
+  vector<int> y;
+  for(int i=0;i<m;i++) {
+    int sum = 0;
+    for(int j=i;j<m;j++) {
+      sum += b[j];
+      y.push_back(sum);
     }
   }
-  cout << d[n][n] << '\n';
+  sort(x.begin(), x.end());
+  sort(y.begin(), y.end());
+  long long ans = 0;
+  for(int i=0;i<x.size();i++) {
+    auto p = equal_range(y.begin(), y.end(), t-x[i]);
+    ans += p.second - p.first;
+  }
+  cout << ans << '\n';
   return 0;
 }
-
-
-
-
-
 

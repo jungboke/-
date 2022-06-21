@@ -37,35 +37,62 @@ int main()
     return 0;
 }
 */
+// #include <bits/stdc++.h>
+// using namespace std;
+
+// int main()
+// {
+//     int n;
+//     cin >> n;
+//     vector<pair<int,int>> a;
+//     priority_queue<int,vector<int>,greater<>> pq;
+//     for(int i=0;i<n;i++)
+//     {
+//         int x,y;
+//         cin >> x >> y;
+//         a.push_back(make_pair(x,y));
+//     }
+//     sort(a.begin(),a.end());
+//     for(int i=0;i<n;i++)
+//     {
+//         auto p = a[i];
+//         if(pq.empty()||pq.top()>p.first)
+//         {
+//             pq.push(p.second);
+//         }
+//         else if(pq.top()<=p.first)
+//         {
+//             pq.pop();
+//             pq.push(p.second);
+//         }
+//     }
+//     cout << pq.size() << '\n';
+//     return 0;
+// }
 #include <bits/stdc++.h>
 using namespace std;
 
-int main()
+int main(int argc, char const *argv[])
 {
-    int n;
-    cin >> n;
-    vector<pair<int,int>> a;
-    priority_queue<int,vector<int>,greater<>> pq;
-    for(int i=0;i<n;i++)
-    {
-        int x,y;
-        cin >> x >> y;
-        a.push_back(make_pair(x,y));
+  int n;
+  cin >> n;
+  vector<pair<int,int>> a;
+  for(int i=0;i<n;i++) {
+    int x,y;
+    cin >> x >> y;
+    a.push_back(make_pair(x,y));
+  }
+  sort(a.begin(),a.end());
+  priority_queue<int,vector<int>,greater<>> pq;
+  for(int i=0;i<n;i++) {
+    auto p = a[i];
+    if(pq.empty()||pq.top()>p.first) {
+      pq.push(p.second);
+    } else {
+      pq.pop();
+      pq.push(p.second);
     }
-    sort(a.begin(),a.end());
-    for(int i=0;i<n;i++)
-    {
-        auto p = a[i];
-        if(pq.empty()||pq.top()>p.first)
-        {
-            pq.push(p.second);
-        }
-        else if(pq.top()<=p.first)
-        {
-            pq.pop();
-            pq.push(p.second);
-        }
-    }
-    cout << pq.size() << '\n';
-    return 0;
+  }
+  cout << pq.size() << '\n';
+  return 0;
 }

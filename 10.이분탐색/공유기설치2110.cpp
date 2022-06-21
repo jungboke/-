@@ -99,42 +99,79 @@ int main()
     return 0;
 }
 */
+// #include <bits/stdc++.h>
+// using namespace std;
+
+// int main()
+// {
+//     int n,m;
+//     cin >> n >> m;
+//     vector<int> a(n);
+//     for(int i=0;i<n;i++)
+//     {
+//         cin >> a[i];
+//     }
+//     sort(a.begin(),a.end());
+//     int start = 0;
+//     int end = a[n-1]-a[0];
+//     int maxi = 0;
+//     while(start<=end)
+//     {
+//         int mid = (start+end)/2;
+//         int cnt = m-1;
+//         int x = a[0];
+//         for(int i=1;i<n;i++)
+//         {
+//             if(a[i]-x>=mid)
+//             {
+//                 cnt--;
+//                 x = a[i];
+//             }
+//         }
+//         if(cnt>0) end = mid-1;
+//         else
+//         {
+//             start = mid+1;
+//             maxi = max(maxi,mid);
+//         }
+//     }
+//     cout << maxi << '\n';
+//     return 0;
+// }
 #include <bits/stdc++.h>
 using namespace std;
+vector<int> a;
 
-int main()
+int main(int argc, char const *argv[])
 {
-    int n,m;
-    cin >> n >> m;
-    vector<int> a(n);
-    for(int i=0;i<n;i++)
-    {
-        cin >> a[i];
+  int n,m;
+  cin >> n >> m;
+  for(int i=0;i<n;i++) {
+    int x;
+    cin >> x;
+    a.push_back(x);
+  }
+  sort(a.begin(),a.end());
+  int start = 0;
+  int end = a[a.size()-1] - a[0];
+  int maxi = -1;
+  while(start<=end) {
+    int mid = (start+end)/2;
+    int cnt = 1;
+    int now = a[0];
+    for(int i=1;i<a.size();i++) {
+      if(a[i]-now>=mid) {
+        now = a[i];
+        cnt+=1;
+      }
     }
-    sort(a.begin(),a.end());
-    int start = 0;
-    int end = a[n-1]-a[0];
-    int maxi = 0;
-    while(start<=end)
-    {
-        int mid = (start+end)/2;
-        int cnt = m-1;
-        int x = a[0];
-        for(int i=1;i<n;i++)
-        {
-            if(a[i]-x>=mid)
-            {
-                cnt--;
-                x = a[i];
-            }
-        }
-        if(cnt>0) end = mid-1;
-        else
-        {
-            start = mid+1;
-            maxi = max(maxi,mid);
-        }
+    if(cnt>=m) {
+      start = mid+1;
+      maxi = max(maxi,mid);
+    } else {
+      end = mid-1;
     }
-    cout << maxi << '\n';
-    return 0;
+  }
+  cout << maxi << '\n';
+  return 0;
 }
