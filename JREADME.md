@@ -31,8 +31,8 @@ q.peekLast();	// back
 - ArrayList는 배열 인덱스가 아닌 get()으로 접근해야 하기 때문에 vector에 비해서 편의성이 떨어짐. 따라서 java로 문제를 풀때는 최대한 일반 고정배열로 해결하는 게 좋을 듯함. 어차피 c++과는 다르게 함수에 배열을 넘겨줄 수 있음.
 - 2차원 ArrayList를 사용할 일이 있으면 `new ArrayList[100];` 처럼 ArrayList를 배열화해서 사용하는 게 좋을 듯함.
 - 자바에서 Pair API는 있긴한데, JDK가 특정버전 이상이어야 해서, 코테에서 활용못할 수 도 있음. 따라서 int[]를 pair처럼 사용함. c++과는 다르게 배열을 매개변수나 타입으로 쉽게 활용할 수 있어서 그나마 다행임.
-- 자바에서 memset은 Array.fill() 함수를 사용함. 2차원은 for문 Array.fill()을 활용해야 함.
-- 
+- 자바에서 memset은 Arrays.fill() 함수를 사용함. 2차원은 for문 Arrays.fill()을 활용해야 함.
+- 자바에는 call by reference가 없는데 객체를 매개변수로 넘길 때, 주소값이 넘어가는 형태라 이걸 참조라고 할 수 없음. 따라서 call by value인 셈임. 참조란 담다는 의미임.
 
 ### 자료구조
 - 
