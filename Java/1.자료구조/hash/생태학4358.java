@@ -1,0 +1,31 @@
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.util.Map.Entry;
+import java.util.StringTokenizer;
+import java.util.TreeMap;
+
+public class Main {
+
+	public static void main(String[] args) throws IOException {
+		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+		StringBuilder sb = new StringBuilder();
+		StringTokenizer st;
+		TreeMap<String,Integer> map1 = new TreeMap<>();
+
+		while(true) {
+			String x = br.readLine();
+			if(x==null||x.equals("")) break;
+			map1.put(x,map1.getOrDefault(x, 0)+1);
+		}
+		int sum = 0;
+		for(Entry<String,Integer> e : map1.entrySet()) {
+			sum += e.getValue();
+		}
+		for(Entry<String,Integer> e : map1.entrySet()) {
+			double temp = ((double)e.getValue()/sum)*100;
+			sb.append(e.getKey() + ' ' + String.format("%.4f", temp) + "\n");
+		}
+		System.out.println(sb);
+	}
+}
