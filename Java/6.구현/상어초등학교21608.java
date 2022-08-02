@@ -2,7 +2,6 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 import java.util.StringTokenizer;
 
@@ -12,7 +11,6 @@ public class Main {
 	static int[] dy = {-1,0,1,0};
 	static List<Integer>[] man = new ArrayList[500];
 	static int[][] desk = new int[21][21];
-	static int[][] how = new int[21][21];
 	static int N;
 
 	static int[] desk_check(int x, int y, int v) {
@@ -27,10 +25,6 @@ public class Main {
 			}
 		}
 		return new int[] {f_cnt,z_cnt};
-	}
-
-	static int cal() {
-
 	}
 
 	public static void main(String[] args) throws Exception, IOException {
@@ -56,8 +50,8 @@ public class Main {
 		}
 		// temp[0] : friend cnt / temp[1] : zero cnt
 		for(int c=0;c<a.size();c++) {
-			int f_max = 0;
-			int z_max = 0;
+			int f_max = -1;
+			int z_max = -1;
 			int mx=0,my=0;
 			for(int i=0;i<n;i++) {
 				for(int j=0;j<n;j++) {
@@ -78,9 +72,19 @@ public class Main {
 				}
 			}
 			desk[mx][my] = a.get(c);
-			how[mx][my] = f_max;
 		}
-		answer = cal();
+		int answer = 0;
+		for(int i=0;i<n;i++) {
+			for(int j=0;j<n;j++) {
+				int[] temp = desk_check(i,j,desk[i][j]);
+				if(temp[0]==0) answer+=0;
+				else if(temp[0]==1) answer+=1;
+				else if(temp[0]==2) answer+=10;
+				else if(temp[0]==3) answer+=100;
+				else if(temp[0]==4) answer+=1000;
+			}
+		}
 		System.out.println(sb.append(answer+"\n"));
 	}
 }
+
