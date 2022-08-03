@@ -38,5 +38,5 @@ q.peekLast();	// back
 - 재귀함수에 String을 toCharArray한 Array를 매개변수로 넘겨질때, Array의 주소가 넘어가므로, 참조처럼 값변경이 이뤄진다는 것을 알아야함. 이때문에 매 재귀마다 같아야할 Array가 달라져서 문제가 됨.
 - 자바에서는 eof를 받기 위해 br.readLine이 null이거나 ""일시, while(true) 문을 break해줌. 또한 소수점아래 ~자리를 표현하기 위해 String.format("%.4f", temp)처럼 사용함. - 생태학
 - c++에서 그래프문제를 풀때, vector<int> a[100] 처럼 사용했던 것을 java에서는 똑같이 ArrayList[100]처럼 만들면 됨. 다만, for문을 통해 모든 ArrayList 배열을 new ArrayList로 초기화해주는 과정이 필요함. - 트리의 부모찾기
-### 자료구조
+- ArrayList에서 max_element는 Collections.max()를 사용함.
 - 
