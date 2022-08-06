@@ -5,6 +5,7 @@
 출력은 StringBuilder를 사용하여 append해서 출력함.
 - Stack은 Stack<Integer> 처럼 사용되며, top()이 peek()으로
 명명됨.
+- Queue는 offer, Set,List는 add, Map은 put, Stack은 push
 - Queue와 Deque는 LinkedList<> 처럼 사용됨.
 - Deque는 Queue의 C++ 활용과 비슷함.
 

@@ -1,0 +1,70 @@
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+import java.util.PriorityQueue;
+import java.util.Stack;
+import java.util.StringTokenizer;
+
+public class Main {
+
+	static final int INF = 1000000000;
+	static class Node implements Comparable<Node>{
+		int to;
+		int cost;
+		Node(int to, int cost) {
+			this.to = to;
+			this.cost = cost;
+		}
+		public int compareTo(Node x) {
+			return Integer.compare(this.cost, x.cost);
+		}
+	}
+	static List<Node>[] a = new ArrayList[20001];
+	static PriorityQueue<Node> pq = new PriorityQueue<>();
+	static int dist[] = new int[20001];
+	static boolean check[] = new boolean[20001];
+
+
+	public static void main(String[] args) throws NumberFormatException, IOException {
+		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+		StringBuilder sb = new StringBuilder();
+		StringTokenizer st;
+
+		st = new StringTokenizer(br.readLine());
+		int n = Integer.parseInt(st.nextToken());
+		for(int i=1;i<=n;i++) a[i] = new ArrayList<>();
+		for(int i=1;i<=n;i++) dist[i] = INF;
+		int m = Integer.parseInt(st.nextToken());
+		int sx = Integer.parseInt(br.readLine());
+		for(int i=0;i<m;i++) {
+			st = new StringTokenizer(br.readLine());
+			int x = Integer.parseInt(st.nextToken());
+			int y = Integer.parseInt(st.nextToken());
+			int z = Integer.parseInt(st.nextToken());
+			a[x].add(new Node(y,z));
+		}
+		pq.add(new Node(sx,0));
+		dist[sx] = 0;
+		while(!pq.isEmpty()) {
+			Node now = pq.poll();
+			int x = now.to;
+			if(check[x]==true) continue;
+			check[x] = true;
+			for(Node k:a[x]) {
+				int y = k.to;
+				if(dist[y]>dist[x]+k.cost) {
+					dist[y] = dist[x]+k.cost;
+					pq.add(new Node(y,dist[y]));
+				}
+			}
+		}
+		for(int i=1;i<=n;i++) {
+			if(dist[i]==INF) sb.append("INF"+"\n");
+			else sb.append(dist[i]+"\n");
+		}
+		System.out.println(sb);
+	}
+}
