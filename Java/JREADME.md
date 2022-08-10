@@ -40,4 +40,4 @@ q.peekLast();	// back
 - 자바에서는 eof를 받기 위해 br.readLine이 null이거나 ""일시, while(true) 문을 break해줌. 또한 소수점아래 ~자리를 표현하기 위해 String.format("%.4f", temp)처럼 사용함. - 생태학
 - c++에서 그래프문제를 풀때, vector<int> a[100] 처럼 사용했던 것을 java에서는 똑같이 ArrayList[100]처럼 만들면 됨. 다만, for문을 통해 모든 ArrayList 배열을 new ArrayList로 초기화해주는 과정이 필요함. - 트리의 부모찾기
 - ArrayList에서 max_element는 Collections.max()를 사용함.
-- 
+- Integer.MAX_VALUE를 통해 INF값 대체함.
