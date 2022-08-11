@@ -41,3 +41,4 @@ q.peekLast();	// back
 - c++에서 그래프문제를 풀때, vector<int> a[100] 처럼 사용했던 것을 java에서는 똑같이 ArrayList[100]처럼 만들면 됨. 다만, for문을 통해 모든 ArrayList 배열을 new ArrayList로 초기화해주는 과정이 필요함. - 트리의 부모찾기
 - ArrayList에서 max_element는 Collections.max()를 사용함.
 - Integer.MAX_VALUE를 통해 INF값 대체함.
+- String은 toCharArray, StringBuilder를 통해 특정 인덱스 값을 바꿀수 있는데, 왠만하면 StringBuilder 쓰는게 깔끔할 듯함.

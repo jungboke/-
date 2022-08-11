@@ -25,12 +25,16 @@ public class Main {
 			for(int i=0;i<4;i++) {
 				int nx = x+dx[i];
 				int ny = y+dy[i];
-				while(nx>=0&&nx<N&&ny>=0&&ny<M) {
-					if(board[nx][ny]=='*') break; 
-					if(dist[nx][ny]==-1) {
-						q.offer(new int[] {nx,ny});
-						dist[nx][ny] = dist[x][y]+1;
+				while(true) {
+					boolean flag = false;
+					if(nx>=0&&nx<N&&ny>=0&&ny<M&&board[nx][ny]!='*') {
+						flag = true; 
+						if(dist[nx][ny]==-1) {
+							q.offer(new int[] {nx,ny});
+							dist[nx][ny] = dist[x][y]+1;
+						}
 					}
+					if(flag==false) break;
 					nx+=dx[i];
 					ny+=dy[i];
 				}
