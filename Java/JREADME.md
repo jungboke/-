@@ -41,7 +41,6 @@ q.peekLast();	// back
 - c++에서 그래프문제를 풀때, vector<int> a[100] 처럼 사용했던 것을 java에서는 똑같이 ArrayList[100]처럼 만들면 됨. 다만, for문을 통해 모든 ArrayList 배열을 new ArrayList로 초기화해주는 과정이 필요함. - 트리의 부모찾기
 - ArrayList에서 max_element는 Collections.max()를 사용함.
 - Integer.MAX_VALUE를 통해 INF값 대체함.
-<<<<<<< HEAD
 - 직접만든 클래스(Edge,Node)등을 사용하는 PriorityQueue는 Comparable을 사용하고, 단순 int, String 같은 경우는 Comparator를 사용해줌.
 
 ```
@@ -83,7 +82,7 @@ static boolean next_permutation(int[] arr) {
 	}
 ```
 
-- 
-=======
 - String은 toCharArray, StringBuilder를 통해 특정 인덱스 값을 바꿀수 있는데, 왠만하면 StringBuilder 쓰는게 깔끔할 듯함.
->>>>>>> 7085cbf0ceeb44e8a289c6c700ba7438ddf4fa33
+- int to char -> char x = (char)(1+'0')
+- Array.equals 을 통해 서로 다른 array 비교
+- Arrays.copyof를 통해 array복사 가능, 대입연산자로 하면 주소값이 복사되니까 주의
