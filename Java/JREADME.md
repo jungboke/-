@@ -42,3 +42,5 @@ q.peekLast();	// back
 - ArrayList에서 max_element는 Collections.max()를 사용함.
 - Integer.MAX_VALUE를 통해 INF값 대체함.
 - String은 toCharArray, StringBuilder를 통해 특정 인덱스 값을 바꿀수 있는데, 왠만하면 StringBuilder 쓰는게 깔끔할 듯함.
+- Array 복사는 Arrays.copyOf를 사용하고, List 복사는 new ArrayList<>(a) 처럼 ()안에 복사하려는 List를 넣음.
+- 
