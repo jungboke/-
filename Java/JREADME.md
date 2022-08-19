@@ -1,5 +1,9 @@
 ## JAVA
 
+### Java가 없는 것
+- next_permutation, swap, pair, upper_bound, lower_bound, multi_set
+
+
 ### 기본
 
 - 입력은 BufferedReader와 StringTokenizer를 활용하고,
@@ -89,4 +93,5 @@ static boolean next_permutation(int[] arr) {
 - int to char -> char x = (char)(1+'0')
 - Array.equals 을 통해 서로 다른 array 비교
 - Arrays.copyof를 통해 array복사 가능, 대입연산자로 하면 주소값이 복사되니까 주의
--
+- 자바에는 multi_set이 구현안돼있어서 기존c++에서 multi_set을 사용하여 푼 문제들 중 못푸는 문제들이 있음. TreeMap으로 multi_set을 구현가능하지만, 해당 TreeMap은 <Integer,Integer> 타입이기 때문에 이분탐색이 불가능함. - 보석도둑
+- 
