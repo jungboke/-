@@ -96,3 +96,6 @@ static boolean next_permutation(int[] arr) {
 - 자바에는 multi_set이 구현안돼있어서 기존c++에서 multi_set을 사용하여 푼 문제들 중 못푸는 문제들이 있음. TreeMap으로 multi_set을 구현가능하지만, 해당 TreeMap은 <Integer,Integer> 타입이기 때문에 이분탐색이 불가능함. - 보석도둑
 - String의 reverse, append 등은 StringBuilder를 활용하고, subString은 String으로도 해결할 수있음. - A와B
 - String의 마지막 인덱스의 값은 endsWith로 해결할 수 있음. - A와B
+- 함수의 매개변수로 배열을 넘길 때, c++때와는 달리 주소가 넘어가기 때문에 모든 배열이 하나의 주소를 공유함. 따라서 문제가 발생할 수 있으므로, 최대한 String으로 넘기거나, clone배열을 넘겨줘야 함.
+- char배열을 String으로 바꾸기 위해서는 .toString()이 아니라 new String(x)처럼 사용해줘야 함.
+- Combination, Permutation은 재귀함수로 구현할 수 있는데, 부분집합은 구현하는데 좀 헷갈려서 컨벤션을 통일할 필요가 있음. - 괄호제거
