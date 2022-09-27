@@ -99,3 +99,4 @@ static boolean next_permutation(int[] arr) {
 - 함수의 매개변수로 배열을 넘길 때, c++때와는 달리 주소가 넘어가기 때문에 모든 배열이 하나의 주소를 공유함. 따라서 문제가 발생할 수 있으므로, 최대한 String으로 넘기거나, clone배열을 넘겨줘야 함.
 - char배열을 String으로 바꾸기 위해서는 .toString()이 아니라 new String(x)처럼 사용해줘야 함.
 - Combination, Permutation은 재귀함수로 구현할 수 있는데, 부분집합은 구현하는데 좀 헷갈려서 컨벤션을 통일할 필요가 있음. - 괄호제거
+- 2차원 배열은 clone 안통함. 무조건 2중 for문으로 하기.
