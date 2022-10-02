@@ -1,8 +1,8 @@
 ## JAVA
 
 ### Java가 없는 것
-- next_permutation, swap, pair, upper_bound, lower_bound, multi_set
 
+- next_permutation, swap, pair, upper_bound, lower_bound, multi_set
 
 ### 기본
 
@@ -100,3 +100,5 @@ static boolean next_permutation(int[] arr) {
 - char배열을 String으로 바꾸기 위해서는 .toString()이 아니라 new String(x)처럼 사용해줘야 함.
 - Combination, Permutation은 재귀함수로 구현할 수 있는데, 부분집합은 구현하는데 좀 헷갈려서 컨벤션을 통일할 필요가 있음. - 괄호제거
 - 2차원 배열은 clone 안통함. 무조건 2중 for문으로 하기.
+- Collections.contains를 통해 객체가 들어있는지 확인하려면 클래스에 equals가 overriding되어 있어야 함. - 움직이는 미로탈출
+-
