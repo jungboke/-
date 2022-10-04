@@ -101,4 +101,4 @@ static boolean next_permutation(int[] arr) {
 - Combination, Permutation은 재귀함수로 구현할 수 있는데, 부분집합은 구현하는데 좀 헷갈려서 컨벤션을 통일할 필요가 있음. - 괄호제거
 - 2차원 배열은 clone 안통함. 무조건 2중 for문으로 하기.
 - Collections.contains를 통해 객체가 들어있는지 확인하려면 클래스에 equals가 overriding되어 있어야 함. - 움직이는 미로탈출
--
+- 함수 내에서 생성된 객체의 이름뿐 아니라, 객체의 주소값도 함수가 끝나면 제거됨. 따라서 함수내 주소값을 전역객체에 대입하는 것을 조심해야 함. - 캐슬디펜스
