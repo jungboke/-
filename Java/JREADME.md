@@ -102,3 +102,4 @@ static boolean next_permutation(int[] arr) {
 - 2차원 배열은 clone 안통함. 무조건 2중 for문으로 하기.
 - Collections.contains를 통해 객체가 들어있는지 확인하려면 클래스에 equals가 overriding되어 있어야 함. - 움직이는 미로탈출
 - 함수 내에서 생성된 객체의 이름뿐 아니라, 객체의 주소값도 함수가 끝나면 제거됨. 따라서 함수내 주소값을 전역객체에 대입하는 것을 조심해야 함. - 캐슬디펜스
+- Java에서 String을 매개변수로 넘겨서 조작할 때, str="a"처럼 한다면, 단순히 str이라는 변수값만 바꾸는 거라 내용값이 바뀌지 않음. str.replace()처럼 str이 가리키는 내용값을 직접 변경하는 것만 통함. 따라서 char[] 을 넘겨서 바꾸는 것은 내용값을 바꾸는거라 String과는 다르게 변경이 가능했음. 결과적으로 String을 매개변수로 넘겨 값을 변경하고 싶을때는 String을 넘기지 말고, StringBuilder로 넘겨주는게 훨씬 편함. - 전구와 스위치 
