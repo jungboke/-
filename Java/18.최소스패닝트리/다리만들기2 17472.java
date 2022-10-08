@@ -13,35 +13,59 @@ public class Main {
 			this.cost = cost;
 		}
 	}
-	static PriorityQueue<Edge> pq = new PriorityQueue<>(new Comparator<Edge>() {
-		public int compare(Edge o1, Edge o2) {
-			return (o1.cost-o2.cost);
-		}
-	});
-	
 	static int[] dx = {0,-1,0,1};
 	static int[] dy = {-1,0,1,0};
 	static int[][] board = new int[101][101];
 	static boolean[][] check = new boolean[101][101];
 	static List<List<int[]>> island = new ArrayList<>();
-	static List<Edge>[] a = new ArrayList[10];
+	static PriorityQueue<Edge> pq = new PriorityQueue<>(new Comparator<Edge>() {
+		public int compare(Edge o1, Edge o2) {
+			return (o1.cost-o2.cost);
+		}
+	});
 	static int[] parent = new int[10];
-	static boolean[] island_check = new boolean[10];
 	static int N,M;
 	static int answer = 0;
 	
 	static void bfs2(List<int[]> si, List<int[]> ei, int xidx, int yidx) {
 		int result = Integer.MAX_VALUE;
 		for(int i=0;i<si.size();i++) {
-			int sx = si.get(i)[0]; int sy = si.get(i)[1];
 			for(int j=0;j<ei.size();j++) {
+				int sx = si.get(i)[0]; int sy = si.get(i)[1];
 				int ex = ei.get(j)[0]; int ey = ei.get(j)[1];
+				int dist = Math.abs(ex-sx)+Math.abs(ey-sy)-1;
 				if(!(Math.abs(ex-sx)==0||Math.abs(ey-sy)==0)) continue;
-				int dist = Math.abs(ex-sx) + Math.abs(ey-sy);
-				result = Math.min(result, dist);
+				if(dist<2) continue;
+				boolean flag = true;
+				if(ex==sx) {
+					while(sy<ey) {
+						if(board[sx][++sy]==1&&sy!=ey) { 
+							flag = false;
+						}
+					}
+					while(sy>ey) {
+						if(board[sx][--sy]==1&&sy!=ey) {
+							flag = false;
+						}
+					}
+				} else if(ey==sy) {
+					while(sx<ex) {
+						if(board[++sx][sy]==1&&sx!=ex) { 
+							flag = false;
+						}
+					}
+					while(sx>ex) {
+						if(board[--sx][sy]==1&&sx!=ex) {
+							flag = false;
+						}
+					}
+				}
+				if(flag==true) {
+					result = Math.min(result, dist);
+				}
 			}
 		}
-		pq.add(new Edge(xidx,yidx,result-1));
+		if(result!=Integer.MAX_VALUE) pq.add(new Edge(xidx,yidx,result));
 	}
 
 	static void bfs(int sx, int sy) {
@@ -86,7 +110,6 @@ public class Main {
 		StringTokenizer st;
 		
 		for(int i=1;i<10;i++) {
-			a[i] = new ArrayList<>();
 			parent[i] = i;
 		}
 		st = new StringTokenizer(br.readLine());
@@ -111,24 +134,18 @@ public class Main {
 				bfs2(island.get(i),island.get(j),i+1,j+1);
 			}
 		}
-		int pq_size = pq.size();
-		for(int i=0;i<pq_size;i++) {
+		while(!pq.isEmpty()) {
 			Edge e = pq.poll();
-			if(e.cost<2) continue;
 			int from = e.from;
 			int to = e.to;
 			if(Find(from)!=Find(to)) {
-				island_check[from] = true;
-				island_check[to] = true;
 				answer += e.cost;
 				Union(from,to);
 			}
 		}
-		int cnt = 0;
-		for(int i=0;i<10;i++) {
-			if(island_check[i]==true) cnt+=1;
+		for(int i=1;i<=island.size();i++) {
+			if(Find(1)!=Find(i)) answer = -1;
 		}
-		if(cnt!=island.size()) answer = -1; 
 		System.out.println(sb.append(answer));
 	}
 }
