@@ -1,56 +1,58 @@
-package com.ssafy.ws;
+//import java.io.BufferedReader;
+//import java.io.IOException;
+//import java.io.InputStreamReader;
+//import java.util.StringTokenizer;
+//
+//public class Solution {
+//	public static void main(String[] args) throws NumberFormatException, IOException {
+//		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+//		StringBuilder sb = new StringBuilder();
+//		StringTokenizer st;
+//		
+//		int t = Integer.parseInt(br.readLine());
+//		int ot = t;
+//		while(t-->0) {
+//			String x = br.readLine();
+//			int answer = move(x);
+//			sb.append("#"+(ot-t)+" "+answer+"\n");
+//		}
+//		System.out.println(sb);
+//	}
+//	static int move(String x) {
+//		StringBuilder sb = new StringBuilder();
+//		char[] ary_x = x.toCharArray();
+//		sb.append(ary_x[0]);
+//		for(int i=1;i<ary_x.length;i++) {
+//			if(ary_x[i-1]!=ary_x[i]) sb.append(ary_x[1]);
+//		}
+//		int result = sb.length();
+//		if(ary_x[0]=='0') result-=1;
+//		return result;
+//	}
+//}
+import java.io.*;
+import java.util.*;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.util.StringTokenizer;
+public class Solution {
+	
+	
+    public static void main(String[] args) throws IOException {
+        System.setIn(new FileInputStream("data/1289.txt"));
+    	BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        StringBuilder sb = new StringBuilder();
+        StringTokenizer st;
 
-public class SWEA_1289_원재의메모리복구하기 {
-	public static void main(String[] args) throws NumberFormatException, IOException {
-		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-		StringBuilder sb = new StringBuilder();
-		StringTokenizer st;
-		
-		int n = Integer.parseInt(br.readLine());
-		System.out.println("어느 한 컴퓨터공학과 학생이 유명한 교수님을 찾아가 물었다.");
-		dfs(0,n);
-	}
-	static void dfs(int x, int n) {
-		if(x==n) {
-			for(int i=0;i<x*n;i++) {
-				System.out.print("_");
-			}
-			System.out.println("\"재귀함수가 뭔가요?\"");
-			for(int i=0;i<x*n;i++) {
-				System.out.print("_");
-			}
-			System.out.println("\"재귀함수는 자기 자신을 호출하는 함수라네\"");
-			for(int i=0;i<x*n;i++) {
-				System.out.print("_");
-			}
-			System.out.println("라고 답변하였지.");
-			return;
-		}
-		for(int i=0;i<x*n;i++) {
-			System.out.print("_");
-		}
-		System.out.println("\"재귀함수가 뭔가요?\"");
-		for(int i=0;i<x*n;i++) {
-			System.out.print("_");
-		}
-		System.out.println("\"잘 들어보게. 옛날옛날 한 산 꼭대기에 이세상 모든 지식을 통달한 선인이 있었어.");
-		for(int i=0;i<x*n;i++) {
-			System.out.print("_");
-		}
-		System.out.println("마을 사람들은 모두 그 선인에게 수많은 질문을 했고, 모두 지혜롭게 대답해 주었지.");
-		for(int i=0;i<x*n;i++) {
-			System.out.print("_");
-		}
-		System.out.println("그의 답은 대부분 옳았다고 하네. 그런데 어느 날, 그 선인에게 한 선비가 찾아와서 물었어.\"");
-		dfs(x+1,n);
-		for(int i=0;i<x*n;i++) {
-			System.out.print("_");
-		}
-		System.out.println("라고 답변하였지.");
-	}
+        int t = Integer.parseInt(br.readLine());
+        int ot = t;
+        while(t-->0) {
+        	char[] a = br.readLine().toCharArray();
+        	int answer = 0;
+        	for(int i=1;i<a.length;i++) {
+        		if(a[i]!=a[i-1]) answer+=1;
+        	}
+        	if(a[0]=='1') answer+=1;
+        	sb.append("#"+(ot-t)+" "+answer+"\n");
+        }
+        System.out.println(sb);
+     }
 }
