@@ -77,8 +77,94 @@
 //		System.out.println(sb.append(bfs(sx,sy)));
 //	}
 //}
-import java.io.*;
+// import java.io.*;
+// import java.util.*;
+
+// public class Main {
+	
+// 	static int[] dx = {0,-1,0,1};
+// 	static int[] dy = {-1,0,1,0};
+// 	static char[][] board = new char[51][51];
+// 	static int[][][] dist = new int[51][51][(1<<6)];
+// 	static int answer = Integer.MAX_VALUE;
+// 	static int N,M;
+	
+// 	static void bfs(int sx, int sy) {
+// 		for(int i=0;i<N;i++) {
+// 			for(int j=0;j<M;j++) {
+// 				for(int k=0;k<(1<<6);k++) dist[i][j][k] = Integer.MAX_VALUE;
+// 			}
+// 		}
+// 		Queue<int[]> q = new LinkedList<>();
+// 		q.offer(new int[] {sx,sy,0});
+// 		dist[sx][sy][0] = 0;
+// 		while(!q.isEmpty()) {
+// 			int[] now = q.poll();
+// 			int x = now[0]; int y = now[1]; int stat = now[2];
+// 			for(int i=0;i<4;i++) {
+// 				int nx = x+dx[i];
+// 				int ny = y+dy[i];
+// 				if(nx>=0&&nx<N&&ny>=0&&ny<M&&board[nx][ny]!='#') {
+// 					if(board[nx][ny]>='a'&&board[nx][ny]<='f') {
+// 						int num = board[nx][ny]-'a';
+// 						int next = (stat|(1<<num));
+// 						if(dist[nx][ny][next]>dist[x][y][stat]+1) {
+// 							dist[nx][ny][next] = dist[x][y][stat]+1;
+// 							q.offer(new int[] {nx,ny,next});
+// 						}
+// 					} else if(board[nx][ny]>='A'&&board[nx][ny]<='F') {
+// 						int num = board[nx][ny]-'A';
+// 						if((stat&(1<<num))!=0) {
+// 							if(dist[nx][ny][stat]>dist[x][y][stat]+1) {
+// 								dist[nx][ny][stat] = dist[x][y][stat]+1;
+// 								q.offer(new int[] {nx,ny,stat});
+// 							}
+// 						}
+// 					} else {
+// 						if(dist[nx][ny][stat]>dist[x][y][stat]+1) {
+// 							dist[nx][ny][stat] = dist[x][y][stat]+1;
+// 							q.offer(new int[] {nx,ny,stat});
+// 						}
+// 					}
+// 				}
+// 			}
+// 		}
+// 		for(int i=0;i<N;i++) {
+// 			for(int j=0;j<M;j++) {
+// 				if(board[i][j]!='1') continue;
+// 				for(int k=0;k<(1<<6);k++) {
+// 					answer = Math.min(answer, dist[i][j][k]);
+// 				}
+// 			}
+// 		}
+// 	}
+	
+// 	public static void main(String[] args) throws Exception {
+// 		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+// 		StringBuilder sb = new StringBuilder();
+// 		StringTokenizer st;
+		
+// 		st = new StringTokenizer(br.readLine());
+// 		int n = Integer.parseInt(st.nextToken());
+// 		int m = Integer.parseInt(st.nextToken());
+// 		N=n;M=m;
+// 		int sx=-1,sy=-1,ex=-1,ey=-1;
+// 		for(int i=0;i<n;i++) {
+// 			String temp = br.readLine();
+// 			for(int j=0;j<m;j++) {
+// 				board[i][j] = temp.charAt(j);
+// 				if(board[i][j]=='0') {
+// 					sx = i; sy = j;
+// 				}
+// 			}
+// 		}
+// 		bfs(sx,sy);
+// 		if(answer==Integer.MAX_VALUE) answer = -1;
+// 		System.out.println(sb.append(answer));
+// 	}
+// }
 import java.util.*;
+import java.io.*;
 
 public class Main {
 	
@@ -92,7 +178,9 @@ public class Main {
 	static void bfs(int sx, int sy) {
 		for(int i=0;i<N;i++) {
 			for(int j=0;j<M;j++) {
-				for(int k=0;k<(1<<6);k++) dist[i][j][k] = Integer.MAX_VALUE;
+				for(int k=0;k<(1<<6);k++) {
+					dist[i][j][k] = Integer.MAX_VALUE;
+				}
 			}
 		}
 		Queue<int[]> q = new LinkedList<>();
@@ -100,46 +188,46 @@ public class Main {
 		dist[sx][sy][0] = 0;
 		while(!q.isEmpty()) {
 			int[] now = q.poll();
-			int x = now[0]; int y = now[1]; int stat = now[2];
+			int x = now[0]; int y = now[1]; int cost = now[2];
 			for(int i=0;i<4;i++) {
 				int nx = x+dx[i];
 				int ny = y+dy[i];
 				if(nx>=0&&nx<N&&ny>=0&&ny<M&&board[nx][ny]!='#') {
-					if(board[nx][ny]>='a'&&board[nx][ny]<='f') {
-						int num = board[nx][ny]-'a';
-						int next = (stat|(1<<num));
-						if(dist[nx][ny][next]>dist[x][y][stat]+1) {
-							dist[nx][ny][next] = dist[x][y][stat]+1;
-							q.offer(new int[] {nx,ny,next});
-						}
-					} else if(board[nx][ny]>='A'&&board[nx][ny]<='F') {
-						int num = board[nx][ny]-'A';
-						if((stat&(1<<num))!=0) {
-							if(dist[nx][ny][stat]>dist[x][y][stat]+1) {
-								dist[nx][ny][stat] = dist[x][y][stat]+1;
-								q.offer(new int[] {nx,ny,stat});
+					if(board[nx][ny]>='A'&&board[nx][ny]<='F') {
+						int idx = board[nx][ny]-'A';
+						if((cost&(1<<idx))!=0) {
+							if(dist[nx][ny][cost]>dist[x][y][cost]+1) {
+								dist[nx][ny][cost] = dist[x][y][cost]+1;
+								q.offer(new int[] {nx,ny,cost});
 							}
 						}
+					} else if(board[nx][ny]>='a'&&board[nx][ny]<='f') {
+						int idx = board[nx][ny]-'a';
+						int temp = (cost|(1<<idx));
+						if(dist[nx][ny][temp]>dist[x][y][cost]+1) {
+							dist[nx][ny][temp] = dist[x][y][cost]+1;
+							q.offer(new int[] {nx,ny,temp});
+						}
 					} else {
-						if(dist[nx][ny][stat]>dist[x][y][stat]+1) {
-							dist[nx][ny][stat] = dist[x][y][stat]+1;
-							q.offer(new int[] {nx,ny,stat});
+						if(dist[nx][ny][cost]>dist[x][y][cost]+1) {
+							dist[nx][ny][cost] = dist[x][y][cost]+1;
+							q.offer(new int[] {nx,ny,cost});
 						}
 					}
 				}
 			}
-		}
-		for(int i=0;i<N;i++) {
-			for(int j=0;j<M;j++) {
-				if(board[i][j]!='1') continue;
-				for(int k=0;k<(1<<6);k++) {
-					answer = Math.min(answer, dist[i][j][k]);
+			for(int i=0;i<N;i++) {
+				for(int j=0;j<M;j++) {
+					if(board[i][j]!='1') continue;
+					for(int k=0;k<(1<<6);k++) {
+						answer = Math.min(answer, dist[i][j][k]);
+					}
 				}
 			}
 		}
 	}
 	
-	public static void main(String[] args) throws Exception {
+	public static void main(String[] args) throws NumberFormatException, IOException {
 		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 		StringBuilder sb = new StringBuilder();
 		StringTokenizer st;
@@ -148,7 +236,7 @@ public class Main {
 		int n = Integer.parseInt(st.nextToken());
 		int m = Integer.parseInt(st.nextToken());
 		N=n;M=m;
-		int sx=-1,sy=-1,ex=-1,ey=-1;
+		int sx=-1,sy=-1;
 		for(int i=0;i<n;i++) {
 			String temp = br.readLine();
 			for(int j=0;j<m;j++) {
@@ -163,3 +251,4 @@ public class Main {
 		System.out.println(sb.append(answer));
 	}
 }
+

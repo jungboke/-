@@ -58,17 +58,67 @@
 //		System.out.println(sb.append(answer));
 //	}
 //}
-import java.io.*;
+// import java.io.*;
+// import java.util.*;
+
+// public class Main {
+
+// 	static int[] dx = {-1,0,1};
+// 	static int[] dy = {1,1,1};
+// 	static char[][] board = new char[10001][501];
+// 	static boolean[][] check = new boolean[10001][501];
+// 	static int N,M;
+// 	static int answer = 0;
+	
+// 	static boolean dfs(int x, int y) {
+// 		check[x][y] = true;
+// 		if(y==M-1) {
+// 			answer+=1;
+// 			return true;
+// 		}
+// 		for(int i=0;i<3;i++) {
+// 			int nx = x+dx[i];
+// 			int ny = y+dy[i];
+// 			if(nx>=0&&nx<N&&ny>=0&&ny<M&&check[nx][ny]==false) {
+// 				if(board[nx][ny]!='x') {
+// 					if(dfs(nx,ny)) return true;
+// 				}
+// 			}
+// 		}
+// 		return false;
+// 	}
+	
+// 	public static void main(String[] args) throws IOException {
+// 		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+// 		StringBuilder sb = new StringBuilder();
+// 		StringTokenizer st;
+		
+// 		st = new StringTokenizer(br.readLine());
+// 		int n = Integer.parseInt(st.nextToken());
+// 		int m = Integer.parseInt(st.nextToken());
+// 		N=n;M=m;
+// 		for(int i=0;i<n;i++) {
+// 			String temp = br.readLine();
+// 			for(int j=0;j<m;j++) {
+// 				board[i][j] = temp.charAt(j);
+// 			}
+// 		}
+// 		for(int i=0;i<n;i++) {
+// 			dfs(i,0);
+// 		}
+// 		System.out.println(sb.append(answer));
+// 	}
+// }
 import java.util.*;
+import java.io.*;
 
 public class Main {
-
+	
 	static int[] dx = {-1,0,1};
-	static int[] dy = {1,1,1};
 	static char[][] board = new char[10001][501];
 	static boolean[][] check = new boolean[10001][501];
-	static int N,M;
 	static int answer = 0;
+	static int N,M;
 	
 	static boolean dfs(int x, int y) {
 		check[x][y] = true;
@@ -78,9 +128,9 @@ public class Main {
 		}
 		for(int i=0;i<3;i++) {
 			int nx = x+dx[i];
-			int ny = y+dy[i];
-			if(nx>=0&&nx<N&&ny>=0&&ny<M&&check[nx][ny]==false) {
-				if(board[nx][ny]!='x') {
+			int ny = y+1;
+			if(nx>=0&&nx<N&&ny>=0&&ny<M&&board[nx][ny]!='x') {
+				if(check[nx][ny]==false) {
 					if(dfs(nx,ny)) return true;
 				}
 			}
@@ -88,7 +138,7 @@ public class Main {
 		return false;
 	}
 	
-	public static void main(String[] args) throws IOException {
+	public static void main(String[] args) throws NumberFormatException, IOException {
 		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 		StringBuilder sb = new StringBuilder();
 		StringTokenizer st;

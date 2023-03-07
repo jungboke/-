@@ -47,12 +47,54 @@
 //	}
 //}
 //
-import java.io.*;
+// import java.io.*;
+// import java.util.*;
+
+// public class Main {
+	
+// 	static int[][] a = new int[501][501];
+	
+// 	public static void main(String[] args) throws NumberFormatException, IOException {
+// 		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+// 		StringBuilder sb = new StringBuilder();
+// 		StringTokenizer st;
+		
+// 		st = new StringTokenizer(br.readLine());
+// 		int n = Integer.parseInt(st.nextToken());
+// 		int m = Integer.parseInt(st.nextToken());
+// 		for(int i=1;i<=n;i++) {
+// 			st = new StringTokenizer(br.readLine());
+// 			for(int j=1;j<=n;j++) {
+// 				a[i][j] = Integer.parseInt(st.nextToken());
+// 			}
+// 		}
+// 		for(int c=1;c<=n;c++) {
+// 			for(int i=1;i<=n;i++) {
+// 				for(int j=1;j<=n;j++) {
+// 					if(i==j) continue;
+// 					if(a[i][j]>a[i][c]+a[c][j]) {
+// 						a[i][j] = a[i][c]+a[c][j];
+// 					}
+// 				}
+// 			}
+// 		}
+// 		for(int i=0;i<m;i++) {
+// 			st = new StringTokenizer(br.readLine());
+// 			int x = Integer.parseInt(st.nextToken());
+// 			int y = Integer.parseInt(st.nextToken());
+// 			int z = Integer.parseInt(st.nextToken());
+// 			if(a[x][y]<=z) sb.append("Enjoy other party"+"\n");
+// 			else sb.append("Stay here"+"\n");
+// 		}
+// 		System.out.println(sb);
+// 	}
+// }
 import java.util.*;
+import java.io.*;
 
 public class Main {
 	
-	static int[][] a = new int[501][501];
+	static int[][] board = new int[501][501];
 	
 	public static void main(String[] args) throws NumberFormatException, IOException {
 		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
@@ -65,25 +107,23 @@ public class Main {
 		for(int i=1;i<=n;i++) {
 			st = new StringTokenizer(br.readLine());
 			for(int j=1;j<=n;j++) {
-				a[i][j] = Integer.parseInt(st.nextToken());
+				board[i][j] = Integer.parseInt(st.nextToken());
 			}
 		}
 		for(int c=1;c<=n;c++) {
 			for(int i=1;i<=n;i++) {
 				for(int j=1;j<=n;j++) {
 					if(i==j) continue;
-					if(a[i][j]>a[i][c]+a[c][j]) {
-						a[i][j] = a[i][c]+a[c][j];
-					}
+					board[i][j] = Math.min(board[i][j], board[i][c]+board[c][j]);
 				}
 			}
 		}
-		for(int i=0;i<m;i++) {
+		for(int i=1;i<=m;i++) {
 			st = new StringTokenizer(br.readLine());
 			int x = Integer.parseInt(st.nextToken());
 			int y = Integer.parseInt(st.nextToken());
 			int z = Integer.parseInt(st.nextToken());
-			if(a[x][y]<=z) sb.append("Enjoy other party"+"\n");
+			if(board[x][y]<=z) sb.append("Enjoy other party"+"\n");
 			else sb.append("Stay here"+"\n");
 		}
 		System.out.println(sb);

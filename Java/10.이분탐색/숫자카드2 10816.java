@@ -60,14 +60,68 @@
 //		System.out.println(sb);
 //	}
 //}
-import java.io.*;
+// import java.io.*;
+// import java.util.*;
+
+// public class Main {
+	
+// 	static List<Integer> a = new ArrayList<>();
+	
+// 	static int lower_bound(List<Integer> temp, int target) {
+// 		int start = 0;
+// 		int end = temp.size();
+// 		while(start<end) {
+// 			int mid = (start+end)/2;
+// 			if(temp.get(mid)>=target) {
+// 				end = mid;
+// 			} else start = mid+1;
+// 		}
+// 		return end;
+// 	}
+	
+// 	static int upper_bound(List<Integer> temp, int target) {
+// 		int start = 0;
+// 		int end = temp.size();
+// 		while(start<end) {
+// 			int mid = (start+end)/2;
+// 			if(temp.get(mid)<=target) {
+// 				start = mid+1;
+// 			} else end = mid;
+// 		}
+// 		return end;
+// 	}
+	
+// 	public static void main(String[] args) throws NumberFormatException, IOException {
+// 		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+// 		StringBuilder sb = new StringBuilder();
+// 		StringTokenizer st;
+		
+// 		int n = Integer.parseInt(br.readLine());
+// 		st = new StringTokenizer(br.readLine());
+// 		for(int i=0;i<n;i++) {
+// 			int x = Integer.parseInt(st.nextToken());
+// 			a.add(x);
+// 		}
+// 		Collections.sort(a);
+// 		int m = Integer.parseInt(br.readLine());
+// 		st = new StringTokenizer(br.readLine());
+// 		for(int i=0;i<m;i++) {
+// 			int x = Integer.parseInt(st.nextToken());
+// 			int idx = lower_bound(a,x);
+// 			sb.append(upper_bound(a,x)-lower_bound(a,x)+" ");
+			
+// 		}
+// 		System.out.println(sb);
+// 	}
+// }
 import java.util.*;
+import java.io.*;
 
 public class Main {
 	
 	static List<Integer> a = new ArrayList<>();
 	
-	static int lower_bound(List<Integer> temp, int target) {
+	static int lowerBound(List<Integer> temp, int target) {
 		int start = 0;
 		int end = temp.size();
 		while(start<end) {
@@ -79,7 +133,7 @@ public class Main {
 		return end;
 	}
 	
-	static int upper_bound(List<Integer> temp, int target) {
+	static int upperBound(List<Integer> temp, int target) {
 		int start = 0;
 		int end = temp.size();
 		while(start<end) {
@@ -107,9 +161,7 @@ public class Main {
 		st = new StringTokenizer(br.readLine());
 		for(int i=0;i<m;i++) {
 			int x = Integer.parseInt(st.nextToken());
-			int idx = lower_bound(a,x);
-			sb.append(upper_bound(a,x)-lower_bound(a,x)+" ");
-			
+			sb.append(upperBound(a,x)-lowerBound(a,x)+" ");
 		}
 		System.out.println(sb);
 	}
