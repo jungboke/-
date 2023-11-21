@@ -36,42 +36,81 @@
 //		System.out.println(sb);
 //	}
 //}
-import java.io.*;
-import java.util.*;
+// import java.io.*;
+// import java.util.*;
 
-public class Main {
+// public class Main {
 
 	
+// 	public static void main(String[] args) throws IOException {
+// 		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+// 		StringBuilder sb = new StringBuilder();
+// 		StringTokenizer st;
+		
+// 		char[] x = br.readLine().toCharArray();
+// 		String answer = "";
+// 		boolean flag = false;
+// 		StringBuilder temp = new StringBuilder();
+// 		for(int i=0;i<x.length;i++) {
+// 			if(x[i]=='<') {
+// 				answer+=temp.reverse().toString();
+// 				temp.setLength(0);
+// 				temp.append(x[i]);
+// 				flag = true;
+// 			} else if(x[i]==' ') {
+// 				if(flag==false) {
+// 					answer+=temp.reverse().toString()+" ";
+// 					temp.setLength(0);
+// 				} else temp.append(x[i]);
+// 			} else if(x[i]=='>') {
+// 				temp.append(x[i]);
+// 				answer+=temp.toString();
+// 				temp.setLength(0);
+// 				flag = false;
+// 			} else {
+// 				temp.append(x[i]);
+// 			}
+// 		}
+// 		answer+=temp.reverse().toString();
+// 		System.out.println(sb.append(answer));
+// 	}
+// }
+import java.util.*;
+import java.io.*;
+
+public class Main {
+	
+	static String answer = "";
+	
 	public static void main(String[] args) throws IOException {
+		
 		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 		StringBuilder sb = new StringBuilder();
 		StringTokenizer st;
 		
-		char[] x = br.readLine().toCharArray();
-		String answer = "";
+		String str = br.readLine();
 		boolean flag = false;
-		StringBuilder temp = new StringBuilder();
-		for(int i=0;i<x.length;i++) {
-			if(x[i]=='<') {
-				answer+=temp.reverse().toString();
-				temp.setLength(0);
-				temp.append(x[i]);
-				flag = true;
-			} else if(x[i]==' ') {
-				if(flag==false) {
-					answer+=temp.reverse().toString()+" ";
-					temp.setLength(0);
-				} else temp.append(x[i]);
-			} else if(x[i]=='>') {
-				temp.append(x[i]);
-				answer+=temp.toString();
-				temp.setLength(0);
+		for(int i=0;i<str.length();i++) {
+			if(str.charAt(i)==' '&&flag==false) {
+				answer += sb.reverse().toString() + ' ';
+				sb.setLength(0);
+				continue;
+			} else if(str.charAt(i)=='>') {
+				answer += sb.toString() + '>';
+				sb.setLength(0);
 				flag = false;
+			} else if(str.charAt(i)=='<') {
+				answer += sb.reverse().toString() + '<';
+				sb.setLength(0);
+				flag = true;
 			} else {
-				temp.append(x[i]);
+				sb.append(str.charAt(i));
 			}
 		}
-		answer+=temp.reverse().toString();
-		System.out.println(sb.append(answer));
+		if(sb.length()!=0) {
+			answer += sb.reverse().toString();
+		}
+		System.out.println(answer);
 	}
+	
 }
