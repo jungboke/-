@@ -71,35 +71,66 @@ int main()
 //   cout << *ms.begin() << '\n';
 //   return 0; 
 // }
-import java.util.*;
+// import java.util.*;
+// import java.io.*;
+
+// public class Main {
+	
+// 	static TreeMap<Double, Integer> map1 = new TreeMap<Double, Integer>();
+	
+// 	public static void main(String[] args) throws NumberFormatException, IOException {
+// 		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+// 		StringBuilder sb = new StringBuilder();
+// 		StringTokenizer st;
+		
+// 		int n = Integer.parseInt(br.readLine());
+// 		st = new StringTokenizer(br.readLine());
+// 		for(int i=0;i<n;i++) {
+// 			double x = Integer.parseInt(st.nextToken());
+// 			map1.put(x, map1.getOrDefault(x, 0)+1);
+// 		}
+// 		while(map1.size()!=1) {
+// 			double start = map1.firstKey();
+// 			double end = map1.lastKey();
+// 			map1.put(start/2+end, map1.getOrDefault(start/2+end, 0)+1);
+// 			if(map1.put(start, map1.get(start)-1)==1) {
+// 				map1.remove(start);
+// 			}
+// 			if(map1.put(end, map1.get(end)-1)==1) {
+// 				map1.remove(end);
+// 			}
+// 		}
+// 		System.out.println(sb.append(map1.firstKey()));
+// 	}
+// }
 import java.io.*;
+import java.util.*;
 
 public class Main {
-	
-	static TreeMap<Double, Integer> map1 = new TreeMap<Double, Integer>();
-	
-	public static void main(String[] args) throws NumberFormatException, IOException {
-		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-		StringBuilder sb = new StringBuilder();
-		StringTokenizer st;
-		
-		int n = Integer.parseInt(br.readLine());
-		st = new StringTokenizer(br.readLine());
-		for(int i=0;i<n;i++) {
-			double x = Integer.parseInt(st.nextToken());
-			map1.put(x, map1.getOrDefault(x, 0)+1);
-		}
-		while(map1.size()!=1) {
-			double start = map1.firstKey();
-			double end = map1.lastKey();
-			map1.put(start/2+end, map1.getOrDefault(start/2+end, 0)+1);
-			if(map1.put(start, map1.get(start)-1)==1) {
-				map1.remove(start);
-			}
-			if(map1.put(end, map1.get(end)-1)==1) {
-				map1.remove(end);
-			}
-		}
-		System.out.println(sb.append(map1.firstKey()));
-	}
+
+    static TreeMap<Double,Integer> map1 = new TreeMap<>();
+
+    public static void main(String[] args) throws IOException {
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        StringBuilder sb = new StringBuilder();
+        StringTokenizer st;
+
+        int n = Integer.parseInt(br.readLine());
+        st = new StringTokenizer(br.readLine());
+        for(int i=0;i<n;i++) {
+            double m = Integer.parseInt(st.nextToken());
+            map1.put(m,map1.getOrDefault(m,0)+1);
+        }
+        while(map1.size()!=1) {
+            double x = map1.firstKey();
+            if(map1.put(x,map1.get(x)-1)==1) map1.remove(x);
+            double y = map1.lastKey();
+            if(map1.put(y,map1.get(y)-1)==1) map1.remove(y);
+            double z = Double.parseDouble(String.format("%.5f",y+x/2));
+            map1.put(y+x/2,1);
+        }
+        System.out.println(sb.append(map1.firstKey()).toString());
+    }
 }
+
+

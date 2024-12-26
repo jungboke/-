@@ -117,62 +117,123 @@
 // 		System.out.println(sb.append(answer));
 // 	}
 // }
-import java.util.*;
+// import java.util.*;
+// import java.io.*;
+
+// public class Main {
+	
+// 	static class Edge {
+// 		int to;
+// 		int cost;
+// 		Edge(int to, int cost) {
+// 			this.to = to;
+// 			this.cost = cost;
+// 		}
+// 	}
+	
+// 	static List<Edge>[] a = new ArrayList[10001];
+// 	static boolean[] check = new boolean[10001];
+// 	static int answer = 0;
+// 	static PriorityQueue<Edge> pq = new PriorityQueue<>(new Comparator<Edge>() {
+// 		public int compare(Edge e1, Edge e2) {
+// 			return e1.cost-e2.cost;
+// 		}
+// 	});
+	
+// 	public static void main(String[] args) throws NumberFormatException, IOException {
+// 		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+// 		StringBuilder sb = new StringBuilder();
+// 		StringTokenizer st;
+		
+// 		st = new StringTokenizer(br.readLine());
+// 		int n = Integer.parseInt(st.nextToken());
+// 		int m = Integer.parseInt(st.nextToken());
+// 		for(int i=1;i<=n;i++) {
+// 			a[i] = new ArrayList<>();
+// 		}
+// 		for(int i=0;i<m;i++) {
+// 			st = new StringTokenizer(br.readLine());
+// 			int x = Integer.parseInt(st.nextToken());
+// 			int y = Integer.parseInt(st.nextToken());
+// 			int z = Integer.parseInt(st.nextToken());
+// 			a[x].add(new Edge(y,z));
+// 			a[y].add(new Edge(x,z));
+// 		}
+// 		check[1] = true;
+// 		for(Edge e:a[1]) {
+// 			pq.add(e);
+// 		}
+// 		while(!pq.isEmpty()) {
+// 			Edge e = pq.poll();
+// 			int x = e.to;
+// 			if(check[x]==true) continue;
+// 			check[x] = true;
+// 			answer+=e.cost;
+// 			for(Edge k:a[x]) {
+// 				pq.add(k);
+// 			}
+// 		}
+// 		System.out.println(sb.append(answer));
+// 	}
+// }
 import java.io.*;
+import java.util.*;
 
 public class Main {
-	
-	static class Edge {
-		int to;
-		int cost;
-		Edge(int to, int cost) {
-			this.to = to;
-			this.cost = cost;
-		}
-	}
-	
-	static List<Edge>[] a = new ArrayList[10001];
-	static boolean[] check = new boolean[10001];
-	static int answer = 0;
-	static PriorityQueue<Edge> pq = new PriorityQueue<>(new Comparator<Edge>() {
-		public int compare(Edge e1, Edge e2) {
-			return e1.cost-e2.cost;
-		}
-	});
-	
-	public static void main(String[] args) throws NumberFormatException, IOException {
-		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-		StringBuilder sb = new StringBuilder();
-		StringTokenizer st;
-		
-		st = new StringTokenizer(br.readLine());
-		int n = Integer.parseInt(st.nextToken());
-		int m = Integer.parseInt(st.nextToken());
-		for(int i=1;i<=n;i++) {
-			a[i] = new ArrayList<>();
-		}
-		for(int i=0;i<m;i++) {
-			st = new StringTokenizer(br.readLine());
-			int x = Integer.parseInt(st.nextToken());
-			int y = Integer.parseInt(st.nextToken());
-			int z = Integer.parseInt(st.nextToken());
-			a[x].add(new Edge(y,z));
-			a[y].add(new Edge(x,z));
-		}
-		check[1] = true;
-		for(Edge e:a[1]) {
-			pq.add(e);
-		}
-		while(!pq.isEmpty()) {
-			Edge e = pq.poll();
-			int x = e.to;
-			if(check[x]==true) continue;
-			check[x] = true;
-			answer+=e.cost;
-			for(Edge k:a[x]) {
-				pq.add(k);
-			}
-		}
-		System.out.println(sb.append(answer));
-	}
+
+    static class Edge {
+        int to;
+        int cost;
+        Edge(int to, int cost) {
+            this.to = to;
+            this.cost = cost;
+        }
+    }
+    static List<Edge>[] a = new ArrayList[10001];
+    static boolean[] check = new boolean[10001];
+    static PriorityQueue<Edge> pq = new PriorityQueue<>(new Comparator<Edge>() {
+        public int compare(Edge e1, Edge e2) {
+            return e1.cost-e2.cost;
+        }
+    });
+    static int answer = 0;
+
+    public static void main(String[] args) throws IOException {
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        StringBuilder sb = new StringBuilder();
+        StringTokenizer st;
+
+        st = new StringTokenizer(br.readLine());
+        int n = Integer.parseInt(st.nextToken());
+        int m = Integer.parseInt(st.nextToken());
+        for(int i=1;i<=n;i++) {
+            a[i] = new ArrayList<>();
+        }
+        for(int i=0;i<m;i++) {
+            st = new StringTokenizer(br.readLine());
+            int x = Integer.parseInt(st.nextToken());
+            int y = Integer.parseInt(st.nextToken());
+            int z = Integer.parseInt(st.nextToken());
+            a[x].add(new Edge(y,z));
+            a[y].add(new Edge(x,z));
+        }
+        check[1] = true;
+        for(Edge e : a[1]) {
+            pq.offer(e);
+        }
+        while(!pq.isEmpty()) {
+            Edge now = pq.poll();
+            int to = now.to;
+            int cost = now.cost;
+            if(check[to]==true) continue;
+            check[to] = true;
+            answer+=cost;
+            for(Edge e : a[to]) {
+                pq.offer(e);
+            }
+        }
+        System.out.println(sb.append(answer).toString());
+    }
 }
+
+
